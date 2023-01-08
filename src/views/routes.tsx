@@ -12,6 +12,7 @@ import {
   CareerOpening as CareerOpeningView,
   ContactPage as ContactPageView,
   Cart as CartPageView,
+  Checkout as CheckOutPage,
   Coworking as CoworkingView,
   Elearning as ElearningView,
   Enterprise as EnterpriseView,
@@ -98,6 +99,10 @@ const routes = [
   {
     path: '/cart-page',
     renderer: (params = {}): JSX.Element => <CartPageView {...params} />,
+  },
+  {
+    path: '/check-out-page',
+    renderer: (params = {}): JSX.Element => <CheckOutPage {...params} />,
   },
   {
     path: '/coworking',

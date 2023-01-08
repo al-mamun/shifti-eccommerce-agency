@@ -14,6 +14,7 @@ export { default as CareerListingMinimal } from './CareerListingMinimal';
 export { default as CareerOpening } from './CareerOpening';
 export { default as ContactPage } from './ContactPage';
 export { default as Cart } from './Cart';
+export { default as Checkout } from './Checkout';
 export { default as Coworking } from './Coworking';
 export { default as Elearning } from './Elearning';
 export { default as Enterprise } from './Enterprise';
