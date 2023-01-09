@@ -8,9 +8,13 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CartData } from 'App';
 
 
 const SummeryBox = (): JSX.Element => {
+  const {orderSummary} = useContext(CartData);
+
   return (
     <Box>
       <Box
@@ -54,28 +58,28 @@ const SummeryBox = (): JSX.Element => {
         <Box display={'flex'} justifyContent={'space-between'}>
           <Typography color={'text.secondary'}>Subtotal</Typography>
           <Typography color={'text.secondary'} fontWeight={700}>
-            $179,70
+          ৳ {orderSummary?.subTotal}
           </Typography>
         </Box>
         <Box display={'flex'} justifyContent={'space-between'}>
-          <Typography color={'text.secondary'}>Discount</Typography>
+          <Typography color={'text.secondary'}>Quantity</Typography>
           <Typography color={'text.secondary'} fontWeight={700}>
-            -$0.00
+          {orderSummary?.quantity}
           </Typography>
         </Box>
-        <Box display={'flex'} justifyContent={'space-between'}>
+        {/* <Box display={'flex'} justifyContent={'space-between'}>
           <Typography color={'text.secondary'}>VAT (+20%)</Typography>
           <Typography color={'text.secondary'} fontWeight={700}>
             $35,94
           </Typography>
-        </Box>
+        </Box> */}
         <Divider />
         <Box display={'flex'} justifyContent={'space-between'}>
           <Typography variant={'h6'} fontWeight={700}>
             Order total
           </Typography>
           <Typography variant={'h6'} fontWeight={700}>
-            $215,64
+          ৳ {orderSummary?.totalAmount}
           </Typography>
         </Box>
         <Link to="/check-out-page">

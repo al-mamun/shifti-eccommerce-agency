@@ -1,5 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable quotes */
+/* eslint-disable semi */
 /* eslint-disable indent */
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -7,40 +11,40 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import FormControl from '@mui/material/FormControl';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useCallback } from 'react';
 import { api } from './../../../../api/config';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-
-
-
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { CartData } from 'App';
 const Orders = (): JSX.Element => {
   const theme = useTheme();
+ const {cartData,orderSummary,isLoading,removeFormCart} = useContext(CartData);
 
-  const [cartData, setcartData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetch(`${api}/get-cart-items?customer_id=3`)
-      .then((res) => res.json())
-      .then((data) => {
-        setIsLoading(false);
-        setcartData(data.data);
-        //         console.log(data.data);
-      });
-  }, []);
-
-  const calculateTotal = (price, quantity) => {
+  const calculateTotal = (price: string, quantity: string) => {
     const p = price.split('৳')[1];
     const total = parseInt(p) * parseFloat(quantity);
-  
     return total;
   };
 
   return (
     <Box>
+        <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        />
+        {/* Same as */}
+        <ToastContainer />
       {cartData?.map((item, i) => (
         <Box key={i}>
           <Box display={'flex'}>
@@ -122,15 +126,13 @@ const Orders = (): JSX.Element => {
                 marginTop={{ xs: 2, sm: 0 }}
                 sx={{ order: { xs: 3, sm: 2 } }}
               >
-                <Link
-                  href={'#'}
-                  underline={'none'}
-                  variant={'subtitle2'}
-                  noWrap={true}
+                <Box
+                  onClick={()=>removeFormCart(item?.product?.id)}
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
                     color: 'text.secondary',
+                    cursor:'pointer',
                     '&:hover': {
                       color: 'primary.main',
                     },
@@ -154,7 +156,7 @@ const Orders = (): JSX.Element => {
                     />
                   </Box>
                   Remove
-                </Link>
+                </Box>
                 <Link
                   href={'#'}
                   underline={'none'}

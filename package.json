@@ -51,6 +51,7 @@
     "react-scripts": "^5.0.1",
     "react-slick": "^0.29.0",
     "react-syntax-highlighter": "^15.5.0",
+    "react-toastify": "^9.1.1",
     "react-visibility-sensor": "^5.1.1",
     "serve": "^14.1.2",
     "slick-carousel": "^1.8.1",

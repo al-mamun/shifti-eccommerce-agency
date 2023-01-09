@@ -8,8 +8,8 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
-import { useEffect, useState } from 'react';
-import { api } from './../../../../api/config';
+import { useContext } from 'react';
+import { CartData } from 'App';
 
 
 const mock = [
@@ -38,20 +38,7 @@ const mock = [
 
 const Orders = (): JSX.Element => {
   const theme = useTheme();
-
-  const [cartData, setcartData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    fetch(`${api}/get-cart-items?customer_id=3`)
-      .then((res) => res.json())
-      .then((data) => {
-        setIsLoading(false);
-        setcartData(data.data);
-        //         console.log(data.data);
-      });
-  }, []);
+  const {cartData,orderSummary,isLoading,removeFormCart} = useContext(CartData);
 
   const calculateTotal = (price, quantity) => {
     const p = price.split('৳')[1];
@@ -160,31 +147,31 @@ const Orders = (): JSX.Element => {
         <Box display={'flex'} justifyContent={'space-between'}>
           <Typography color={'text.secondary'}>Subtotal</Typography>
           <Typography color={'text.secondary'} fontWeight={700}>
-            $179,70
+          ৳ {orderSummary?.subTotal}
           </Typography>
         </Box>
         <Box display={'flex'} justifyContent={'space-between'}>
-          <Typography color={'text.secondary'}>Discount</Typography>
+          <Typography color={'text.secondary'}>Quantity</Typography>
           <Typography color={'text.secondary'} fontWeight={700}>
-            -$0.00
+          {orderSummary?.quantity}
           </Typography>
         </Box>
-        <Box display={'flex'} justifyContent={'space-between'}>
+        {/* <Box display={'flex'} justifyContent={'space-between'}>
           <Typography color={'text.secondary'}>VAT (+20%)</Typography>
           <Typography color={'text.secondary'} fontWeight={700}>
             $35,94
           </Typography>
-        </Box>
+        </Box> */}
         <Divider />
         <Box display={'flex'} justifyContent={'space-between'}>
           <Typography variant={'h6'} fontWeight={700}>
             Order total
           </Typography>
           <Typography variant={'h6'} fontWeight={700}>
-            $215,64
+          ৳ {orderSummary?.totalAmount}
           </Typography>
         </Box>
-        <Button
+         <Button
           component={Link}
           href={'/demos/ecommerce/order-complete'}
           variant={'contained'}
@@ -197,5 +184,6 @@ const Orders = (): JSX.Element => {
     </Box>
   );
 };
+       
 
 export default Orders;
