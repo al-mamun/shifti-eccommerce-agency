@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -53,6 +53,18 @@ const mock = [
 
 const SidebarArticles = (): JSX.Element => {
   const theme = useTheme();
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetch('https://mamundevstudios.com/shifti_api/public/admin/blog/upcomming/api')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
   return (
     <Box component={Card} variant={'outlined'} padding={2}>
       <Typography
@@ -66,7 +78,7 @@ const SidebarArticles = (): JSX.Element => {
         Upcoming updates
       </Typography>
       <Grid container spacing={2}>
-        {mock.map((item, i) => (
+        {posts.map((item, i) => (
           <Grid key={i} item xs={12}>
             <Box
               component={Card}

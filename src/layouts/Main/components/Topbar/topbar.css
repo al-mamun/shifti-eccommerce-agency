@@ -1,0 +1,13 @@
+.MuiBox-root  a.custom_link {
+    color:#fff
+}
+.MuiPaper-elevation0 .MuiBox-root  a.custom_link {
+    color: #1e2022;
+    text-decoration: navajowhite;
+  }
+
+  header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionSticky
+  .MuiBox-root a.custom_link {
+    /* color: #fff; */
+    text-decoration: navajowhite;
+  }

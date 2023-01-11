@@ -6,6 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 /*import Link from '@mui/material/Link';*/
 import {Link} from 'react-router-dom';
 import { NavItem } from './components';
+import './topbar.css';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -65,7 +66,8 @@ const Topbar = ({
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
         <Box className="menu_bar css-1mvbbh8-MuiTypography-root"  marginLeft={4}>
           <Link
-            to="/desktop-app"
+            to="/"
+            className="custom_link"
           >
             Home
           </Link>
@@ -73,7 +75,7 @@ const Topbar = ({
         <Box marginLeft={4}>
           <Link
             to="/e-commerce"
-            
+            className="custom_link"
           >
             Product
           </Link>
@@ -114,7 +116,7 @@ const Topbar = ({
 
         <Box marginLeft={4}>
           <Link to="/blog-newsroom"
-
+            className="custom_link"
           >
             Blog
           </Link>
@@ -129,14 +131,14 @@ const Topbar = ({
         </Box>*/}
         <Box marginLeft={4}>
           <Link to="/contact-page"
-           
+            className="custom_link"
           >
             Contact
           </Link>
         </Box>
         <Box marginLeft={4}>
           <Link to="/cart-page"
-           
+           className="custom_link"
           >
             Cart
           </Link>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -61,6 +61,18 @@ const mock = [
 
 const LatestStories = (): JSX.Element => {
   const theme = useTheme();
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetch('https://mamundevstudios.com/shifti_api/public/admin/stroies/api')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
   return (
     <Box>
       <Box
@@ -72,7 +84,7 @@ const LatestStories = (): JSX.Element => {
       >
         <Box>
           <Typography fontWeight={700} variant={'h6'} gutterBottom>
-            Latest stories
+            Latest stories 
           </Typography>
           <Typography color={'text.secondary'}>
             Here’s what we’ve been up to recently.
@@ -91,7 +103,7 @@ const LatestStories = (): JSX.Element => {
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {posts.map((item, i) => (
           <Grid item xs={12} md={6} key={i}>
             <Box
               component={'a'}

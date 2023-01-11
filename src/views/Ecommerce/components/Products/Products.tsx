@@ -47,7 +47,7 @@ const Products = (): JSX.Element => {
   const theme = useTheme();
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    fetch('http://mamundevstudios.com/shifti_api/public/admin/product/api')
+    fetch('https://mamundevstudios.com/shifti_api/public/admin/product/api')
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

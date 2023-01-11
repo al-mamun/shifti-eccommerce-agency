@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -35,7 +35,19 @@ const mock = [
 
 const LatestProducts = (): JSX.Element => {
   const theme = useTheme();
-
+ 
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetch('https://mamundevstudios.com/shifti_api/public/admin/product/api')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
   return (
     <Box>
       <Box marginBottom={4}>
@@ -77,7 +89,7 @@ const LatestProducts = (): JSX.Element => {
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {posts.map((item, i) => (
           <Grid
             item
             xs={12}

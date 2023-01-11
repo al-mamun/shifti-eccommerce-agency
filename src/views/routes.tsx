@@ -58,10 +58,7 @@ import {
 } from 'views';
 
 const routes = [
-  {
-    path: '/',
-    renderer: (params = {}): JSX.Element => <IndexView {...params} />,
-  },
+  
   {
     path: '/home',
     renderer: (params = {}): JSX.Element => <HomeView {...params} />,
@@ -125,7 +122,7 @@ const routes = [
     renderer: (params = {}): JSX.Element => <WebBasicView {...params} />,
   },
   {
-    path: '/desktop-app',
+    path: '/',
     renderer: (params = {}): JSX.Element => <DesktopAppView {...params} />,
   },
   {

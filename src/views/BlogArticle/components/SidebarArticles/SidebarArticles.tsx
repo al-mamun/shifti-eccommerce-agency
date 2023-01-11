@@ -63,7 +63,7 @@ const SidebarArticles = (): JSX.Element => {
           marginBottom: 2,
         }}
       >
-        Upcoming updates
+        Upcoming updates dd
       </Typography>
       <Grid container spacing={2}>
         {mock.map((item, i) => (

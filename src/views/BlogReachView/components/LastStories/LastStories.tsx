@@ -57,7 +57,7 @@ const LastStories = (): JSX.Element => {
       >
         <Box>
           <Typography fontWeight={700} variant={'h6'} gutterBottom>
-            Latest stories
+            Latest stories ddddd
           </Typography>
           <Typography color={'text.secondary'}>
             Here’s what we’ve been up to recently.
