@@ -7717,6 +7717,11 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
+react-client-session@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/react-client-session/-/react-client-session-0.0.8.tgz#b5b5b5824b4d70490999adceb405dcba88de2b72"
+  integrity sha512-wHCTD4lEE8mzl6kxL8viL4q5kGx2TJJNaWdvzmx3KeiMgP+Yv5/Bx476jCpPD0pKc5VvdVuhkH4EM20XqtT/sQ==
+
 react-countup@^6.3.1:
   version "6.3.1"
   resolved "https://registry.npmjs.org/react-countup/-/react-countup-6.3.1.tgz"
@@ -7771,6 +7776,11 @@ react-fast-compare@^2.0.1:
   version "2.0.4"
   resolved "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-2.0.4.tgz"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
+
+react-hook-form@^7.41.5:
+  version "7.41.5"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.41.5.tgz#dcd0e7438c15044eadc99df6deb889da5858a03b"
+  integrity sha512-DAKjSJ7X9f16oQrP3TW2/eD9N6HOgrmIahP4LOdFphEWVfGZ2LulFd6f6AQ/YS/0cx/5oc4j8a1PXxuaurWp/Q==
 
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"

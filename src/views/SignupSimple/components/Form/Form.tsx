@@ -1,58 +1,90 @@
-/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable semi */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable quotes */
 import React from 'react';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
+import { useForm } from 'react-hook-form';
+import { api } from 'api/config';
+import { useState } from 'react';
+import { ToastContainer,toast } from 'react-toastify';
+import Alert from '@mui/material/Alert';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const validationSchema = yup.object({
-  firstName: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your first name'),
-  lastName: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your last name'),
-  email: yup
-    .string()
-    .trim()
-    .email('Please enter a valid email address')
-    .required('Email is required.'),
-  password: yup
-    .string()
-    .required('Please specify your password')
-    .min(8, 'The password should have at minimum length of 8'),
-});
+
 
 const Form = (): JSX.Element => {
-  const initialValues = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
+  
+  const [errorMessage, setErrorMessage] = useState(null)
+  const navigate = useNavigate()
+
+  const { register, handleSubmit,reset } = useForm();
+  const onSubmit = formDatas => {
+ 
+    fetch(`${api}/api/customer/register`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(formDatas),
+    })
+     .then(res => res.json())
+     .then(data => {
+      reset(formDatas)
+      if (data?.errors) {
+        setErrorMessage(data?.errors);
+        toast.error(data?.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+        return;
+      }
+      setTimeout(() => {
+        navigate('/signin-simple')
+      }, 5000);
+      toast.success(data?.msg, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+     })
+    
   };
 
-  const onSubmit = (values) => {
-    return values;
-  };
-
-  const formik = useFormik({
-    initialValues,
-    validationSchema: validationSchema,
-    onSubmit,
-  });
+  
 
   return (
     <Box>
+       <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        />
+        {/* Same as */}
+        <ToastContainer />
       <Box marginBottom={4}>
         <Typography
           sx={{
@@ -76,7 +108,7 @@ const Form = (): JSX.Element => {
           Fill out the form to get started.
         </Typography>
       </Box>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
             <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
@@ -85,16 +117,13 @@ const Form = (): JSX.Element => {
             <TextField
               label="First name *"
               variant="outlined"
-              name={'firstName'}
+              name={'first_name'}
               fullWidth
-              value={formik.values.firstName}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.firstName && Boolean(formik.errors.firstName)
-              }
-              // @ts-ignore
-              helperText={formik.touched.firstName && formik.errors.firstName}
+              {...register("first_name")}
+
             />
+            {errorMessage?.first_name &&
+            <Alert sx={{mt:2}} severity="error">{errorMessage?.first_name[0]}</Alert>}
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
@@ -103,14 +132,13 @@ const Form = (): JSX.Element => {
             <TextField
               label="Last name *"
               variant="outlined"
-              name={'lastName'}
+              name={'last_name'}
               fullWidth
-              value={formik.values.lastName}
-              onChange={formik.handleChange}
-              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-              // @ts-ignore
-              helperText={formik.touched.lastName && formik.errors.lastName}
+              {...register("last_name")}
+              
             />
+            {errorMessage?.last_name &&
+            <Alert sx={{mt:2}} severity="error">{errorMessage?.last_name[0]}</Alert>}
           </Grid>
           <Grid item xs={12}>
             <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
@@ -121,13 +149,29 @@ const Form = (): JSX.Element => {
               variant="outlined"
               name={'email'}
               fullWidth
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              // @ts-ignore
-              helperText={formik.touched.email && formik.errors.email}
+              {...register("email")}
+           
             />
+            {errorMessage?.email &&
+            <Alert sx={{mt:2}} severity="error">{errorMessage?.email[0]}</Alert>}
           </Grid>
+
+          {/* <Grid item xs={12}>
+            <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
+               Phone Number
+            </Typography>
+            <TextField
+              label="Phone Number *"
+              variant="outlined"
+              name={'phone'}
+              fullWidth
+              {...register("phone")}
+           
+            />
+            {errorMessage?.phone &&
+            <Alert sx={{mt:2}} severity="error">{errorMessage?.phone[0]}</Alert>}
+          </Grid> */}
+
           <Grid item xs={12}>
             <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
               Enter your password
@@ -138,12 +182,11 @@ const Form = (): JSX.Element => {
               name={'password'}
               type={'password'}
               fullWidth
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              // @ts-ignore
-              helperText={formik.touched.password && formik.errors.password}
+              {...register("password")}
+           
             />
+            {errorMessage?.password &&
+            <Alert sx={{mt:2}} severity="error">{errorMessage?.password[0]}</Alert>}
           </Grid>
           <Grid item container xs={12}>
             <Box
@@ -158,11 +201,17 @@ const Form = (): JSX.Element => {
               <Box marginBottom={{ xs: 1, sm: 0 }}>
                 <Typography variant={'subtitle2'}>
                   Already have an account?{' '}
-                  <Link
+                  {/* <Link
                     component={'a'}
                     color={'primary'}
                     href={'/signin-simple'}
                     underline={'none'}
+                  >
+                    Login.
+                  </Link> */}
+                  <Link
+                    to='/signin-simple'
+                    style={{textDecoration: 'none',color:'#2196f3'}}
                   >
                     Login.
                   </Link>
@@ -186,14 +235,14 @@ const Form = (): JSX.Element => {
               align={'center'}
             >
               By clicking "Sign up" button you agree with our{' '}
-              <Link
+              {/* <Link
                 component={'a'}
                 color={'primary'}
                 href={'/company-terms'}
                 underline={'none'}
               >
                 company terms and conditions.
-              </Link>
+              </Link> */}
             </Typography>
           </Grid>
         </Grid>

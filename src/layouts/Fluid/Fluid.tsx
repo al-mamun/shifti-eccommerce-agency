@@ -95,7 +95,7 @@ const Fluid = ({
               href="https://mui.com/store/items/the-front-landing-page/"
               size="large"
             >
-              Buy now
+              Log Out
             </Button>
           </Box>
         </Container>

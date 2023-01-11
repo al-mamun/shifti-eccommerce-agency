@@ -1,3 +1,6 @@
+/* eslint-disable semi */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable quotes */
 import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -7,6 +10,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {Link} from 'react-router-dom';
 import { NavItem } from './components';
 import './topbar.css';
+import { api } from 'api/config';
+import { useNavigate } from 'react-router-dom';
+import { ReactSession } from 'react-client-session';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -29,6 +35,10 @@ const Topbar = ({
 }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
+  const navigate = useNavigate();
+
+  ReactSession.setStoreType("sessionStorage");
+  
   const {
     landings: landingPages,
     secondary: secondaryPages,
@@ -37,6 +47,15 @@ const Topbar = ({
     portfolio: portfolioPages,
     blog: blogPages,
   } = pages;
+
+  const logOut = () =>{
+    fetch( `${api}/api/customer/logout`)
+    .then(() =>{
+      navigate('/')
+      const userData ={}
+      ReactSession.set("userData", userData);
+    })
+  }
 
   return (
     <Box
@@ -147,12 +166,10 @@ const Topbar = ({
           <Button
             variant="contained"
             color="primary"
-            component="a"
-            target="blank"
-            href="#"
+           onClick={()=> logOut()}
             size="large"
           >
-            Buy now
+            Log Out
           </Button>
         </Box>
       </Box>

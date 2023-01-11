@@ -21,6 +21,7 @@ const App = (): JSX.Element => {
   const [cartData, setcartData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [orderSummary, setorderSummary] = useState({})
+  const [userData, setuserData] = useState(null)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const removeFormCart = (id:any) =>{
@@ -76,12 +77,7 @@ const App = (): JSX.Element => {
     getCarSummary()
   }, []);
 
-  // const values ={
-  //   cartData,
-  //   orderSummary,
-  //   isLoading,
-  //   removeFormCart
-  // }
+
 
   return (
     <Page>
@@ -90,7 +86,9 @@ const App = (): JSX.Element => {
     cartData,
     orderSummary,
     isLoading,
-    removeFormCart
+    removeFormCart,
+    userData,
+    setuserData
   }}>
       <BrowserRouter basename={routerBasename}>
         <Routes />
