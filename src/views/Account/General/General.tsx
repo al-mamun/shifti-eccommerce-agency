@@ -65,15 +65,6 @@ const General = (): JSX.Element => {
     console.log(authUser);
   }, [authData]);
 
-  const initialValues = {
-    fullName: '',
-    bio: '',
-    email: '',
-    country: '',
-    city: '',
-    address: '',
-  };
-
   const onSubmit = (values) => {
     return values;
   };
