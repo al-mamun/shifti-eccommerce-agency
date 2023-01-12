@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -15,6 +15,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import './product.css';
 import { ReactSession } from 'react-client-session';
+import { CartData } from 'App';
 
 const mock = [
   {
@@ -54,6 +55,7 @@ const Products = (): JSX.Element => {
   const navigate = useNavigate();
   const theme = useTheme();
   const [posts, setPosts] = useState([]);
+  const { getCartItems } = useContext(CartData);
 
   const [authUser, setAuthUser] = useState(null);
 
@@ -114,6 +116,7 @@ const Products = (): JSX.Element => {
           theme: 'light',
         });
       });
+    getCartItems;
   }
   useEffect(() => {
     fetch('https://mamundevstudios.com/shifti_api/public/admin/product/api')

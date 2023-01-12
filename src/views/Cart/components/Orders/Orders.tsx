@@ -20,7 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { CartData } from 'App';
 const Orders = (): JSX.Element => {
   const theme = useTheme();
-  const { cartData, orderSummary, isLoading, removeFormCart } =
+  const { cartData, orderSummary, isLoading, removeFormCart, getCartItems } =
     useContext(CartData);
 
   const calculateTotal = (price: string, quantity: string) => {
@@ -28,6 +28,10 @@ const Orders = (): JSX.Element => {
     const total = parseInt(p) * parseFloat(quantity);
     return total;
   };
+
+  useEffect(() => {
+    getCartItems;
+  }, []);
 
   return (
     <Box>

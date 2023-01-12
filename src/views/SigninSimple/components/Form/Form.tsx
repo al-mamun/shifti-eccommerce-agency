@@ -37,8 +37,6 @@ const Form = (): JSX.Element => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-
         if (!data?.success) {
           setErrorMessage(data?.message);
           toast.error(data?.message, {
@@ -73,7 +71,7 @@ const Form = (): JSX.Element => {
         });
       });
 
-    // navigate('/cart-page');
+    navigate('/account-general');
   };
 
   return (

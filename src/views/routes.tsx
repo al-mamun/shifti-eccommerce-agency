@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  IndexView,
   Home as HomeView,
   Customers as CustomersView,
   HireUs as HireUsView,

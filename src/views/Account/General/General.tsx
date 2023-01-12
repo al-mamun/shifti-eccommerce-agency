@@ -2,8 +2,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable quotes */
 import React, { useCallback, useEffect, useState } from 'react';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
@@ -16,42 +14,13 @@ import Page from '../components/Page';
 import Main from 'layouts/Main';
 import { useForm } from 'react-hook-form';
 import { ReactSession } from 'react-client-session';
-
-const validationSchema = yup.object({
-  fullName: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your first name'),
-  email: yup
-    .string()
-    .trim()
-    .email('Please enter a valid email address')
-    .required('Email is required.'),
-  bio: yup.string().trim().max(500, 'Should be less than 500 chars'),
-  country: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(80, 'Please enter a valid name')
-    .required('Please specify your country name'),
-  city: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(80, 'Please enter a valid name')
-    .required('Please specify your city name'),
-  address: yup
-    .string()
-    .required('Please specify your address')
-    .min(2, 'Please enter a valid address')
-    .max(200, 'Please enter a valid address'),
-});
+import { CartData } from 'App';
+import { useContext } from 'react';
 
 const General = (): JSX.Element => {
   const { register, handleSubmit } = useForm();
   const [authUser, setAuthUser] = useState(null);
+  const { userData } = useContext(CartData);
 
   ReactSession.setStoreType('sessionStorage');
 
@@ -62,7 +31,6 @@ const General = (): JSX.Element => {
 
   useEffect(() => {
     setAuthUser(authData());
-    console.log(authUser);
   }, [authData]);
 
   const onSubmit = (values) => {
@@ -95,13 +63,16 @@ const General = (): JSX.Element => {
                   fontWeight={700}
                 >
                   First Name
-                  {authUser?.user?.first_name}
                 </Typography>
                 <TextField
-                  label={authUser?.user?.first_name}
+                  label={
+                    authUser?.user
+                      ? authUser?.user?.first_name
+                      : userData?.user?.first_name
+                  }
                   variant="outlined"
                   name={'first_name'}
-                  defaultValue={authUser?.user?.first_name}
+                  // defaultValue={authUser?.user?.first_name}
                   fullWidth
                   {...register('first_name')}
                 />
@@ -115,7 +86,11 @@ const General = (): JSX.Element => {
                   Last Name
                 </Typography>
                 <TextField
-                  label={authUser?.user?.last_name}
+                  label={
+                    authUser?.user
+                      ? authUser?.user?.last_name
+                      : userData?.user?.last_name
+                  }
                   variant="outlined"
                   name={'last_name'}
                   fullWidth
@@ -132,7 +107,11 @@ const General = (): JSX.Element => {
                   Your email
                 </Typography>
                 <TextField
-                  label={authUser?.user?.email}
+                  label={
+                    authUser?.user
+                      ? authUser?.user?.email
+                      : userData?.user?.email
+                  }
                   variant="outlined"
                   name={'email'}
                   fullWidth
@@ -149,7 +128,11 @@ const General = (): JSX.Element => {
                   Phone
                 </Typography>
                 <TextField
-                  label={authUser?.user?.phone}
+                  label={
+                    authUser?.user
+                      ? authUser?.user?.phone
+                      : userData?.user?.phone
+                  }
                   variant="outlined"
                   name={'phone'}
                   fullWidth
@@ -170,7 +153,11 @@ const General = (): JSX.Element => {
                   Country
                 </Typography>
                 <TextField
-                  label={authUser?.user?.country}
+                  label={
+                    authUser?.user
+                      ? authUser?.user?.country
+                      : userData?.user?.country
+                  }
                   variant="outlined"
                   name={'country'}
                   fullWidth
@@ -185,7 +172,9 @@ const General = (): JSX.Element => {
                   City
                 </Typography>
                 <TextField
-                  label={authUser?.user?.city}
+                  label={
+                    authUser?.user ? authUser?.user?.city : userData?.user?.city
+                  }
                   variant="outlined"
                   name={'city'}
                   fullWidth
@@ -200,7 +189,11 @@ const General = (): JSX.Element => {
                   Enter your address
                 </Typography>
                 <TextField
-                  label={authUser?.user?.address}
+                  label={
+                    authUser?.user
+                      ? authUser?.user?.address
+                      : userData?.user?.address
+                  }
                   variant="outlined"
                   name={'address'}
                   fullWidth
