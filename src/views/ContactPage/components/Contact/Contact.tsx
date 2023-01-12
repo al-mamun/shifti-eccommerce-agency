@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -65,7 +65,18 @@ const mock = [
 
 const Contact = (): JSX.Element => {
   const theme = useTheme();
-
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetch('https://mamundevstudios.com/shifti_api/public/admin/contact/api')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
   const LeftSide = (): JSX.Element => {
     return (
       <Box>
@@ -84,7 +95,7 @@ const Contact = (): JSX.Element => {
           flexDirection={'column'}
           justifyContent={'space-between'}
         >
-          {mock.map((item, i) => (
+          {posts.map((item, i) => (
             <Box
               key={i}
               component={ListItem}

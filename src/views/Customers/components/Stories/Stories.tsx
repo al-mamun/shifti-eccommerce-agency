@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -78,7 +78,18 @@ const mock = [
 const Stories = (): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
-
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetch('https://mamundevstudios.com/shifti_api/public/admin/stroies/api')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
   return (
     <Box>
       <Box marginBottom={4}>
@@ -105,7 +116,7 @@ const Stories = (): JSX.Element => {
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {posts.map((item, i) => (
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
@@ -136,12 +147,12 @@ const Stories = (): JSX.Element => {
                   }}
                 />
                 <Box component={CardContent}>
-                  <Box maxWidth={100} marginY={2}>
+                  <Box marginY={2}>
                     <Box
                       component="img"
                       height={1}
                       width={1}
-                      src={item.companyLogo}
+                      src={item.image}
                       alt="..."
                       sx={{
                         filter: mode === 'dark' ? 'contrast(0)' : 'none',

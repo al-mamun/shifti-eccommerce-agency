@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -63,7 +63,18 @@ const mock = [
 
 const Contact = (): JSX.Element => {
   const theme = useTheme();
-
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetch('https://mamundevstudios.com/shifti_api/public/admin/contact/api')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
   return (
     <Box>
       <Box marginBottom={2}>
@@ -73,7 +84,7 @@ const Contact = (): JSX.Element => {
           gutterBottom
           align={'center'}
         >
-          Contact details
+          Contact details ss
         </Typography>
         <Typography color="text.secondary" align={'center'}>
           Keep track of what's happening with your data, change permissions, and
