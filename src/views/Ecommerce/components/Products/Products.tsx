@@ -12,6 +12,7 @@ import { useTheme } from '@mui/material/styles';
 import { useForm } from 'react-hook-form';
 import { api } from 'api/config';
 import { ToastContainer,toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import './product.css';
 
 const mock = [
@@ -49,6 +50,8 @@ const mock = [
 
 
 const Products = (): JSX.Element => {
+  const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
   const theme = useTheme();
   const [posts, setPosts] = useState([]);
  
@@ -59,19 +62,49 @@ const Products = (): JSX.Element => {
       body: 'bar', 
       product_id:id,
     };
-
+    const token='147|9UapTMzoOXLTkC8sob44JDHxksJ1xlrttbN7Fyh1';
     fetch(`${api}/api/add-to-cart`,{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(list),
     })
     .then(res => res.json())
     .then(data => {
-        alert();
-    });
+     
+      if (data.status == 0) {
+        setErrorMessage('test');
+        toast.error(data.msg, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+        setTimeout(() => {
+          navigate('/signin-simple');
+        }, 5000);
+        return;
+      }
+      toast.success(data?.msg, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        });
+        
+     });
+   
   }
   useEffect(() => {
     fetch('https://mamundevstudios.com/shifti_api/public/admin/product/api')
@@ -88,7 +121,20 @@ const Products = (): JSX.Element => {
   return (
 
     <Box>
-     
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        />
+        {/* Same as */}
+        <ToastContainer />
       <Box marginBottom={4}>
         <Typography
           sx={{
