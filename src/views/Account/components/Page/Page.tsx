@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import Container from 'components/Container';
+import { Link } from 'react-router-dom';
 
 const pages = [
   {
@@ -38,6 +39,7 @@ interface Props {
 
 const Page = ({ children }: Props): JSX.Element => {
   const [activeLink, setActiveLink] = useState('');
+
   useEffect(() => {
     setActiveLink(window && window.location ? window.location.pathname : '');
   }, []);
@@ -80,8 +82,6 @@ const Page = ({ children }: Props): JSX.Element => {
                 {pages.map((item) => (
                   <ListItem
                     key={item.id}
-                    component={'a'}
-                    href={item.href}
                     disableGutters
                     sx={{
                       marginRight: { xs: 2, md: 0 },
@@ -99,17 +99,19 @@ const Page = ({ children }: Props): JSX.Element => {
                       },
                     }}
                   >
-                    <Typography
-                      variant="subtitle1"
-                      noWrap
-                      color={
-                        activeLink === item.href
-                          ? 'text.primary'
-                          : 'text.secondary'
-                      }
-                    >
-                      {item.title}
-                    </Typography>
+                    <Link to={item?.href} style={{ textDecoration: 'none' }}>
+                      <Typography
+                        variant="subtitle1"
+                        noWrap
+                        color={
+                          activeLink === item.href
+                            ? 'text.primary'
+                            : 'text.secondary'
+                        }
+                      >
+                        {item.title}
+                      </Typography>
+                    </Link>
                   </ListItem>
                 ))}
               </List>

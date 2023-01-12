@@ -56,9 +56,9 @@ import {
   NotFound as NotFoundView,
   NotFoundCover as NotFoundCoverView,
 } from 'views';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 const routes = [
-  
   {
     path: '/home',
     renderer: (params = {}): JSX.Element => <HomeView {...params} />,
@@ -95,7 +95,11 @@ const routes = [
   },
   {
     path: '/cart-page',
-    renderer: (params = {}): JSX.Element => <CartPageView {...params} />,
+    renderer: (params = {}): JSX.Element => (
+      <PrivateRoute>
+        <CartPageView {...params} />
+      </PrivateRoute>
+    ),
   },
   {
     path: '/check-out-page',

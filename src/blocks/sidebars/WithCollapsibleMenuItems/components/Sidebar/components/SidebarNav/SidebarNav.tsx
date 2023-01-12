@@ -225,7 +225,7 @@ const mock = [
         ),
       },
       {
-        title: 'General',
+        title: 'General 777',
         href: '#',
         icon: (
           <svg

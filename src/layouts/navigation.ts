@@ -89,14 +89,13 @@ const pages = {
     }
   ],
   account: [
-   
     {
-      title: 'Sign up',
-      href: '/signup-simple',
+      title: 'My Account',
+      href: '/account-general',
     },
     {
-      title: 'Sign in',
-      href: '/signin-simple',
+      title: 'My Cart',
+      href: '/cart-page',
     },
   ],
   secondary: [

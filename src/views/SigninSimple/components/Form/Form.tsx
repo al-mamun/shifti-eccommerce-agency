@@ -11,71 +11,69 @@ import Typography from '@mui/material/Typography';
 import { useForm } from 'react-hook-form';
 import { api } from 'api/config';
 import { useState } from 'react';
-import { ToastContainer,toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { CartData } from 'App';
 import { ReactSession } from 'react-client-session';
 
-
 const Form = (): JSX.Element => {
-  const [errorMessage, setErrorMessage] = useState(null)
-  const {setuserData} = useContext(CartData)
-  const navigate = useNavigate()
+  const [errorMessage, setErrorMessage] = useState(null);
+  const { setuserData } = useContext(CartData);
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
 
-  ReactSession.setStoreType("sessionStorage");
- 
+  ReactSession.setStoreType('sessionStorage');
 
-  const onSubmit = data => {
- 
-    fetch(`${api}/api/customer/login`,{
+  const onSubmit = (data) => {
+    fetch(`${api}/api/customer/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify(data),
     })
-     .then(res => res.json())
-     .then(data => {
-    
-      if (!data?.success) {
-        setErrorMessage(data?.message);
-        toast.error(data?.message, {
-          position: "top-right",
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+
+        if (!data?.success) {
+          setErrorMessage(data?.message);
+          toast.error(data?.message, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
+          return;
+        }
+        // console.log(data);
+        const userData = { user: data?.user, token: data?.token };
+        ReactSession.set('userData', userData);
+        // const username = ReactSession.get("userData");
+        // console.log("use",userData);
+        // console.log("se",username);
+
+        setuserData(userData);
+        toast.success(data?.message, {
+          position: 'top-right',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
-          });
-        return;
-      }
-      // console.log(data);
-      const userData ={user:data?.user,token:data?.token}
-      ReactSession.set("userData", userData);
-      // const username = ReactSession.get("userData");
-      // console.log("use",userData);
-      // console.log("se",username);
-      
-      setuserData(userData)
-      toast.success(data?.message, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
+          theme: 'light',
         });
-     })
+      });
 
-     navigate('/cart-page')
+    // navigate('/cart-page');
   };
 
   return (
@@ -91,9 +89,9 @@ const Form = (): JSX.Element => {
         draggable
         pauseOnHover
         theme="light"
-        />
-        {/* Same as */}
-        <ToastContainer />
+      />
+      {/* Same as */}
+      <ToastContainer />
       <Box marginBottom={4}>
         <Typography
           sx={{
@@ -128,7 +126,7 @@ const Form = (): JSX.Element => {
               variant="outlined"
               name={'email'}
               fullWidth
-              {...register("email")}
+              {...register('email')}
               // @ts-ignore
             />
           </Grid>
@@ -147,11 +145,7 @@ const Form = (): JSX.Element => {
                 </Typography>
               </Box>
               <Typography variant={'subtitle2'}>
-                <Link
-                 to='/'
-                >
-                  Forgot your password?
-                </Link>
+                <Link to="/">Forgot your password?</Link>
               </Typography>
             </Box>
             <TextField
@@ -160,9 +154,8 @@ const Form = (): JSX.Element => {
               name={'password'}
               type={'password'}
               fullWidth
-              {...register("password")}
+              {...register('password')}
               // @ts-ignore
-            
             />
           </Grid>
           <Grid item container xs={12}>
@@ -178,11 +171,7 @@ const Form = (): JSX.Element => {
               <Box marginBottom={{ xs: 1, sm: 0 }}>
                 <Typography variant={'subtitle2'}>
                   Don't have an account yet?{' '}
-                  <Link
-                   to='/signup-simple'
-                  >
-                    Sign up here.
-                  </Link>
+                  <Link to="/signup-simple">Sign up here.</Link>
                 </Typography>
               </Box>
               <Button size={'large'} variant={'contained'} type={'submit'}>

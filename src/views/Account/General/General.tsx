@@ -1,4 +1,7 @@
-import React from 'react';
+/* eslint-disable semi */
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable quotes */
+import React, { useCallback, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Box from '@mui/material/Box';
@@ -11,6 +14,8 @@ import Link from '@mui/material/Link';
 
 import Page from '../components/Page';
 import Main from 'layouts/Main';
+import { useForm } from 'react-hook-form';
+import { ReactSession } from 'react-client-session';
 
 const validationSchema = yup.object({
   fullName: yup
@@ -24,10 +29,7 @@ const validationSchema = yup.object({
     .trim()
     .email('Please enter a valid email address')
     .required('Email is required.'),
-  bio: yup
-    .string()
-    .trim()
-    .max(500, 'Should be less than 500 chars'),
+  bio: yup.string().trim().max(500, 'Should be less than 500 chars'),
   country: yup
     .string()
     .trim()
@@ -48,6 +50,21 @@ const validationSchema = yup.object({
 });
 
 const General = (): JSX.Element => {
+  const { register, handleSubmit } = useForm();
+  const [authUser, setAuthUser] = useState(null);
+
+  ReactSession.setStoreType('sessionStorage');
+
+  const authData = useCallback(() => {
+    const authUser = ReactSession.get('userData');
+    return authUser;
+  }, []);
+
+  useEffect(() => {
+    setAuthUser(authData());
+    console.log(authUser);
+  }, [authData]);
+
   const initialValues = {
     fullName: '',
     bio: '',
@@ -60,12 +77,6 @@ const General = (): JSX.Element => {
   const onSubmit = (values) => {
     return values;
   };
-
-  const formik = useFormik({
-    initialValues,
-    validationSchema: validationSchema,
-    onSubmit,
-  });
 
   return (
     <Main>
@@ -84,7 +95,7 @@ const General = (): JSX.Element => {
           <Box paddingY={4}>
             <Divider />
           </Box>
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={4}>
               <Grid item xs={12} sm={6}>
                 <Typography
@@ -92,20 +103,16 @@ const General = (): JSX.Element => {
                   sx={{ marginBottom: 2 }}
                   fontWeight={700}
                 >
-                  Enter your first name
+                  First Name
+                  {authUser?.user?.first_name}
                 </Typography>
                 <TextField
-                  label="First name *"
+                  label={authUser?.user?.first_name}
                   variant="outlined"
-                  name={'fullName'}
+                  name={'first_name'}
+                  defaultValue={authUser?.user?.first_name}
                   fullWidth
-                  value={formik.values.fullName}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.fullName && Boolean(formik.errors.fullName)
-                  }
-                  // @ts-ignore
-                  helperText={formik.touched.fullName && formik.errors.fullName}
+                  {...register('first_name')}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -114,42 +121,52 @@ const General = (): JSX.Element => {
                   sx={{ marginBottom: 2 }}
                   fontWeight={700}
                 >
-                  Enter your email
+                  Last Name
                 </Typography>
                 <TextField
-                  label="Email *"
+                  label={authUser?.user?.last_name}
                   variant="outlined"
-                  name={'email'}
+                  name={'last_name'}
                   fullWidth
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  error={formik.touched.email && Boolean(formik.errors.email)}
-                  // @ts-ignore
-                  helperText={formik.touched.email && formik.errors.email}
+                  defaultValue={authUser?.user?.last_name}
+                  {...register('last_name')}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={12}>
                 <Typography
                   variant={'subtitle2'}
                   sx={{ marginBottom: 2 }}
                   fontWeight={700}
                 >
-                  Bio
+                  Your email
                 </Typography>
                 <TextField
-                  label="Bio"
+                  label={authUser?.user?.email}
                   variant="outlined"
-                  name={'bio'}
-                  multiline
-                  rows={5}
+                  name={'email'}
                   fullWidth
-                  value={formik.values.bio}
-                  onChange={formik.handleChange}
-                  error={formik.touched.bio && Boolean(formik.errors.bio)}
-                  // @ts-ignore
-                  helperText={formik.touched.bio && formik.errors.bio}
+                  defaultValue={authUser?.user?.email}
+                  {...register('email')}
                 />
               </Grid>
+              <Grid item xs={12} sm={12}>
+                <Typography
+                  variant={'subtitle2'}
+                  sx={{ marginBottom: 2 }}
+                  fontWeight={700}
+                >
+                  Phone
+                </Typography>
+                <TextField
+                  label={authUser?.user?.phone}
+                  variant="outlined"
+                  name={'phone'}
+                  fullWidth
+                  defaultValue={authUser?.user?.phone}
+                  {...register('phone')}
+                />
+              </Grid>
+
               <Grid item xs={12}>
                 <Divider />
               </Grid>
@@ -162,17 +179,10 @@ const General = (): JSX.Element => {
                   Country
                 </Typography>
                 <TextField
-                  label="Country *"
+                  label={authUser?.user?.country}
                   variant="outlined"
                   name={'country'}
                   fullWidth
-                  value={formik.values.country}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.country && Boolean(formik.errors.country)
-                  }
-                  // @ts-ignore
-                  helperText={formik.touched.country && formik.errors.country}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -184,15 +194,10 @@ const General = (): JSX.Element => {
                   City
                 </Typography>
                 <TextField
-                  label="City *"
+                  label={authUser?.user?.city}
                   variant="outlined"
                   name={'city'}
                   fullWidth
-                  value={formik.values.city}
-                  onChange={formik.handleChange}
-                  error={formik.touched.city && Boolean(formik.errors.city)}
-                  // @ts-ignore
-                  helperText={formik.touched.city && formik.errors.city}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -204,17 +209,10 @@ const General = (): JSX.Element => {
                   Enter your address
                 </Typography>
                 <TextField
-                  label="Address *"
+                  label={authUser?.user?.address}
                   variant="outlined"
                   name={'address'}
                   fullWidth
-                  value={formik.values.address}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.address && Boolean(formik.errors.address)
-                  }
-                  // @ts-ignore
-                  helperText={formik.touched.address && formik.errors.address}
                 />
               </Grid>
               <Grid item container xs={12}>

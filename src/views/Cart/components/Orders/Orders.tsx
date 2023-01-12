@@ -11,7 +11,7 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import FormControl from '@mui/material/FormControl';
-import { useEffect, useState,useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { api } from './../../../../api/config';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -20,8 +20,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { CartData } from 'App';
 const Orders = (): JSX.Element => {
   const theme = useTheme();
- const {cartData,orderSummary,isLoading,removeFormCart} = useContext(CartData);
-
+  const { cartData, orderSummary, isLoading, removeFormCart } =
+    useContext(CartData);
 
   const calculateTotal = (price: string, quantity: string) => {
     const p = price.split('৳')[1];
@@ -31,20 +31,6 @@ const Orders = (): JSX.Element => {
 
   return (
     <Box>
-        <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        />
-        {/* Same as */}
-        <ToastContainer />
       {cartData?.map((item, i) => (
         <Box key={i}>
           <Box display={'flex'}>
@@ -71,7 +57,7 @@ const Orders = (): JSX.Element => {
             >
               <Box sx={{ order: 1 }}>
                 <Typography fontWeight={700} gutterBottom>
-                  {item?.product?.product_name?.slice(0,20)} ...
+                  {item?.product?.product_name?.slice(0, 20)} ...
                 </Typography>
                 <Typography
                   color={'text.secondary'}
@@ -127,12 +113,12 @@ const Orders = (): JSX.Element => {
                 sx={{ order: { xs: 3, sm: 2 } }}
               >
                 <Box
-                  onClick={()=>removeFormCart(item?.product?.id)}
+                  onClick={() => removeFormCart(item?.product?.id)}
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
                     color: 'text.secondary',
-                    cursor:'pointer',
+                    cursor: 'pointer',
                     '&:hover': {
                       color: 'primary.main',
                     },
@@ -199,7 +185,7 @@ const Orders = (): JSX.Element => {
                 sx={{ order: { xs: 2, sm: 3 } }}
               >
                 <FormControl fullWidth>
-                <Box
+                  <Box
                     sx={{
                       alignItems: 'center',
                       display: 'flex',
@@ -216,8 +202,11 @@ const Orders = (): JSX.Element => {
                     <RemoveIcon />
                   </Box>
                 </FormControl>
-                <Box fontWeight={700} marginLeft={2} >
-                <h4 style={{display:'flex'}}><span>৳</span>{calculateTotal(item?.product?.price, item?.quantity)}</h4>
+                <Box fontWeight={700} marginLeft={2}>
+                  <h4 style={{ display: 'flex' }}>
+                    <span>৳</span>
+                    {calculateTotal(item?.product?.price, item?.quantity)}
+                  </h4>
                 </Box>
               </Stack>
             </Box>
@@ -225,7 +214,6 @@ const Orders = (): JSX.Element => {
           <Divider
             sx={{
               marginY: { xs: 2, sm: 4 },
-             
             }}
           />
         </Box>

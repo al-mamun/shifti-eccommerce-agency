@@ -7,12 +7,17 @@ import Button from '@mui/material/Button';
 import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 /*import Link from '@mui/material/Link';*/
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { NavItem } from './components';
 import './topbar.css';
 import { api } from 'api/config';
 import { useNavigate } from 'react-router-dom';
 import { ReactSession } from 'react-client-session';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useCallback } from 'react';
+import { useContext } from 'react';
+import { CartData } from 'App';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -36,9 +41,20 @@ const Topbar = ({
   const theme = useTheme();
   const { mode } = theme.palette;
   const navigate = useNavigate();
+  const [authUser, setAuthUser] = useState(null);
+  const { userData, setuserData } = useContext(CartData);
 
-  ReactSession.setStoreType("sessionStorage");
-  
+  ReactSession.setStoreType('sessionStorage');
+
+  const authData = useCallback(() => {
+    const authUser = ReactSession.get('userData');
+    return authUser;
+  }, []);
+
+  useEffect(() => {
+    setAuthUser(authData());
+  }, [authData, userData]);
+
   const {
     landings: landingPages,
     secondary: secondaryPages,
@@ -48,14 +64,23 @@ const Topbar = ({
     blog: blogPages,
   } = pages;
 
-  const logOut = () =>{
-    fetch( `${api}/api/customer/logout`)
-    .then(() =>{
-      navigate('/')
-      const userData ={}
-      ReactSession.set("userData", userData);
-    })
-  }
+  const logOut = () => {
+    fetch(`${api}/api/customer/logout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(() => {
+      navigate('/');
+      const userData = {};
+      setuserData({});
+      ReactSession.set('userData', userData);
+    });
+  };
+
+  const login = () => {
+    navigate('/signin-simple');
+  };
 
   return (
     <Box
@@ -83,22 +108,16 @@ const Topbar = ({
         />
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
-        <Box className="menu_bar css-1mvbbh8-MuiTypography-root"  marginLeft={4}>
-          <Link
-            to="/"
-            className="custom_link"
-          >
+        <Box className="menu_bar css-1mvbbh8-MuiTypography-root" marginLeft={4}>
+          <Link to="/" className="custom_link">
             Home
           </Link>
         </Box>
         <Box marginLeft={4}>
-          <Link
-            to="/e-commerce"
-            className="custom_link"
-          >
+          <Link to="/e-commerce" className="custom_link">
             Product
           </Link>
-          
+
           {/* <NavItem
             title={'Home'}
             id={'landing-pages'}
@@ -113,17 +132,9 @@ const Topbar = ({
             id={'company-pages'}
             items={companyPages}
             colorInvert={colorInvert}
+          />
+        </Box>
 
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Account'}
-            id={'account-pages'}
-            items={accountPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
         <Box marginLeft={4}>
           <NavItem
             title={'Pages'}
@@ -134,9 +145,7 @@ const Topbar = ({
         </Box>
 
         <Box marginLeft={4}>
-          <Link to="/blog-newsroom"
-            className="custom_link"
-          >
+          <Link to="/blog-newsroom" className="custom_link">
             Blog
           </Link>
         </Box>
@@ -149,29 +158,63 @@ const Topbar = ({
           />
         </Box>*/}
         <Box marginLeft={4}>
-          <Link to="/contact-page"
-            className="custom_link"
-          >
+          <Link to="/contact-page" className="custom_link">
             Contact
           </Link>
         </Box>
-        <Box marginLeft={4}>
-          <Link to="/cart-page"
-           className="custom_link"
-          >
-            Cart
-          </Link>
-        </Box>
-        <Box marginLeft={4}>
-          <Button
-            variant="contained"
-            color="primary"
-           onClick={()=> logOut()}
-            size="large"
-          >
-            Log Out
-          </Button>
-        </Box>
+        {authUser?.user ? (
+          <>
+            {/* <Box marginLeft={4}>
+              <Link to="/cart-page" className="custom_link">
+                Cart
+              </Link>
+            </Box> */}
+
+            <Box marginLeft={4}>
+              <NavItem
+                title={'Account'}
+                id={'account-pages'}
+                items={accountPages}
+                colorInvert={colorInvert}
+              />
+            </Box>
+
+            <Box marginLeft={4}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => logOut()}
+                size="large"
+              >
+                Log Out
+              </Button>
+            </Box>
+          </>
+        ) : (
+          <>
+            <Box marginLeft={4}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => login()}
+                size="large"
+              >
+                Log in
+              </Button>
+            </Box>
+
+            <Box marginLeft={4}>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => navigate('/signup-simple')}
+                size="large"
+              >
+                Sign up
+              </Button>
+            </Box>
+          </>
+        )}
       </Box>
       <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
         <Button
