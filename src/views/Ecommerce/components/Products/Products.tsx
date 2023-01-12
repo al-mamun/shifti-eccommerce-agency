@@ -70,33 +70,7 @@ const Products = (): JSX.Element => {
     })
     .then(res => res.json())
     .then(data => {
-      if (data?.errors) {
-        setErrorMessage(data?.errors);
-        toast.error(data?.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          });
-        return;
-      }
-      setTimeout(() => {
-        navigate('/signin-simple')
-      }, 5000);
-      toast.success(data?.msg, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
+        alert();
     });
   }
   useEffect(() => {
