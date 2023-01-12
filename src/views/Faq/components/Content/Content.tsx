@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Accordion from '@mui/material/Accordion';
@@ -6,6 +6,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 
 interface FaqGroupItemProps {
   title: string;
@@ -17,6 +18,18 @@ interface FaqGroupItemProps {
 
 const FaqGroupItem = ({ title, items }: FaqGroupItemProps): JSX.Element => {
   const theme = useTheme();
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetch('https://mamundevstudios.com/shifti_api/public/admin_faq/api/'+ title)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
   return (
     <Box>
       <Box marginBottom={2}>
@@ -25,7 +38,7 @@ const FaqGroupItem = ({ title, items }: FaqGroupItemProps): JSX.Element => {
         </Typography>
       </Box>
       <Box>
-        {items.map((item, i) => (
+        {posts.map((item, i) => (
           <Box
             component={Accordion}
             key={i}
