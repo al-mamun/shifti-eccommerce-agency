@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -9,6 +9,12 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import { useTheme } from '@mui/material/styles';
+import { useForm } from 'react-hook-form';
+import { api } from 'api/config';
+import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import './product.css';
+import { ReactSession } from 'react-client-session';
 
 const mock = [
   {
@@ -34,9 +40,71 @@ const mock = [
 ];
 
 const LatestProducts = (): JSX.Element => {
+  const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
   const theme = useTheme();
- 
   const [posts, setPosts] = useState([]);
+
+  const [authUser, setAuthUser] = useState(null);
+
+  ReactSession.setStoreType('sessionStorage');
+
+  const authData = useCallback(() => {
+    const authUser = ReactSession.get('userData');
+    return authUser;
+  }, []);
+
+  useEffect(() => {
+    setAuthUser(authData());
+    console.log(authUser);
+  }, [authData]);
+
+  function addToCart(id) {
+    const list = {
+      customer_id: `${authUser?.user?.id}`,
+      product_id: id,
+    };
+    const token = `${authUser?.token}`;
+    fetch(`${api}/api/add-to-cart`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(list),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status == 0) {
+          setErrorMessage('test');
+          toast.error(data.msg, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
+          setTimeout(() => {
+            navigate('/signin-simple');
+          }, 5000);
+          return;
+        }
+        toast.success(data?.msg, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      });
+  }
   useEffect(() => {
     fetch('https://mamundevstudios.com/shifti_api/public/admin/product/api')
       .then((response) => response.json())
@@ -83,6 +151,7 @@ const LatestProducts = (): JSX.Element => {
           accessories online.
         </Typography>
         <Box display="flex" justifyContent={'center'} marginTop={2}>
+          
           <Button variant="contained" color="primary" size="large">
             View all
           </Button>
@@ -201,28 +270,33 @@ const LatestProducts = (): JSX.Element => {
                     <Typography sx={{ fontWeight: 700 }} color={'primary'}>
                       {item.price}
                     </Typography>
-                    <Button
-                      variant={'contained'}
-                      startIcon={
-                        <Box
-                          component={'svg'}
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                          width={20}
-                          height={20}
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
-                            clipRule="evenodd"
-                          />
-                          <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
-                        </Box>
-                      }
+                    <button
+                      onClick={() => addToCart(item.productID)}
+                      className="button_reset"
                     >
-                      Add to cart
-                    </Button>
+                      <Button
+                        variant={'contained'}
+                        startIcon={
+                          <Box
+                            component={'svg'}
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            width={20}
+                            height={20}
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
+                              clipRule="evenodd"
+                            />
+                            <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
+                          </Box>
+                        }
+                      >
+                        Add to cart
+                      </Button>
+                    </button>
                   </CardActions>
                 </CardContent>
               </Box>
