@@ -9,6 +9,10 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import { useTheme } from '@mui/material/styles';
+import { useForm } from 'react-hook-form';
+import { api } from 'api/config';
+import { ToastContainer,toast } from 'react-toastify';
+import './product.css';
 
 const mock = [
   {
@@ -43,9 +47,58 @@ const mock = [
   },
 ];
 
+
 const Products = (): JSX.Element => {
   const theme = useTheme();
   const [posts, setPosts] = useState([]);
+ 
+  function addToCart(id) {
+
+    const list = {
+      customer_id: '45',
+      body: 'bar', 
+      product_id:id,
+    };
+
+    fetch(`${api}/api/add-to-cart`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(list),
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data?.errors) {
+        setErrorMessage(data?.errors);
+        toast.error(data?.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+        return;
+      }
+      setTimeout(() => {
+        navigate('/signin-simple')
+      }, 5000);
+      toast.success(data?.msg, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    });
+  }
   useEffect(() => {
     fetch('https://mamundevstudios.com/shifti_api/public/admin/product/api')
       .then((response) => response.json())
@@ -57,7 +110,7 @@ const Products = (): JSX.Element => {
         console.log(err.message);
       });
   }, []);
-
+ 
   return (
 
     <Box>
@@ -210,8 +263,9 @@ const Products = (): JSX.Element => {
                   </Box>
                   <CardActions sx={{ justifyContent: 'space-between' }}>
                     <Typography sx={{ fontWeight: 700 }} color={'primary'}>
-                      {item.price}
+                      {item.price}$
                     </Typography>
+                    <button onClick={() => addToCart(item.productID)} className="button_reset">
                     <Button
                       variant={'outlined'}
                       startIcon={
@@ -234,6 +288,7 @@ const Products = (): JSX.Element => {
                     >
                       Add to cart
                     </Button>
+                    </button>
                   </CardActions>
                 </CardContent>
               </Box>
