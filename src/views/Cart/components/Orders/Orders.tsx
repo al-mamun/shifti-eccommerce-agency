@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable quotes */
@@ -17,10 +18,25 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { CartData } from 'App';
+import { CartData } from 'context/CartContext';
+
+import Badge, { BadgeProps } from '@mui/material/Badge';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}));
+
 const Orders = (): JSX.Element => {
   const theme = useTheme();
-  const { cartData, orderSummary, isLoading, removeFormCart, getCartItems } =
+  const { cartData, updateCartItem, isLoading, removeFormCart, getCartItems } =
     useContext(CartData);
 
   const calculateTotal = (price: string, quantity: string) => {
@@ -33,8 +49,59 @@ const Orders = (): JSX.Element => {
     getCartItems;
   }, []);
 
+  const handleCartUpdate = (id, qty, action) => {
+    console.log(id, qty, action);
+    const quntity = Number(qty) + 1;
+    updateCartItem(id, quntity.toString(), action);
+  };
+
   return (
     <Box>
+      <Box
+        sx={{
+          display: { md: 'flex', xs: 'none' },
+          justifyContent: 'space-between',
+          backgroundColor: '#6777885c',
+          p: 2,
+          mb: 2,
+          borderRadius: 1,
+        }}
+      >
+        <Box
+          display={'flex'}
+          flexDirection={{ xs: 'column', sm: 'row' }}
+          justifyContent={'space-between'}
+          alignItems={'flex-start'}
+          width={1}
+        >
+          <Box sx={{ order: 1 }}>
+            <Typography fontWeight={700} gutterBottom>
+              Product Details
+            </Typography>
+          </Box>
+          <Box sx={{ order: 1 }}>
+            <Typography fontWeight={700} gutterBottom>
+              Action
+            </Typography>
+          </Box>
+
+          <Box
+            sx={{
+              order: 1,
+              display: 'flex',
+              justifyContent: 'space-between',
+              gap: '1rem',
+            }}
+          >
+            <Typography fontWeight={700} gutterBottom>
+              Quantity
+            </Typography>
+            <Typography fontWeight={700} gutterBottom>
+              Price
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
       {cartData?.map((item, i) => (
         <Box key={i}>
           <Box display={'flex'}>
@@ -69,31 +136,17 @@ const Orders = (): JSX.Element => {
                   gutterBottom
                 >
                   {/* Size:{' '} */}
-                  {/* <Typography
-                    variant={'inherit'}
-                    component={'span'}
-                    color={'inherit'}
-                    fontWeight={700}
-                  >
-                    {item.size}
-                  </Typography> */}
-                </Typography>
-                {/* <Typography
-                  color={'text.secondary'}
-                  variant={'subtitle2'}
-                  gutterBottom
-                >
-                  Gender:{' '}
                   <Typography
                     variant={'inherit'}
                     component={'span'}
                     color={'inherit'}
                     fontWeight={700}
                   >
-                    {item.gender}
+                    Price :{item?.product?.price}
                   </Typography>
-                </Typography> */}
-                {/* <Typography
+                </Typography>
+
+                <Typography
                   color={'text.secondary'}
                   variant={'subtitle2'}
                   noWrap={true}
@@ -106,9 +159,9 @@ const Orders = (): JSX.Element => {
                     color={'inherit'}
                     fontWeight={700}
                   >
-                    {item.code}
+                    {item?.product?.id}
                   </Typography>
-                </Typography> */}
+                </Typography>
               </Box>
               <Stack
                 spacing={1}
@@ -117,7 +170,7 @@ const Orders = (): JSX.Element => {
                 sx={{ order: { xs: 3, sm: 2 } }}
               >
                 <Box
-                  onClick={() => removeFormCart(item?.product?.id)}
+                  onClick={() => removeFormCart(item?.id)}
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
@@ -193,17 +246,35 @@ const Orders = (): JSX.Element => {
                     sx={{
                       alignItems: 'center',
                       display: 'flex',
-                      gap: '2rem',
+
                       justifyContent: 'center',
                     }}
                   >
-                    <AddIcon />
+                    <IconButton
+                      aria-label="cart"
+                      onClick={() =>
+                        handleCartUpdate(item?.id, item?.quantity, 1)
+                      }
+                    >
+                      <StyledBadge color="secondary">
+                        <AddIcon />
+                      </StyledBadge>
+                    </IconButton>
                     <input
-                      defaultValue={item?.quantity}
+                      value={item?.quantity}
                       style={{ width: '50px' }}
                       type="number"
                     />
-                    <RemoveIcon />
+                    <IconButton
+                      aria-label="cart"
+                      onClick={() =>
+                        handleCartUpdate(item?.id, item?.quantity, 0)
+                      }
+                    >
+                      <StyledBadge color="secondary">
+                        <RemoveIcon />
+                      </StyledBadge>
+                    </IconButton>
                   </Box>
                 </FormControl>
                 <Box fontWeight={700} marginLeft={2}>

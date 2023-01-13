@@ -17,7 +17,21 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useCallback } from 'react';
 import { useContext } from 'react';
-import { CartData } from 'App';
+import { CartData } from 'context/CartContext';
+
+import Badge, { BadgeProps } from '@mui/material/Badge';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}));
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -42,7 +56,9 @@ const Topbar = ({
   const { mode } = theme.palette;
   const navigate = useNavigate();
   const [authUser, setAuthUser] = useState(null);
-  const { userData, setuserData } = useContext(CartData);
+  const { userData, setuserData, cartCount } = useContext(CartData);
+
+  console.log(cartCount);
 
   ReactSession.setStoreType('sessionStorage');
 
@@ -215,7 +231,18 @@ const Topbar = ({
             </Box>
           </>
         )}
+        <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 5 }}>
+          <IconButton aria-label="cart">
+            <StyledBadge
+              badgeContent={`${cartCount?.count ? cartCount?.count : 0}`}
+              color="secondary"
+            >
+              <ShoppingCartIcon />
+            </StyledBadge>
+          </IconButton>
+        </Box>
       </Box>
+
       <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
         <Button
           onClick={() => onSidebarOpen()}

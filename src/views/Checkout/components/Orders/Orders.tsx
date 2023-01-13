@@ -9,41 +9,16 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import { useContext } from 'react';
-import { CartData } from 'App';
-
-
-const mock = [
-  {
-    title: 'Adidas shoes',
-    size: '41',
-    price: '$69.90',
-    code: 'D5268X149',
-    image: 'https://assets.maccarianagency.com/backgrounds/img56.jpg',
-  },
-  {
-    title: 'Nike',
-    size: '41',
-    price: '$49.90',
-    code: 'P8763Y435',
-    image: 'https://assets.maccarianagency.com/backgrounds/img57.jpg',
-  },
-  {
-    title: 'Sneakers',
-    size: '41',
-    price: '$59.90',
-    code: 'A1356F865',
-    image: 'https://assets.maccarianagency.com/backgrounds/img58.jpg',
-  },
-];
+import { CartData } from 'context/CartContext';
 
 const Orders = (): JSX.Element => {
   const theme = useTheme();
-  const {cartData,orderSummary,isLoading,removeFormCart} = useContext(CartData);
+  const { cartData, orderSummary } = useContext(CartData);
 
   const calculateTotal = (price, quantity) => {
     const p = price.split('৳')[1];
     const total = parseInt(p) * parseFloat(quantity);
-  
+
     return total;
   };
 
@@ -75,7 +50,7 @@ const Orders = (): JSX.Element => {
             >
               <Box>
                 <Typography fontWeight={700} variant={'subtitle2'}>
-                {item?.product?.product_name?.slice(0,20)} ...
+                  {item?.product?.product_name?.slice(0, 20)} ...
                 </Typography>
                 {/* <Typography color={'text.secondary'} variant={'subtitle2'}>
                   Size: {item.size}
@@ -93,8 +68,11 @@ const Orders = (): JSX.Element => {
                   {item.price}
                 </Typography> */}
 
-                <Box fontWeight={700} marginLeft={2} >
-                <h4 style={{display:'flex'}}><span>$</span>{calculateTotal(item?.product?.price, item?.quantity)}</h4>
+                <Box fontWeight={700} marginLeft={2}>
+                  <h4 style={{ display: 'flex' }}>
+                    <span>$</span>
+                    {calculateTotal(item?.product?.price, item?.quantity)}
+                  </h4>
                 </Box>
               </Box>
             </Box>
@@ -102,7 +80,7 @@ const Orders = (): JSX.Element => {
           <Divider
             sx={{
               marginY: { xs: 2, sm: 4 },
-              display: i === mock.length - 1 ? 'none' : 'block',
+              // display: i === mock.length - 1 ? 'none' : 'block',
             }}
           />
         </Box>
@@ -147,13 +125,13 @@ const Orders = (): JSX.Element => {
         <Box display={'flex'} justifyContent={'space-between'}>
           <Typography color={'text.secondary'}>Subtotal</Typography>
           <Typography color={'text.secondary'} fontWeight={700}>
-          $ {orderSummary?.subTotal}
+            $ {orderSummary?.subTotal}
           </Typography>
         </Box>
         <Box display={'flex'} justifyContent={'space-between'}>
           <Typography color={'text.secondary'}>Quantity</Typography>
           <Typography color={'text.secondary'} fontWeight={700}>
-          {orderSummary?.quantity}
+            {orderSummary?.quantity}
           </Typography>
         </Box>
         {/* <Box display={'flex'} justifyContent={'space-between'}>
@@ -168,10 +146,10 @@ const Orders = (): JSX.Element => {
             Order total
           </Typography>
           <Typography variant={'h6'} fontWeight={700}>
-          $ {orderSummary?.totalAmount}
+            $ {orderSummary?.totalAmount}
           </Typography>
         </Box>
-         <Button
+        <Button
           component={Link}
           href={'/demos/ecommerce/order-complete'}
           variant={'contained'}
@@ -184,6 +162,5 @@ const Orders = (): JSX.Element => {
     </Box>
   );
 };
-       
 
 export default Orders;

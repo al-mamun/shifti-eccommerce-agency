@@ -80,7 +80,7 @@ const LatestProducts = (): JSX.Element => {
           setErrorMessage('test');
           toast.error(data.msg, {
             position: 'top-right',
-            autoClose: 5000,
+            autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -95,7 +95,7 @@ const LatestProducts = (): JSX.Element => {
         }
         toast.success(data?.msg, {
           position: 'top-right',
-          autoClose: 5000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -151,7 +151,6 @@ const LatestProducts = (): JSX.Element => {
           accessories online.
         </Typography>
         <Box display="flex" justifyContent={'center'} marginTop={2}>
-          
           <Button variant="contained" color="primary" size="large">
             View all
           </Button>

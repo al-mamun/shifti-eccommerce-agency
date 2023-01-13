@@ -10,70 +10,63 @@ import Typography from '@mui/material/Typography';
 import { useForm } from 'react-hook-form';
 import { api } from 'api/config';
 import { useState } from 'react';
-import { ToastContainer,toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import Alert from '@mui/material/Alert';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-
-
 const Form = (): JSX.Element => {
-  
-  const [errorMessage, setErrorMessage] = useState(null)
-  const navigate = useNavigate()
+  const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
 
-  const { register, handleSubmit,reset } = useForm();
-  const onSubmit = formDatas => {
- 
-    fetch(`${api}/api/customer/register`,{
+  const { register, handleSubmit, reset } = useForm();
+  const onSubmit = (formDatas) => {
+    fetch(`${api}/api/customer/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify(formDatas),
     })
-     .then(res => res.json())
-     .then(data => {
-      reset(formDatas)
-      if (data?.errors) {
-        setErrorMessage(data?.errors);
-        toast.error(data?.message, {
-          position: "top-right",
-          autoClose: 5000,
+      .then((res) => res.json())
+      .then((data) => {
+        reset(formDatas);
+        if (data?.errors) {
+          setErrorMessage(data?.errors);
+          toast.error(data?.message, {
+            position: 'top-right',
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
+          return;
+        }
+        setTimeout(() => {
+          navigate('/signin-simple');
+        }, 5000);
+        toast.success(data?.msg, {
+          position: 'top-right',
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
-          });
-        return;
-      }
-      setTimeout(() => {
-        navigate('/signin-simple')
-      }, 5000);
-      toast.success(data?.msg, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
+          theme: 'light',
         });
-     })
-    
+      });
   };
-
-  
 
   return (
     <Box>
-       <ToastContainer
+      <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -82,9 +75,9 @@ const Form = (): JSX.Element => {
         draggable
         pauseOnHover
         theme="light"
-        />
-        {/* Same as */}
-        <ToastContainer />
+      />
+      {/* Same as */}
+      <ToastContainer />
       <Box marginBottom={4}>
         <Typography
           sx={{
@@ -119,11 +112,13 @@ const Form = (): JSX.Element => {
               variant="outlined"
               name={'first_name'}
               fullWidth
-              {...register("first_name")}
-
+              {...register('first_name')}
             />
-            {errorMessage?.first_name &&
-            <Alert sx={{mt:2}} severity="error">{errorMessage?.first_name[0]}</Alert>}
+            {errorMessage?.first_name && (
+              <Alert sx={{ mt: 2 }} severity="error">
+                {errorMessage?.first_name[0]}
+              </Alert>
+            )}
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
@@ -134,11 +129,13 @@ const Form = (): JSX.Element => {
               variant="outlined"
               name={'last_name'}
               fullWidth
-              {...register("last_name")}
-              
+              {...register('last_name')}
             />
-            {errorMessage?.last_name &&
-            <Alert sx={{mt:2}} severity="error">{errorMessage?.last_name[0]}</Alert>}
+            {errorMessage?.last_name && (
+              <Alert sx={{ mt: 2 }} severity="error">
+                {errorMessage?.last_name[0]}
+              </Alert>
+            )}
           </Grid>
           <Grid item xs={12}>
             <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
@@ -149,11 +146,13 @@ const Form = (): JSX.Element => {
               variant="outlined"
               name={'email'}
               fullWidth
-              {...register("email")}
-           
+              {...register('email')}
             />
-            {errorMessage?.email &&
-            <Alert sx={{mt:2}} severity="error">{errorMessage?.email[0]}</Alert>}
+            {errorMessage?.email && (
+              <Alert sx={{ mt: 2 }} severity="error">
+                {errorMessage?.email[0]}
+              </Alert>
+            )}
           </Grid>
 
           {/* <Grid item xs={12}>
@@ -182,11 +181,13 @@ const Form = (): JSX.Element => {
               name={'password'}
               type={'password'}
               fullWidth
-              {...register("password")}
-           
+              {...register('password')}
             />
-            {errorMessage?.password &&
-            <Alert sx={{mt:2}} severity="error">{errorMessage?.password[0]}</Alert>}
+            {errorMessage?.password && (
+              <Alert sx={{ mt: 2 }} severity="error">
+                {errorMessage?.password[0]}
+              </Alert>
+            )}
           </Grid>
           <Grid item container xs={12}>
             <Box
@@ -210,8 +211,8 @@ const Form = (): JSX.Element => {
                     Login.
                   </Link> */}
                   <Link
-                    to='/signin-simple'
-                    style={{textDecoration: 'none',color:'#2196f3'}}
+                    to="/signin-simple"
+                    style={{ textDecoration: 'none', color: '#2196f3' }}
                   >
                     Login.
                   </Link>

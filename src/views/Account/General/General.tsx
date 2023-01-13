@@ -14,8 +14,8 @@ import Page from '../components/Page';
 import Main from 'layouts/Main';
 import { useForm } from 'react-hook-form';
 import { ReactSession } from 'react-client-session';
-import { CartData } from 'App';
 import { useContext } from 'react';
+import { CartData } from 'context/CartContext';
 
 const General = (): JSX.Element => {
   const { register, handleSubmit } = useForm();

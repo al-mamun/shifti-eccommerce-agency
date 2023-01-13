@@ -15,8 +15,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { CartData } from 'App';
 import { ReactSession } from 'react-client-session';
+import { CartData } from 'context/CartContext';
 
 const Form = (): JSX.Element => {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -41,7 +41,7 @@ const Form = (): JSX.Element => {
           setErrorMessage(data?.message);
           toast.error(data?.message, {
             position: 'top-right',
-            autoClose: 5000,
+            autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -61,7 +61,7 @@ const Form = (): JSX.Element => {
         setuserData(userData);
         toast.success(data?.message, {
           position: 'top-right',
-          autoClose: 5000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -78,7 +78,7 @@ const Form = (): JSX.Element => {
     <Box>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

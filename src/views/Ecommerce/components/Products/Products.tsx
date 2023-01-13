@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -15,47 +16,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import './product.css';
 import { ReactSession } from 'react-client-session';
-import { CartData } from 'App';
-
-const mock = [
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img37.png',
-    title: 'Music player',
-    price: '$320',
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img38.png',
-    title: 'Headphones',
-    price: '$450',
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img39.png',
-    title: 'Wireless headpohones',
-    price: '$280',
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img40.png',
-    title: 'Bluetooth headphones',
-    price: '$300',
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img41.png',
-    title: 'Headphones',
-    price: '$280',
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img42.png',
-    title: 'Music player',
-    price: '$340',
-  },
-];
+import { CartData } from 'context/CartContext';
 
 const Products = (): JSX.Element => {
   const [errorMessage, setErrorMessage] = useState(null);
   const navigate = useNavigate();
   const theme = useTheme();
   const [posts, setPosts] = useState([]);
-  const { getCartItems } = useContext(CartData);
+  const { getCartItems, addToCart } = useContext(CartData);
 
   const [authUser, setAuthUser] = useState(null);
 
@@ -68,56 +36,8 @@ const Products = (): JSX.Element => {
 
   useEffect(() => {
     setAuthUser(authData());
-    console.log(authUser);
   }, [authData]);
 
-  function addToCart(id) {
-    const list = {
-      customer_id: `${authUser?.user?.id}`,
-      product_id: id,
-    };
-    const token = `${authUser?.token}`;
-    fetch(`${api}/api/add-to-cart`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(list),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message == 'Unauthenticated.') {
-          setErrorMessage('test');
-          toast.error(data.msg, {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-          });
-          setTimeout(() => {
-            navigate('/signin-simple');
-          }, 5000);
-          return;
-        }
-        toast.success(data?.msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
-      });
-    getCartItems;
-  }
   useEffect(() => {
     fetch('https://mamundevstudios.com/shifti_api/public/admin/product/api')
       .then((response) => response.json())
@@ -134,7 +54,7 @@ const Products = (): JSX.Element => {
     <Box>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

@@ -6,18 +6,16 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import { CartData } from 'App';
-
+import { CartData } from 'context/CartContext';
 
 const SummeryBox = (): JSX.Element => {
-  const {orderSummary} = useContext(CartData);
+  const { orderSummary } = useContext(CartData);
 
   return (
     <Box>
-      <Box
+      {/* <Box
         component={'form'}
         noValidate
         autoComplete="off"
@@ -53,18 +51,18 @@ const SummeryBox = (): JSX.Element => {
             Apply the code
           </Box>
         </Box>
-      </Box>
+      </Box> */}
       <Stack spacing={2} marginY={{ xs: 2, sm: 4 }}>
         <Box display={'flex'} justifyContent={'space-between'}>
           <Typography color={'text.secondary'}>Subtotal</Typography>
           <Typography color={'text.secondary'} fontWeight={700}>
-          $ {orderSummary?.subTotal}
+            $ {orderSummary?.subTotal}
           </Typography>
         </Box>
         <Box display={'flex'} justifyContent={'space-between'}>
           <Typography color={'text.secondary'}>Quantity</Typography>
           <Typography color={'text.secondary'} fontWeight={700}>
-          {orderSummary?.quantity}
+            {orderSummary?.quantity}
           </Typography>
         </Box>
         {/* <Box display={'flex'} justifyContent={'space-between'}>
@@ -79,13 +77,13 @@ const SummeryBox = (): JSX.Element => {
             Order total
           </Typography>
           <Typography variant={'h6'} fontWeight={700}>
-          $ {orderSummary?.totalAmount}
+            $ {orderSummary?.totalAmount}
           </Typography>
         </Box>
-        <Link to="/check-out-page">
-            <Button fullWidth variant='contained'>
-              Check Out
-            </Button>
+        <Link to="/check-out-page" style={{ textDecoration: 'none' }}>
+          <Button fullWidth variant="contained">
+            Check Out
+          </Button>
         </Link>
       </Stack>
     </Box>
