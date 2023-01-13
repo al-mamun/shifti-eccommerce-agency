@@ -88,7 +88,7 @@ const Products = (): JSX.Element => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.status == 0) {
+        if (data.message == 'Unauthenticated.') {
           setErrorMessage('test');
           toast.error(data.msg, {
             position: 'top-right',

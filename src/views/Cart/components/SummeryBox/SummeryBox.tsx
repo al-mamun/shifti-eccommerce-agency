@@ -58,7 +58,7 @@ const SummeryBox = (): JSX.Element => {
         <Box display={'flex'} justifyContent={'space-between'}>
           <Typography color={'text.secondary'}>Subtotal</Typography>
           <Typography color={'text.secondary'} fontWeight={700}>
-          ৳ {orderSummary?.subTotal}
+          $ {orderSummary?.subTotal}
           </Typography>
         </Box>
         <Box display={'flex'} justifyContent={'space-between'}>
@@ -79,7 +79,7 @@ const SummeryBox = (): JSX.Element => {
             Order total
           </Typography>
           <Typography variant={'h6'} fontWeight={700}>
-          ৳ {orderSummary?.totalAmount}
+          $ {orderSummary?.totalAmount}
           </Typography>
         </Box>
         <Link to="/check-out-page">

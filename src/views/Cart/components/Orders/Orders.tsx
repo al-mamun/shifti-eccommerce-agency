@@ -208,7 +208,7 @@ const Orders = (): JSX.Element => {
                 </FormControl>
                 <Box fontWeight={700} marginLeft={2}>
                   <h4 style={{ display: 'flex' }}>
-                    <span>৳</span>
+                    <span>$</span>
                     {calculateTotal(item?.product?.price, item?.quantity)}
                   </h4>
                 </Box>

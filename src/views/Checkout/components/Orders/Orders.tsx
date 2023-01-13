@@ -94,7 +94,7 @@ const Orders = (): JSX.Element => {
                 </Typography> */}
 
                 <Box fontWeight={700} marginLeft={2} >
-                <h4 style={{display:'flex'}}><span>৳</span>{calculateTotal(item?.product?.price, item?.quantity)}</h4>
+                <h4 style={{display:'flex'}}><span>$</span>{calculateTotal(item?.product?.price, item?.quantity)}</h4>
                 </Box>
               </Box>
             </Box>
@@ -147,7 +147,7 @@ const Orders = (): JSX.Element => {
         <Box display={'flex'} justifyContent={'space-between'}>
           <Typography color={'text.secondary'}>Subtotal</Typography>
           <Typography color={'text.secondary'} fontWeight={700}>
-          ৳ {orderSummary?.subTotal}
+          $ {orderSummary?.subTotal}
           </Typography>
         </Box>
         <Box display={'flex'} justifyContent={'space-between'}>
@@ -168,7 +168,7 @@ const Orders = (): JSX.Element => {
             Order total
           </Typography>
           <Typography variant={'h6'} fontWeight={700}>
-          ৳ {orderSummary?.totalAmount}
+          $ {orderSummary?.totalAmount}
           </Typography>
         </Box>
          <Button
