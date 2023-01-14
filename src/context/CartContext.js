@@ -19,6 +19,7 @@ const CartContext = ({ children }) => {
   // const [authUser, setAuthUser] = useState(null);
   const [cartCount, setcartCount] = useState(0);
   const [myOrdersData, setMyOrdersData] = useState([]);
+  const [CardData, setCardData] = useState(null);
   //   const navigate = useNavigate();
 
   const authData = () => {
@@ -247,6 +248,8 @@ const CartContext = ({ children }) => {
         cartItemCount,
         authData,
         getCartSummary,
+        CardData,
+        setCardData,
       }}
     >
       {children}

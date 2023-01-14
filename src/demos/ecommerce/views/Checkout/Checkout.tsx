@@ -23,7 +23,7 @@ const Checkout = (): JSX.Element => {
                   <Typography variant="h6" fontWeight={700} marginBottom={4}>
                     Shipping information
                   </Typography>
-                  <Shipping />
+                  {/* <Shipping /> */}
                 </Grid>
                 <Grid item xs={12}>
                   <Typography variant="h6" fontWeight={700} marginBottom={4}>

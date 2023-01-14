@@ -128,8 +128,8 @@ const Form = (): JSX.Element => {
             <TextField
               label="Email *"
               variant="outlined"
-              name={'email'}
               fullWidth
+              name={'email'}
               {...register('email')}
               // @ts-ignore
             />

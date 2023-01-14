@@ -1,4 +1,6 @@
-import React, { useState }  from 'react';
+/* eslint-disable quotes */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
@@ -90,7 +92,7 @@ const countries = [
     phone: '242',
   },
   { code: 'CH', label: 'Switzerland', phone: '41' },
-  { code: 'CI', label: 'Cote d\'Ivoire', phone: '225' },
+  { code: 'CI', label: "Cote d'Ivoire", phone: '225' },
   { code: 'CK', label: 'Cook Islands', phone: '682' },
   { code: 'CL', label: 'Chile', phone: '56' },
   { code: 'CM', label: 'Cameroon', phone: '237' },
@@ -216,7 +218,7 @@ const countries = [
   },
   {
     code: 'KP',
-    label: 'Korea, Democratic People\'s Republic of',
+    label: "Korea, Democratic People's Republic of",
     phone: '850',
   },
   { code: 'KR', label: 'Korea, Republic of', phone: '82' },
@@ -225,7 +227,7 @@ const countries = [
   { code: 'KZ', label: 'Kazakhstan', phone: '7' },
   {
     code: 'LA',
-    label: 'Lao People\'s Democratic Republic',
+    label: "Lao People's Democratic Republic",
     phone: '856',
   },
   { code: 'LB', label: 'Lebanon', phone: '961' },
@@ -436,14 +438,8 @@ const countries = [
 
 const Shipping = (): JSX.Element => {
   const [firstName, setFirstName] = useState('');
-  const inputChangeHandler = (setFunction: React.Dispatch<React.SetStateAction<string>>, event: React.ChangeEvent<HTMLInputElement>) => {
-    setFunction(event.target.value);
-  };
-  return (
-    <Box>
-      
-    </Box>
-  );
+
+  return <Box></Box>;
 };
 
 export default Shipping;

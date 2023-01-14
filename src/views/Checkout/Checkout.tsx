@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useCallback }  from 'react';
+/* eslint-disable quotes */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState, useEffect, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -99,7 +101,7 @@ const countries = [
     phone: '242',
   },
   { code: 'CH', label: 'Switzerland', phone: '41' },
-  { code: 'CI', label: 'Cote d\'Ivoire', phone: '225' },
+  { code: 'CI', label: "Cote d'Ivoire", phone: '225' },
   { code: 'CK', label: 'Cook Islands', phone: '682' },
   { code: 'CL', label: 'Chile', phone: '56' },
   { code: 'CM', label: 'Cameroon', phone: '237' },
@@ -225,7 +227,7 @@ const countries = [
   },
   {
     code: 'KP',
-    label: 'Korea, Democratic People\'s Republic of',
+    label: "Korea, Democratic People's Republic of",
     phone: '850',
   },
   { code: 'KR', label: 'Korea, Republic of', phone: '82' },
@@ -234,7 +236,7 @@ const countries = [
   { code: 'KZ', label: 'Kazakhstan', phone: '7' },
   {
     code: 'LA',
-    label: 'Lao People\'s Democratic Republic',
+    label: "Lao People's Democratic Republic",
     phone: '856',
   },
   { code: 'LB', label: 'Lebanon', phone: '961' },
@@ -449,8 +451,10 @@ const Checkout = (): JSX.Element => {
 
   const [firstName, setFirstName] = useState('');
 
-  interface FormDataType {firstName:string}
-  const responseBody: FormDataType = {firstName: ''};
+  interface FormDataType {
+    firstName: string;
+  }
+  const responseBody: FormDataType = { firstName: '' };
 
   const [authUser, setAuthUser] = useState(null);
 
@@ -467,204 +471,215 @@ const Checkout = (): JSX.Element => {
   }, [authData]);
 
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      responseBody.firstName = firstName;
-      alert(firstName);
-      console.log(JSON.stringify(responseBody));
-      const list = {
-        
-        product_id: 8,
-      };
-      const token = `${authUser?.token}`;
+    event.preventDefault();
 
-      fetch(`${api}/api/place-order`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(list),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.message == 'Unauthenticated.') {
-            setErrorMessage('test');
-            toast.error(data.msg, {
-              position: 'top-right',
-              autoClose: 1000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-            });
-          
-            return;
-          }
-          toast.success(data?.msg, {
-            position: 'top-right',
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-          });
-        });
-    
-//Form submission happens here
+    // responseBody.firstName = firstName;
+    // alert(firstName);
+    // console.log(JSON.stringify(responseBody));
+    // const list = {
+    //   product_id: 8,
+    // };
+    const token = `${authUser?.token}`;
+
+    // fetch(`${api}/api/place-order`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Accept: 'application/json',
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    //   body: JSON.stringify(list),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     if (data.message == 'Unauthenticated.') {
+    //       setErrorMessage('test');
+    //       toast.error(data.msg, {
+    //         position: 'top-right',
+    //         autoClose: 1000,
+    //         hideProgressBar: false,
+    //         closeOnClick: true,
+    //         pauseOnHover: true,
+    //         draggable: true,
+    //         progress: undefined,
+    //         theme: 'light',
+    //       });
+
+    //       return;
+    //     }
+    //     toast.success(data?.msg, {
+    //       position: 'top-right',
+    //       autoClose: 1000,
+    //       hideProgressBar: false,
+    //       closeOnClick: true,
+    //       pauseOnHover: true,
+    //       draggable: true,
+    //       progress: undefined,
+    //       theme: 'light',
+    //     });
+    //   });
+
+    //Form submission happens here
   };
-  const inputChangeHandler = (setFunction: React.Dispatch<React.SetStateAction<string>>, event: React.ChangeEvent<HTMLInputElement>) => {
-      setFunction(event.target.value);
+  const inputChangeHandler = (
+    setFunction: React.Dispatch<React.SetStateAction<string>>,
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    // event.preventDefault();
+    // setFunction(event.target.value);
   };
-  
+
   return (
-    <form onSubmit={onSubmitHandler} className="checkoutClass">
+    // <form onSubmit={onSubmitHandler} className="checkoutClass">
     <Main>
       <Container>
-      
         <Box>
           <Grid container spacing={{ xs: 4, md: 8 }}>
             <Grid item xs={12} md={7}>
               <Grid container spacing={4}>
                 <Grid item xs={12}>
                   <Typography variant="h6" fontWeight={700} marginBottom={4}>
-                    Shipping information
+                    Shipping information sss
                   </Typography>
-                  <Shipping></Shipping>
+                  {/* <Shipping></Shipping> */}
                   <Box>
-                      <Grid container spacing={{ xs: 2, md: 4 }}>
-                        <Grid item xs={12}>
+                    <Grid container spacing={{ xs: 2, md: 4 }}>
+                      <Grid item xs={12}>
                         <div>
-                          <input 
-                            id="first_name" onChange={(e)=>inputChangeHandler(setFirstName, e)} type="text"
-                            className='MuiInputBase-input MuiOutlinedInput-input css-sfn1m8-MuiInputBase-input-MuiOutlinedInput-input'
+                          <input
+                            id="first_name"
+                            onChange={(e) =>
+                              inputChangeHandler(setFirstName, e)
+                            }
+                            type="text"
+                            className="MuiInputBase-input MuiOutlinedInput-input css-sfn1m8-MuiInputBase-input-MuiOutlinedInput-input"
                           />
                         </div>
-                          <Typography
-                            variant={'subtitle2'}
-                            sx={{ marginBottom: 2 }}
-                            fontWeight={700}
-                          >
-                            Enter your full name
-                          </Typography>
-                          <TextField
-                            label="Full name *"
-                            variant="outlined"
-                            name={'fullName'}
-                            fullWidth
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <Typography
-                            variant={'subtitle2'}
-                            sx={{ marginBottom: 2 }}
-                            fontWeight={700}
-                          >
-                            Country
-                          </Typography>
-                          <Autocomplete
-                            options={countries}
-                            autoHighlight
-                            // @ts-ignore
-                            getOptionLabel={(option) => option.label}
-                            renderOption={(props, option) => (
-                              <Box
-                                component="li"
-                                sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
-                                {...props}
-                              >
-                                <img
-                                  loading="lazy"
-                                  width="20"
-                                  src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                                  srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                                  alt=""
-                                />
-                                {option.label} ({option.code}) +{option.phone}
-                              </Box>
-                            )}
-                            renderInput={(params) => (
-                              <TextField
-                                {...params}
-                                label="Choose a country"
-                                inputProps={{
-                                  ...params.inputProps,
-                                  autoComplete: 'new-password', // disable autocomplete and autofill
-                                }}
-                              />
-                            )}
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <Typography
-                            variant={'subtitle2'}
-                            sx={{ marginBottom: 2 }}
-                            fontWeight={700}
-                          >
-                            City
-                          </Typography>
-                          <TextField
-                            label="City *"
-                            variant="outlined"
-                            name={'city'}
-                            fullWidth
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Typography
-                            variant={'subtitle2'}
-                            sx={{ marginBottom: 2 }}
-                            fontWeight={700}
-                          >
-                            Enter your address
-                          </Typography>
-                          <TextField
-                            label="Address *"
-                            variant="outlined"
-                            name={'address'}
-                            fullWidth
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Typography
-                            variant={'subtitle2'}
-                            sx={{ marginBottom: 2 }}
-                            fontWeight={700}
-                          >
-                            Enter your email
-                          </Typography>
-                          <TextField
-                            label="Email *"
-                            variant="outlined"
-                            name={'email'}
-                            fullWidth
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Divider />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Box>
-                            <FormControlLabel
-                              control={<Checkbox defaultChecked={true} color="primary" />}
-                              label="Billing address is the same as shipping address"
-                            />
-                          </Box>
-                          <Box>
-                            <FormControlLabel
-                              control={<Checkbox defaultChecked={true} color="primary" />}
-                              label="Save this information for the next time"
-                            />
-                          </Box>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Divider />
-                        </Grid>
+                        <Typography
+                          variant={'subtitle2'}
+                          sx={{ marginBottom: 2 }}
+                          fontWeight={700}
+                        >
+                          Enter your full name
+                        </Typography>
+                        <TextField
+                          label="Full name *"
+                          variant="outlined"
+                          name={'fullName'}
+                          fullWidth
+                        />
                       </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <Typography
+                          variant={'subtitle2'}
+                          sx={{ marginBottom: 2 }}
+                          fontWeight={700}
+                        >
+                          Country
+                        </Typography>
+                        <Autocomplete
+                          options={countries}
+                          autoHighlight
+                          // @ts-ignore
+                          getOptionLabel={(option) => option.label}
+                          renderOption={(props, option) => (
+                            <Box
+                              component="li"
+                              sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+                              {...props}
+                            >
+                              <img
+                                loading="lazy"
+                                width="20"
+                                src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                                srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                                alt=""
+                              />
+                              {option.label} ({option.code}) +{option.phone}
+                            </Box>
+                          )}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="Choose a country"
+                              inputProps={{
+                                ...params.inputProps,
+                                autoComplete: 'new-password', // disable autocomplete and autofill
+                              }}
+                            />
+                          )}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <Typography
+                          variant={'subtitle2'}
+                          sx={{ marginBottom: 2 }}
+                          fontWeight={700}
+                        >
+                          City
+                        </Typography>
+                        <TextField
+                          label="City *"
+                          variant="outlined"
+                          name={'city'}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Typography
+                          variant={'subtitle2'}
+                          sx={{ marginBottom: 2 }}
+                          fontWeight={700}
+                        >
+                          Enter your address
+                        </Typography>
+                        <TextField
+                          label="Address *"
+                          variant="outlined"
+                          name={'address'}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Typography
+                          variant={'subtitle2'}
+                          sx={{ marginBottom: 2 }}
+                          fontWeight={700}
+                        >
+                          Enter your email
+                        </Typography>
+                        <TextField
+                          label="Email *"
+                          variant="outlined"
+                          name={'email'}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Divider />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Box>
+                          <FormControlLabel
+                            control={
+                              <Checkbox defaultChecked={true} color="primary" />
+                            }
+                            label="Billing address is the same as shipping address"
+                          />
+                        </Box>
+                        <Box>
+                          <FormControlLabel
+                            control={
+                              <Checkbox defaultChecked={true} color="primary" />
+                            }
+                            label="Save this information for the next time"
+                          />
+                        </Box>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Divider />
+                      </Grid>
+                    </Grid>
                   </Box>
                 </Grid>
                 <Grid item xs={12}>
@@ -741,7 +756,7 @@ const Checkout = (): JSX.Element => {
         </Box>
       </Container>
     </Main>
-    </form>
+    // </form>
   );
 };
 

@@ -47,6 +47,7 @@ import {
   SigninSimple as SigninSimpleView,
   SigninCover as SigninCoverView,
   SignupSimple as SignupSimpleView,
+  OrderComplete as OrderCompleteView,
   SignupCover as SignupCoverView,
   AccountBilling as AccountBillingView,
   MyOrders as MyOrdersView,
@@ -112,6 +113,10 @@ const routes = [
   {
     path: '/check-out-page',
     renderer: (params = {}): JSX.Element => <CheckOutPage {...params} />,
+  },
+  {
+    path: '/order-complete',
+    renderer: (params = {}): JSX.Element => <OrderCompleteView {...params} />,
   },
   {
     path: '/coworking',

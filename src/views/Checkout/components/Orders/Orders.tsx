@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable semi */
 /* eslint-disable indent */
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
@@ -13,7 +15,7 @@ import { CartData } from 'context/CartContext';
 
 const Orders = (): JSX.Element => {
   const theme = useTheme();
-  const { cartData, orderSummary } = useContext(CartData);
+  const { cartData, orderSummary, CardData } = useContext(CartData);
 
   const calculateTotal = (price, quantity) => {
     const p = price.split('৳')[1];
@@ -149,14 +151,6 @@ const Orders = (): JSX.Element => {
             $ {orderSummary?.totalAmount}
           </Typography>
         </Box>
-        <Button
-          type={'submit'}
-          variant={'contained'}
-          size={'large'}
-          fullWidth
-        >
-          Place an order
-        </Button>
       </Stack>
     </Box>
   );
