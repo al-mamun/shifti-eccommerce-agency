@@ -49,6 +49,7 @@ import {
   SignupSimple as SignupSimpleView,
   SignupCover as SignupCoverView,
   AccountBilling as AccountBillingView,
+  MyOrders as MyOrdersView,
   AccountGeneral as AccountGeneralView,
   AccountNotifications as AccountNotificationsView,
   AccountSecurity as AccountSecurityView,
@@ -97,6 +98,14 @@ const routes = [
     renderer: (params = {}): JSX.Element => (
       <PrivateRoute>
         <CartPageView {...params} />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/my-orders',
+    renderer: (params = {}): JSX.Element => (
+      <PrivateRoute>
+        <MyOrdersView {...params} />
       </PrivateRoute>
     ),
   },
@@ -266,21 +275,35 @@ const routes = [
   },
   {
     path: '/account-billing',
-    renderer: (params = {}): JSX.Element => <AccountBillingView {...params} />,
+    renderer: (params = {}): JSX.Element => (
+      <PrivateRoute>
+        <AccountBillingView {...params} />{' '}
+      </PrivateRoute>
+    ),
   },
   {
     path: '/account-general',
-    renderer: (params = {}): JSX.Element => <AccountGeneralView {...params} />,
+    renderer: (params = {}): JSX.Element => (
+      <PrivateRoute>
+        <AccountGeneralView {...params} />,
+      </PrivateRoute>
+    ),
   },
   {
     path: '/account-notifications',
     renderer: (params = {}): JSX.Element => (
-      <AccountNotificationsView {...params} />
+      <PrivateRoute>
+        <AccountNotificationsView {...params} />
+      </PrivateRoute>
     ),
   },
   {
     path: '/account-security',
-    renderer: (params = {}): JSX.Element => <AccountSecurityView {...params} />,
+    renderer: (params = {}): JSX.Element => (
+      <PrivateRoute>
+        <AccountSecurityView {...params} />,
+      </PrivateRoute>
+    ),
   },
   {
     path: '/not-found',

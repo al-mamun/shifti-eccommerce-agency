@@ -46,7 +46,7 @@ const Orders = (): JSX.Element => {
   };
 
   useEffect(() => {
-    getCartItems;
+    getCartItems();
   }, []);
 
   const handleCartUpdate = (id, qty, action) => {

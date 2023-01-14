@@ -5,10 +5,9 @@ import { createContext } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
-import { ReactSession } from 'react-client-session';
-import { useCallback } from 'react';
+
 import { api } from './../api/config';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 export const CartData = createContext(null);
 
@@ -17,41 +16,62 @@ const CartContext = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [orderSummary, setorderSummary] = useState({});
   const [userData, setuserData] = useState(null);
-  const [authUser, setAuthUser] = useState(null);
+  // const [authUser, setAuthUser] = useState(null);
   const [cartCount, setcartCount] = useState(0);
+  const [myOrdersData, setMyOrdersData] = useState([]);
   //   const navigate = useNavigate();
 
-  ReactSession.setStoreType('sessionStorage');
-
-  const authData = useCallback(() => {
-    const authUser = ReactSession.get('userData');
-    setAuthUser(authUser);
-    return authUser;
-  }, []);
+  const authData = () => {
+    // const authUser = ReactSession.get('userData');
+    console.log(userData);
+    if (userData === null) {
+      const userDataFormSession = sessionStorage.getItem('__react_session__');
+      const data = JSON.parse(userDataFormSession);
+      const usersInfo = data.userData;
+      setuserData(usersInfo);
+      console.log(usersInfo);
+    }
+  };
 
   const UpdateAllData = () => {
     getCartItems();
-    getCarSummary();
+    getCartSummary();
     cartItemCount();
   };
 
-  useEffect(() => {
+  const getMyOrders = () => {
     authData();
-  }, []);
+
+    if (userData?.user) {
+      fetch(`${api}/api/get-my-order`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${userData?.token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log(data);
+          setMyOrdersData(data?.data);
+        });
+    }
+  };
 
   const updateCartItem = (id, qty, action) => {
-    console.log(id, qty, action);
+    authData();
     const bodyData = {
       type: `${action === 1 ? 'increase' : 'decrease'}`,
       quantity: qty,
     };
-    if (authUser?.token) {
+    if (userData?.user) {
       fetch(`${api}/api/update-cart-quantity/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
-          Authorization: `Bearer ${authUser?.token}`,
+          Authorization: `Bearer ${userData?.token}`,
         },
         body: JSON.stringify(bodyData),
       })
@@ -64,15 +84,17 @@ const CartContext = ({ children }) => {
   };
 
   const cartItemCount = () => {
-    //     const token = `${authUser?.user ? authUser?.token : userData?.token}`;
+    //     const token = `${authUser?.user ? userData?.user ? userData?.token : authUser?.token : userData?.token}`;
 
-    if (authUser?.token) {
+    authData();
+    console.log(userData);
+    if (userData?.user) {
       fetch(`${api}/api/get-cart-items-count`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
-          Authorization: `Bearer ${authUser?.token}`,
+          Authorization: `Bearer ${userData?.token}`,
         },
       })
         .then((res) => res.json())
@@ -83,17 +105,18 @@ const CartContext = ({ children }) => {
   };
 
   const addToCart = (id) => {
+    authData();
     const list = {
-      customer_id: `${authUser?.user?.id}`,
+      customer_id: `${userData?.user?.id}`,
       product_id: id,
     };
-    const token = `${authUser?.token}`;
+    // const token = `${userData?.user ? userData?.token : authUser?.token}`;
     fetch(`${api}/api/add-to-cart`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${userData?.token}`,
       },
       body: JSON.stringify(list),
     })
@@ -131,16 +154,17 @@ const CartContext = ({ children }) => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const removeFormCart = (id) => {
-    //     const token = `${authUser?.user ? authUser?.token : userData?.token}`;
+    //     const token = `${authUser?.user ? userData?.user ? userData?.token : authUser?.token : userData?.token}`;
     console.log(id);
+    authData();
 
-    if (authUser?.token) {
+    if (userData?.user) {
       fetch(`${api}/api/delete-cart-item/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
-          Authorization: `Bearer ${authUser?.token}`,
+          Authorization: `Bearer ${userData?.token}`,
         },
       })
         .then((res) => res.json())
@@ -162,55 +186,48 @@ const CartContext = ({ children }) => {
     }
   };
 
-  const getCartItems = useCallback(() => {
-    const authUser = ReactSession.get('userData');
-    const token = `${authUser?.user ? authUser?.token : userData?.token}`;
-
-    fetch(
-      `${api}/api/get-cart-items?customer_id=${
-        authUser?.user ? authUser?.user.id : userData?.user.id
-      }`,
-      {
+  const getCartItems = () => {
+    authData();
+    console.log(userData);
+    if (userData?.user) {
+      fetch(`${api}/api/get-cart-items?customer_id=${userData?.user.id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${userData?.token}`,
         },
-      },
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setIsLoading(false);
-        setcartData(data.data);
-      });
-  }, []);
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setIsLoading(false);
+          setcartData(data.data);
+        });
+    }
+  };
 
-  const getCarSummary = useCallback(() => {
-    const authUser = ReactSession.get('userData');
-    const token = `${authUser?.user ? authUser?.token : userData?.token}`;
-    fetch(`${api}/api/get-cart-summary`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setIsLoading(false);
-        setorderSummary(data);
-      });
-  }, []);
+  const getCartSummary = () => {
+    authData();
+    if (userData?.user) {
+      fetch(`${api}/api/get-cart-summary`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${userData?.token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setIsLoading(false);
+          setorderSummary(data);
+        });
+    }
+  };
 
   useEffect(() => {
-    // const user = ReactSession.get('userData');
-    setIsLoading(true);
-    getCartItems();
-    getCarSummary();
-    cartItemCount();
-  }, [authUser]);
+    authData();
+  }, [userData]);
 
   return (
     <CartData.Provider
@@ -225,6 +242,11 @@ const CartContext = ({ children }) => {
         cartCount,
         addToCart,
         updateCartItem,
+        getMyOrders,
+        myOrdersData,
+        cartItemCount,
+        authData,
+        getCartSummary,
       }}
     >
       {children}

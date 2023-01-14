@@ -10,20 +10,16 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import { useTheme } from '@mui/material/styles';
-import { useForm } from 'react-hook-form';
-import { api } from 'api/config';
-import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+
 import './product.css';
 import { ReactSession } from 'react-client-session';
 import { CartData } from 'context/CartContext';
 
 const Products = (): JSX.Element => {
-  const [errorMessage, setErrorMessage] = useState(null);
-  const navigate = useNavigate();
   const theme = useTheme();
   const [posts, setPosts] = useState([]);
-  const { getCartItems, addToCart } = useContext(CartData);
+  const { addToCart } = useContext(CartData);
 
   const [authUser, setAuthUser] = useState(null);
 

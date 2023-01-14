@@ -31,6 +31,11 @@ const pages = [
     href: '/account-billing',
     title: 'Billing Information',
   },
+  {
+    id: 'myorders',
+    href: '/my-orders',
+    title: 'My Orders',
+  },
 ];
 
 interface Props {

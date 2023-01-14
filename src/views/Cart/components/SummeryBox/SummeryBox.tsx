@@ -1,5 +1,6 @@
+/* eslint-disable semi */
 /* eslint-disable indent */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 
 import Stack from '@mui/material/Stack';
@@ -11,7 +12,11 @@ import { useContext } from 'react';
 import { CartData } from 'context/CartContext';
 
 const SummeryBox = (): JSX.Element => {
-  const { orderSummary } = useContext(CartData);
+  const { orderSummary, getCartSummary } = useContext(CartData);
+
+  useEffect(() => {
+    getCartSummary();
+  }, []);
 
   return (
     <Box>

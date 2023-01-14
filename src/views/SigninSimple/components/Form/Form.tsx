@@ -20,7 +20,7 @@ import { CartData } from 'context/CartContext';
 
 const Form = (): JSX.Element => {
   const [errorMessage, setErrorMessage] = useState(null);
-  const { setuserData } = useContext(CartData);
+  const { cartItemCount, setuserData } = useContext(CartData);
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
 
@@ -37,7 +37,9 @@ const Form = (): JSX.Element => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (!data?.success) {
+        console.log(data);
+
+        if (data?.status == 'failed') {
           setErrorMessage(data?.message);
           toast.error(data?.message, {
             position: 'top-right',
@@ -54,11 +56,14 @@ const Form = (): JSX.Element => {
         // console.log(data);
         const userData = { user: data?.user, token: data?.token };
         ReactSession.set('userData', userData);
+        // authData;
+
         // const username = ReactSession.get("userData");
         // console.log("use",userData);
         // console.log("se",username);
 
         setuserData(userData);
+        cartItemCount();
         toast.success(data?.message, {
           position: 'top-right',
           autoClose: 1000,
@@ -70,8 +75,9 @@ const Form = (): JSX.Element => {
           theme: 'light',
         });
       });
-
-    navigate('/account-general');
+    setTimeout(() => {
+      navigate('/account-general');
+    }, 2000);
   };
 
   return (

@@ -20,7 +20,7 @@ import { CartData } from 'context/CartContext';
 const General = (): JSX.Element => {
   const { register, handleSubmit } = useForm();
   const [authUser, setAuthUser] = useState(null);
-  const { userData } = useContext(CartData);
+  const { userData, cartItemCount } = useContext(CartData);
 
   ReactSession.setStoreType('sessionStorage');
 
@@ -31,7 +31,8 @@ const General = (): JSX.Element => {
 
   useEffect(() => {
     setAuthUser(authData());
-  }, [authData]);
+    cartItemCount();
+  }, []);
 
   const onSubmit = (values) => {
     return values;
