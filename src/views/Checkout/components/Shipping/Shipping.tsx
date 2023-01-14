@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
@@ -435,133 +435,13 @@ const countries = [
 ];
 
 const Shipping = (): JSX.Element => {
+  const [firstName, setFirstName] = useState('');
+  const inputChangeHandler = (setFunction: React.Dispatch<React.SetStateAction<string>>, event: React.ChangeEvent<HTMLInputElement>) => {
+    setFunction(event.target.value);
+  };
   return (
     <Box>
-      <form>
-        <Grid container spacing={{ xs: 2, md: 4 }}>
-          <Grid item xs={12}>
-            <Typography
-              variant={'subtitle2'}
-              sx={{ marginBottom: 2 }}
-              fontWeight={700}
-            >
-              Enter your full name
-            </Typography>
-            <TextField
-              label="Full name *"
-              variant="outlined"
-              name={'fullName'}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography
-              variant={'subtitle2'}
-              sx={{ marginBottom: 2 }}
-              fontWeight={700}
-            >
-              Country
-            </Typography>
-            <Autocomplete
-              options={countries}
-              autoHighlight
-              // @ts-ignore
-              getOptionLabel={(option) => option.label}
-              renderOption={(props, option) => (
-                <Box
-                  component="li"
-                  sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
-                  {...props}
-                >
-                  <img
-                    loading="lazy"
-                    width="20"
-                    src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                    srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                    alt=""
-                  />
-                  {option.label} ({option.code}) +{option.phone}
-                </Box>
-              )}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Choose a country"
-                  inputProps={{
-                    ...params.inputProps,
-                    autoComplete: 'new-password', // disable autocomplete and autofill
-                  }}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography
-              variant={'subtitle2'}
-              sx={{ marginBottom: 2 }}
-              fontWeight={700}
-            >
-              City
-            </Typography>
-            <TextField
-              label="City *"
-              variant="outlined"
-              name={'city'}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography
-              variant={'subtitle2'}
-              sx={{ marginBottom: 2 }}
-              fontWeight={700}
-            >
-              Enter your address
-            </Typography>
-            <TextField
-              label="Address *"
-              variant="outlined"
-              name={'address'}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography
-              variant={'subtitle2'}
-              sx={{ marginBottom: 2 }}
-              fontWeight={700}
-            >
-              Enter your email
-            </Typography>
-            <TextField
-              label="Email *"
-              variant="outlined"
-              name={'email'}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Divider />
-          </Grid>
-          <Grid item xs={12}>
-            <Box>
-              <FormControlLabel
-                control={<Checkbox defaultChecked={true} color="primary" />}
-                label="Billing address is the same as shipping address"
-              />
-            </Box>
-            <Box>
-              <FormControlLabel
-                control={<Checkbox defaultChecked={true} color="primary" />}
-                label="Save this information for the next time"
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <Divider />
-          </Grid>
-        </Grid>
-      </form>
+      
     </Box>
   );
 };

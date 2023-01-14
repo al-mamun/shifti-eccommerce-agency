@@ -150,8 +150,7 @@ const Orders = (): JSX.Element => {
           </Typography>
         </Box>
         <Button
-          component={Link}
-          href={'/demos/ecommerce/order-complete'}
+          type={'submit'}
           variant={'contained'}
           size={'large'}
           fullWidth
