@@ -57,6 +57,7 @@ const Billing = (): JSX.Element => {
               name={'cardNumber'}
               {...register('cardNumber')}
               fullWidth
+              required
             />
           </Grid>
           <Grid item xs={12}>
@@ -73,6 +74,7 @@ const Billing = (): JSX.Element => {
               name={'fullName'}
               {...register('fullName')}
               fullWidth
+              required
             />
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -80,6 +82,7 @@ const Billing = (): JSX.Element => {
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
+              
             >
               Month
             </Typography>
@@ -89,6 +92,7 @@ const Billing = (): JSX.Element => {
               name={'month'}
               {...register('month')}
               fullWidth
+              required
             />
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -96,6 +100,7 @@ const Billing = (): JSX.Element => {
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
+              
             >
               Year
             </Typography>
@@ -103,6 +108,7 @@ const Billing = (): JSX.Element => {
               label="year *"
               variant="outlined"
               name={'year'}
+              required
               {...register('year')}
               fullWidth
             />
@@ -112,6 +118,7 @@ const Billing = (): JSX.Element => {
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
+
             >
               CVV
             </Typography>
@@ -121,6 +128,7 @@ const Billing = (): JSX.Element => {
               name={'cvv'}
               {...register('cvv')}
               fullWidth
+              required
             />
           </Grid>
 

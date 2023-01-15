@@ -35,7 +35,7 @@ const Products = (): JSX.Element => {
   }, [authData]);
 
   useEffect(() => {
-    fetch('https://mamundevstudios.com/shifti_api/public/admin/product/api')
+    fetch('https://mamundevstudios.com/shifti_api/public/api/frontend/featured/products/list')
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

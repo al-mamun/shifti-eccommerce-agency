@@ -28,7 +28,7 @@ const CartContext = ({ children }) => {
     if (userData === null) {
       const userDataFormSession = sessionStorage.getItem('__react_session__');
       const data = JSON.parse(userDataFormSession);
-      const usersInfo = data.userData;
+      const usersInfo = data?.userData;
       setuserData(usersInfo);
       console.log(usersInfo);
     }

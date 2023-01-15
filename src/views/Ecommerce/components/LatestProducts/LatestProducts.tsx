@@ -106,7 +106,7 @@ const LatestProducts = (): JSX.Element => {
       });
   }
   useEffect(() => {
-    fetch('https://mamundevstudios.com/shifti_api/public/admin/product/api')
+    fetch('https://mamundevstudios.com/shifti_api/public/api/frontend/latest/product/list')
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

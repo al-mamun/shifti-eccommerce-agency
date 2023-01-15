@@ -567,6 +567,7 @@ const Checkout = (): JSX.Element => {
                           variant="outlined"
                           name={'fullName'}
                           fullWidth
+                          required
                         />
                       </Grid>
                       <Grid item xs={12} sm={6}>
@@ -623,6 +624,23 @@ const Checkout = (): JSX.Element => {
                           variant="outlined"
                           name={'city'}
                           fullWidth
+                          required
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={12}>
+                        <Typography
+                          variant={'subtitle2'}
+                          sx={{ marginBottom: 2 }}
+                          fontWeight={700}
+                        >
+                          Zip Code
+                        </Typography>
+                        <TextField
+                          label="Zip code *"
+                          variant="outlined"
+                          name={'zip_code'}
+                          fullWidth
+                          required
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -638,6 +656,7 @@ const Checkout = (): JSX.Element => {
                           variant="outlined"
                           name={'address'}
                           fullWidth
+                          required
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -645,6 +664,7 @@ const Checkout = (): JSX.Element => {
                           variant={'subtitle2'}
                           sx={{ marginBottom: 2 }}
                           fontWeight={700}
+                          
                         >
                           Enter your email
                         </Typography>
@@ -653,6 +673,7 @@ const Checkout = (): JSX.Element => {
                           variant="outlined"
                           name={'email'}
                           fullWidth
+                          required
                         />
                       </Grid>
                       <Grid item xs={12}>

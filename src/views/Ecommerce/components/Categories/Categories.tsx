@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -107,7 +107,23 @@ const mock = [
 ];
 
 const Categories = (): JSX.Element => {
+
   const theme = useTheme();
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetch('https://mamundevstudios.com/shifti_api/public/api/frontend/get-categories', {
+        method: 'POST'
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
   return (
     <Box>
       <Box marginBottom={4}>
@@ -151,7 +167,7 @@ const Categories = (): JSX.Element => {
       </Box>
       <Box>
         <Grid container spacing={4}>
-          {mock.map((item, i) => (
+          {posts.map((item, i) => (
             <Grid item xs={6} md={2} key={i}>
               <Box
                 display={'block'}
@@ -208,7 +224,7 @@ const Categories = (): JSX.Element => {
                     align={'center'}
                     sx={{ fontWeight: 500, marginTop: 2 }}
                   >
-                    {item.title}
+                    {item.category_name}
                   </Typography>
                 </Box>
               </Box>
