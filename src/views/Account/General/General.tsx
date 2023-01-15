@@ -16,6 +16,8 @@ import { useForm } from 'react-hook-form';
 import { ReactSession } from 'react-client-session';
 import { useContext } from 'react';
 import { CartData } from 'context/CartContext';
+import { countries } from './../../../data/countrys';
+import Autocomplete from '@mui/material/Autocomplete';
 
 const General = (): JSX.Element => {
   const { register, handleSubmit } = useForm();
@@ -145,7 +147,7 @@ const General = (): JSX.Element => {
               <Grid item xs={12}>
                 <Divider />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 <Typography
                   variant={'subtitle2'}
                   sx={{ marginBottom: 2 }}
@@ -153,15 +155,38 @@ const General = (): JSX.Element => {
                 >
                   Country
                 </Typography>
-                <TextField
-                  label={
-                    authUser?.user
-                      ? authUser?.user?.country
-                      : userData?.user?.country
-                  }
-                  variant="outlined"
-                  name={'country'}
-                  fullWidth
+                <Autocomplete
+                  options={countries}
+                  autoHighlight
+                  // @ts-ignore
+                  getOptionLabel={(option) => option.label}
+                  renderOption={(props, option) => (
+                    <Box
+                      component="li"
+                      sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+                      {...props}
+                    >
+                      <img
+                        loading="lazy"
+                        width="20"
+                        src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                        srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                        alt=""
+                      />
+                      {option.label} ({option.code}) +{option.phone}
+                    </Box>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Choose a country"
+                      name={'country'}
+                      inputProps={{
+                        ...params.inputProps,
+                        autoComplete: 'new-password', // disable autocomplete and autofill
+                      }}
+                    />
+                  )}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>

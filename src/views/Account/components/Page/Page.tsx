@@ -21,16 +21,16 @@ const pages = [
     href: '/account-security',
     title: 'Security',
   },
-  {
-    id: 'notifications',
-    href: '/account-notifications',
-    title: 'Notifications',
-  },
-  {
-    id: 'billing',
-    href: '/account-billing',
-    title: 'Billing Information',
-  },
+  // {
+  //   id: 'notifications',
+  //   href: '/account-notifications',
+  //   title: 'Notifications',
+  // },
+  // {
+  //   id: 'billing',
+  //   href: '/account-billing',
+  //   title: 'Billing Information',
+  // },
   {
     id: 'myorders',
     href: '/my-orders',

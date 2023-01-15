@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import ApplyModal from '../ApplyModal/ApplyModal';
 
 export const mock = [
   {
@@ -69,15 +70,22 @@ export const mock = [
 ];
 
 const Jobs = (): JSX.Element => {
-  
   const theme = useTheme();
   const [posts, setPosts] = useState([]);
   const [categories, setCat] = useState([]);
   const [loctions, setLoc] = useState([]);
+
+  const [openApplication, setOpenApplication] = React.useState(false);
+  const handleApplyJobOpen = () => setOpenApplication(true);
+  const handleApplyClose = () => setOpenApplication(false);
+
   useEffect(() => {
-    fetch('https://mamundevstudios.com/shifti_api/public/api/frontend/job-opening', {
-        method: 'GET'
-      })
+    fetch(
+      'https://mamundevstudios.com/shifti_api/public/api/frontend/job-opening',
+      {
+        method: 'GET',
+      },
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -87,33 +95,34 @@ const Jobs = (): JSX.Element => {
         console.log(err.message);
       });
 
-
-      fetch('https://mamundevstudios.com/shifti_api/public/api/frontend/job-categories', {
-        method: 'GET'
-      })
+    fetch(
+      'https://mamundevstudios.com/shifti_api/public/api/frontend/job-categories',
+      {
+        method: 'GET',
+      },
+    )
       .then((response) => response.json())
       .then((data) => {
-      
         setCat(data);
       })
       .catch((err) => {
         console.log(err.message);
       });
 
-      fetch('https://mamundevstudios.com/shifti_api/public/api/frontend/job-location', {
-        method: 'GET'
-      })
+    fetch(
+      'https://mamundevstudios.com/shifti_api/public/api/frontend/job-location',
+      {
+        method: 'GET',
+      },
+    )
       .then((response) => response.json())
       .then((data) => {
-      
         setLoc(data);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
-
- 
 
   return (
     <Box>
@@ -147,9 +156,9 @@ const Jobs = (): JSX.Element => {
               <MenuItem value="">
                 <em>All roles</em>
               </MenuItem>
-              
+
               {categories.map((item, i) => (
-                <MenuItem value={'item.name'}>{ item.name }</MenuItem>
+                <MenuItem value={'item.name'}>{item.name}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -162,7 +171,7 @@ const Jobs = (): JSX.Element => {
                 <em>All teams</em>
               </MenuItem>
               {categories.map((item, i) => (
-              <MenuItem value={'consumer'}>Consumer</MenuItem>
+                <MenuItem value={'consumer'}>Consumer</MenuItem>
               ))}
               <MenuItem value={'consulting'}>Consulting</MenuItem>
               <MenuItem value={'internal-tools'}>Internal tools</MenuItem>
@@ -182,9 +191,8 @@ const Jobs = (): JSX.Element => {
                 <em>All locations</em>
               </MenuItem>
               {loctions.map((item, i) => (
-              <MenuItem value={'item.location'}>{item.location}</MenuItem>
+                <MenuItem value={'item.location'}>{item.location}</MenuItem>
               ))}
-              
             </Select>
           </FormControl>
         </Grid>
@@ -264,6 +272,7 @@ const Jobs = (): JSX.Element => {
                 <Button
                   variant="outlined"
                   color="primary"
+                  onClick={() => setOpenApplication(true)}
                   size="small"
                   endIcon={
                     <Box
@@ -289,6 +298,12 @@ const Jobs = (): JSX.Element => {
           </Grid>
         ))}
       </Grid>
+      {openApplication && (
+        <ApplyModal
+          handleApplyJobOpen={handleApplyJobOpen}
+          handleApplyClose={handleApplyClose}
+        />
+      )}
     </Box>
   );
 };
