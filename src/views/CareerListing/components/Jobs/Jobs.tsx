@@ -74,6 +74,8 @@ const Jobs = (): JSX.Element => {
   const [posts, setPosts] = useState([]);
   const [categories, setCat] = useState([]);
   const [loctions, setLoc] = useState([]);
+  const [team, setTeam] = useState([]);
+  
   useEffect(() => {
     fetch('https://mamundevstudios.com/shifti_api/public/api/frontend/job-opening', {
         method: 'GET'
@@ -107,6 +109,18 @@ const Jobs = (): JSX.Element => {
       .then((data) => {
       
         setLoc(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+
+      fetch('https://mamundevstudios.com/shifti_api/public/api/frontend/job-team', {
+        method: 'GET'
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        setTeam(data);
       })
       .catch((err) => {
         console.log(err.message);
@@ -161,11 +175,9 @@ const Jobs = (): JSX.Element => {
               <MenuItem value="">
                 <em>All teams</em>
               </MenuItem>
-              {categories.map((item, i) => (
-              <MenuItem value={'consumer'}>Consumer</MenuItem>
+              {team.map((item, i) => (
+              <MenuItem value={item.type}>{item.type}</MenuItem>
               ))}
-              <MenuItem value={'consulting'}>Consulting</MenuItem>
-              <MenuItem value={'internal-tools'}>Internal tools</MenuItem>
             </Select>
           </FormControl>
         </Grid>
