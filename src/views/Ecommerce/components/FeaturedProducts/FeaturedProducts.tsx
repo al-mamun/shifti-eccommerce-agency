@@ -16,7 +16,7 @@ const FeaturedProducts = (): JSX.Element => {
               color="text.primary"
               sx={{ fontWeight: 700, color: '#222B45' }}
             >
-              Experience your music like never before.
+              Experience your music like never before. dd
             </Typography>
           </Box>
           <Box marginBottom={3}>

@@ -93,7 +93,7 @@ const Products = (): JSX.Element => {
           data-aos={'fade-up'}
         >
           Experience your music like never before. Buy music instruments &
-          accessories online.
+          accessories online.  
         </Typography>
         <Box display="flex" justifyContent={'center'} marginTop={2}>
           <Button variant="contained" color="primary" size="large">
