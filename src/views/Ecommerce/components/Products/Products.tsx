@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable semi */
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import Box from '@mui/material/Box';
@@ -15,11 +16,13 @@ import { ToastContainer } from 'react-toastify';
 import './product.css';
 import { ReactSession } from 'react-client-session';
 import { CartData } from 'context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 const Products = (): JSX.Element => {
   const theme = useTheme();
   const [posts, setPosts] = useState([]);
-  const { addToCart } = useContext(CartData);
+  const { addToCart, userData } = useContext(CartData);
+  const navigate = useNavigate();
 
   const [authUser, setAuthUser] = useState(null);
 
@@ -35,16 +38,26 @@ const Products = (): JSX.Element => {
   }, [authData]);
 
   useEffect(() => {
-    fetch('https://mamundevstudios.com/shifti_api/public/api/frontend/featured/products/list')
+    fetch(
+      'https://mamundevstudios.com/shifti_api/public/api/frontend/featured/products/list',
+    )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setPosts(data);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
+
+  const handleAddToCart = (data) => {
+    if (!userData?.token) {
+      navigate('/signin-simple');
+      return;
+    }
+    addToCart(data);
+  };
 
   return (
     <Box>
@@ -93,7 +106,7 @@ const Products = (): JSX.Element => {
           data-aos={'fade-up'}
         >
           Experience your music like never before. Buy music instruments &
-          accessories online.  
+          accessories online.
         </Typography>
         <Box display="flex" justifyContent={'center'} marginTop={2}>
           <Button variant="contained" color="primary" size="large">
@@ -213,7 +226,7 @@ const Products = (): JSX.Element => {
                       {item.price}$
                     </Typography>
                     <button
-                      onClick={() => addToCart(item.productID)}
+                      onClick={() => handleAddToCart(item.productID)}
                       className="button_reset"
                     >
                       <Button
