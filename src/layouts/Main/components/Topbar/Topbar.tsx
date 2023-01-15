@@ -232,14 +232,16 @@ const Topbar = ({
           </>
         )}
         <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 5 }}>
-          <IconButton aria-label="cart">
-            <StyledBadge
-              badgeContent={`${cartCount?.count ? cartCount?.count : 0}`}
-              color="secondary"
-            >
-              <ShoppingCartIcon />
-            </StyledBadge>
-          </IconButton>
+          <Link to="/cart-page" style={{ textDecoration: 'none' }}>
+            <IconButton aria-label="cart">
+              <StyledBadge
+                badgeContent={`${cartCount?.count ? cartCount?.count : 0}`}
+                color="secondary"
+              >
+                <ShoppingCartIcon />
+              </StyledBadge>
+            </IconButton>
+          </Link>
         </Box>
       </Box>
 

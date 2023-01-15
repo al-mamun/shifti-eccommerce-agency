@@ -13,7 +13,7 @@ const PrivateRoute = ({ children }) => {
   // }
   const userDataFormSession = sessionStorage.getItem('__react_session__');
   const data = JSON.parse(userDataFormSession);
-  const userData = data.userData;
+  const userData = data?.userData;
 
   if (!userData?.user) {
     // not logged in so redirect to login page with the return url
