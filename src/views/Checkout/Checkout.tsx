@@ -890,6 +890,7 @@ const Checkout = (): JSX.Element => {
                           name={'cardNumber'}
                           {...register('cardNumber', { required: true })}
                           fullWidth
+                          required
                         />
                         {errors.cardNumber &&
                           errors.cardNumber.type === 'required' && (
@@ -934,6 +935,23 @@ const Checkout = (): JSX.Element => {
                           name={'month'}
                           {...register('month', { required: true })}
                           fullWidth
+                          required
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={12}>
+                        <Typography
+                          variant={'subtitle2'}
+                          sx={{ marginBottom: 2 }}
+                          fontWeight={700}
+                        >
+                          Zip Code
+                        </Typography>
+                        <TextField
+                          label="Zip code *"
+                          variant="outlined"
+                          name={'zip_code'}
+                          fullWidth
+                          required
                         />
                         {errors.month && errors.month.type === 'required' && (
                           <Alert severity="error" sx={{ mt: 1 }}>
@@ -955,6 +973,7 @@ const Checkout = (): JSX.Element => {
                           name={'year'}
                           {...register('year', { required: true })}
                           fullWidth
+                          required
                         />
                         {errors.year && errors.year.type === 'required' && (
                           <Alert severity="error" sx={{ mt: 1 }}>
@@ -967,6 +986,7 @@ const Checkout = (): JSX.Element => {
                           variant={'subtitle2'}
                           sx={{ marginBottom: 2 }}
                           fontWeight={700}
+                          
                         >
                           CVV
                         </Typography>
@@ -976,6 +996,7 @@ const Checkout = (): JSX.Element => {
                           name={'cvv'}
                           {...register('cvv', { required: true })}
                           fullWidth
+                          required
                         />
                         {errors.cvv && errors.cvv.type === 'required' && (
                           <Alert severity="error" sx={{ mt: 1 }}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -69,7 +69,23 @@ export const mock = [
 ];
 
 const Jobs = (): JSX.Element => {
+  
   const theme = useTheme();
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetch('https://mamundevstudios.com/shifti_api/public/api/frontend/job-opening', {
+        method: 'GET'
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
   return (
     <Box>
       <Box marginBottom={4}>
@@ -180,7 +196,7 @@ const Jobs = (): JSX.Element => {
           borderRadius: 2,
         }}
       >
-        {mock.map((item, i) => (
+        {posts.map((item, i) => (
           <Grid
             item
             xs={12}

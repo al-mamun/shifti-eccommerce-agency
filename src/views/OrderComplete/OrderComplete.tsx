@@ -59,7 +59,7 @@ const OrderComplete = (): JSX.Element => {
           </Typography>
           <Button
             component={Link}
-            href={'/demos/ecommerce/listing'}
+            href={'/e-commerce'}
             variant={'contained'}
             size={'large'}
             sx={{ marginTop: 4 }}
