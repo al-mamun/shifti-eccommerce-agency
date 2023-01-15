@@ -13,16 +13,7 @@ const CareerListing = (): JSX.Element => {
   return (
     <Main>
       <Box>
-        <Hero />
-        <Container>
-          <CompanyValues />
-        </Container>
-        <Container>
-          <Divider />
-        </Container>
-        <Container>
-          <About />
-        </Container>
+       
         <Box
           component={'svg'}
           preserveAspectRatio="none"

@@ -72,6 +72,8 @@ const Jobs = (): JSX.Element => {
   
   const theme = useTheme();
   const [posts, setPosts] = useState([]);
+  const [categories, setCat] = useState([]);
+  const [loctions, setLoc] = useState([]);
   useEffect(() => {
     fetch('https://mamundevstudios.com/shifti_api/public/api/frontend/job-opening', {
         method: 'GET'
@@ -84,7 +86,34 @@ const Jobs = (): JSX.Element => {
       .catch((err) => {
         console.log(err.message);
       });
+
+
+      fetch('https://mamundevstudios.com/shifti_api/public/api/frontend/job-categories', {
+        method: 'GET'
+      })
+      .then((response) => response.json())
+      .then((data) => {
+      
+        setCat(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+      fetch('https://mamundevstudios.com/shifti_api/public/api/frontend/job-location', {
+        method: 'GET'
+      })
+      .then((response) => response.json())
+      .then((data) => {
+      
+        setLoc(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   }, []);
+
+ 
 
   return (
     <Box>
@@ -118,10 +147,10 @@ const Jobs = (): JSX.Element => {
               <MenuItem value="">
                 <em>All roles</em>
               </MenuItem>
-              <MenuItem value={'design'}>Design</MenuItem>
-              <MenuItem value={'engineering'}>Engineering</MenuItem>
-              <MenuItem value={'product'}>Product</MenuItem>
-              <MenuItem value={'support'}>Support</MenuItem>
+              
+              {categories.map((item, i) => (
+                <MenuItem value={'item.name'}>{ item.name }</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
@@ -132,7 +161,9 @@ const Jobs = (): JSX.Element => {
               <MenuItem value="">
                 <em>All teams</em>
               </MenuItem>
+              {categories.map((item, i) => (
               <MenuItem value={'consumer'}>Consumer</MenuItem>
+              ))}
               <MenuItem value={'consulting'}>Consulting</MenuItem>
               <MenuItem value={'internal-tools'}>Internal tools</MenuItem>
             </Select>
@@ -150,9 +181,10 @@ const Jobs = (): JSX.Element => {
               <MenuItem value="">
                 <em>All locations</em>
               </MenuItem>
-              <MenuItem value={'milan'}>Milan</MenuItem>
-              <MenuItem value={'yerevan'}>Yerevan</MenuItem>
-              <MenuItem value={'paris'}>Paris</MenuItem>
+              {loctions.map((item, i) => (
+              <MenuItem value={'item.location'}>{item.location}</MenuItem>
+              ))}
+              
             </Select>
           </FormControl>
         </Grid>
@@ -185,7 +217,7 @@ const Jobs = (): JSX.Element => {
             fontWeight={700}
             sx={{ color: 'common.black' }}
           >
-            {mock.length} openings
+            {posts.length} openings
           </Typography>
         </Box>
       </Box>

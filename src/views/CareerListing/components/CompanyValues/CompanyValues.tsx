@@ -39,30 +39,7 @@ const mock = [
 const CompanyValues = (): JSX.Element => {
   return (
     <Box>
-      <Box marginBottom={4}>
-        <Typography
-          align={'center'}
-          color={'text.secondary'}
-          sx={{ textTransform: 'uppercase' }}
-          variant={'subtitle2'}
-          fontWeight={600}
-        >
-          Company values
-        </Typography>
-        <Typography fontWeight={700} variant={'h4'} align={'center'}>
-          Our company culture
-        </Typography>
-      </Box>
-      <Grid container spacing={4}>
-        {mock.map((item, i) => (
-          <Grid key={i} item xs={12} sm={6} md={4}>
-            <Typography variant={'h6'} fontWeight={600} gutterBottom>
-              {item.title}
-            </Typography>
-            <Typography color="text.secondary">{item.subtitle}</Typography>
-          </Grid>
-        ))}
-      </Grid>
+     
     </Box>
   );
 };
