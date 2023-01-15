@@ -938,27 +938,7 @@ const Checkout = (): JSX.Element => {
                           required
                         />
                       </Grid>
-                      <Grid item xs={12} sm={12}>
-                        <Typography
-                          variant={'subtitle2'}
-                          sx={{ marginBottom: 2 }}
-                          fontWeight={700}
-                        >
-                          Zip Code
-                        </Typography>
-                        <TextField
-                          label="Zip code *"
-                          variant="outlined"
-                          name={'zip_code'}
-                          fullWidth
-                          required
-                        />
-                        {errors.month && errors.month.type === 'required' && (
-                          <Alert severity="error" sx={{ mt: 1 }}>
-                            This is required
-                          </Alert>
-                        )}
-                      </Grid>
+
                       <Grid item xs={12} sm={4}>
                         <Typography
                           variant={'subtitle2'}
@@ -986,7 +966,6 @@ const Checkout = (): JSX.Element => {
                           variant={'subtitle2'}
                           sx={{ marginBottom: 2 }}
                           fontWeight={700}
-                          
                         >
                           CVV
                         </Typography>
