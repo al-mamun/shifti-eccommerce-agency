@@ -253,13 +253,14 @@ const Orders = (): JSX.Element => {
                     <IconButton
                       aria-label="cart"
                       onClick={() =>
-                        handleCartUpdate(item?.id, item?.quantity, 1)
+                        handleCartUpdate(item?.id, item?.quantity, 0)
                       }
                     >
                       <StyledBadge color="secondary">
-                        <AddIcon />
+                        <RemoveIcon />
                       </StyledBadge>
                     </IconButton>
+
                     <input
                       value={item?.quantity}
                       style={{ width: '50px' }}
@@ -268,11 +269,11 @@ const Orders = (): JSX.Element => {
                     <IconButton
                       aria-label="cart"
                       onClick={() =>
-                        handleCartUpdate(item?.id, item?.quantity, 0)
+                        handleCartUpdate(item?.id, item?.quantity, 1)
                       }
                     >
                       <StyledBadge color="secondary">
-                        <RemoveIcon />
+                        <AddIcon />
                       </StyledBadge>
                     </IconButton>
                   </Box>
