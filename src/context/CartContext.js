@@ -54,7 +54,7 @@ const CartContext = ({ children }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          // console.log(data);
+          console.log(data);
           setMyOrdersData(data?.data);
         });
     }
