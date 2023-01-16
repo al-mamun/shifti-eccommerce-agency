@@ -122,7 +122,7 @@ const General = (): JSX.Element => {
                   {...register('email')}
                 />
               </Grid>
-              <Grid item xs={12} sm={12}>
+              <Grid item xs={12} sm={6}>
                 <Typography
                   variant={'subtitle2'}
                   sx={{ marginBottom: 2 }}
@@ -141,6 +141,27 @@ const General = (): JSX.Element => {
                   fullWidth
                   defaultValue={authUser?.user?.phone}
                   {...register('phone')}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography
+                  variant={'subtitle2'}
+                  sx={{ marginBottom: 2 }}
+                  fontWeight={700}
+                >
+                  Zip Code
+                </Typography>
+                <TextField
+                  label={
+                    authUser?.zip_code
+                      ? authUser?.user?.zip_code
+                      : userData?.user?.zip_code
+                  }
+                  variant="outlined"
+                  name={'zip_code'}
+                  fullWidth
+                  defaultValue={authUser?.user?.zip_code}
+                  {...register('zip_code')}
                 />
               </Grid>
 

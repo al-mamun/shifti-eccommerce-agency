@@ -13,6 +13,7 @@ import {
   Cart as CartPageView,
   Checkout as CheckOutPage,
   Coworking as CoworkingView,
+  Categories as CategoriesView,
   Elearning as ElearningView,
   Enterprise as EnterpriseView,
   Service as ServiceView,
@@ -28,6 +29,7 @@ import {
   Logistics as LogisticsView,
   Ecommerce as EcommerceView,
   Pricing as PricingView,
+  Listing as ListingView,
   About as AboutView,
   HelpCenter as HelpCenterView,
   HelpCenterArticle as HelpCenterArticleView,
@@ -113,6 +115,14 @@ const routes = [
   {
     path: '/check-out-page',
     renderer: (params = {}): JSX.Element => <CheckOutPage {...params} />,
+  },
+  {
+    path: '/categorie',
+    renderer: (params = {}): JSX.Element => <CategoriesView {...params} />,
+  },
+  {
+    path: '/listing',
+    renderer: (params = {}): JSX.Element => <ListingView {...params} />,
   },
   {
     path: '/order-complete',

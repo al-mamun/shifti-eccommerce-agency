@@ -215,6 +215,27 @@ const Checkout = (): JSX.Element => {
                             sx={{ marginBottom: 2 }}
                             fontWeight={700}
                           >
+                            Phone Number
+                          </Typography>
+                          <TextField
+                            label="Phone *"
+                            variant="outlined"
+                            name={'phone'}
+                            {...register('phone', { required: true })}
+                            fullWidth
+                          />
+                          {errors.phone && errors.phone.type === 'required' && (
+                            <Alert severity="error" sx={{ mt: 1 }}>
+                              This is required
+                            </Alert>
+                          )}
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Typography
+                            variant={'subtitle2'}
+                            sx={{ marginBottom: 2 }}
+                            fontWeight={700}
+                          >
                             Enter your address
                           </Typography>
                           <TextField
@@ -339,16 +360,19 @@ const Checkout = (): JSX.Element => {
                               >
                                 {item?.product?.product_name?.slice(0, 20)} ...
                               </Typography>
-                              {/* <Typography color={'text.secondary'} variant={'subtitle2'}>
-                  Size: {item.size}
-                </Typography> */}
-                              {/* <Typography
-                  color={'text.secondary'}
-                  variant={'subtitle2'}
-                  noWrap={true}
-                >
-                  Code: {item.code}
-                </Typography> */}
+                              <Typography
+                                color={'text.secondary'}
+                                variant={'subtitle2'}
+                              >
+                                Price :${item?.product?.price}
+                              </Typography>
+                              <Typography
+                                color={'text.secondary'}
+                                variant={'subtitle2'}
+                                noWrap={true}
+                              >
+                                Code: {item?.product?.id}
+                              </Typography>
                             </Box>
                             <Box>
                               {/* <Typography fontWeight={700} variant={'subtitle2'}>

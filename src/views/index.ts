@@ -44,6 +44,8 @@ export { default as AboutSideCover } from './AboutSideCover';
 export { default as BlogSearch } from './BlogSearch';
 export { default as BlogNewsroom } from './BlogNewsroom';
 export { default as BlogArticle } from './BlogArticle';
+export { default as Categories } from './Categories';
+export { default as Listing } from './ProductView/Listing';
 export { default as BlogReachView } from './BlogReachView';
 export { default as PasswordResetCover } from './PasswordResetCover';
 export { default as PasswordResetSimple } from './PasswordResetSimple';

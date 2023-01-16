@@ -142,7 +142,7 @@ const Orders = (): JSX.Element => {
                     color={'inherit'}
                     fontWeight={700}
                   >
-                    Price :{item?.product?.price}
+                    Price :${item?.product?.price}
                   </Typography>
                 </Typography>
 
