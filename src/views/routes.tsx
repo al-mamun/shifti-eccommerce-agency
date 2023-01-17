@@ -28,6 +28,7 @@ import {
   CloudHosting as CloudHostingView,
   Logistics as LogisticsView,
   Ecommerce as EcommerceView,
+  ProductOverview,
   Pricing as PricingView,
   Listing as ListingView,
   About as AboutView,
@@ -243,6 +244,10 @@ const routes = [
   {
     path: '/pricing',
     renderer: (params = {}): JSX.Element => <PricingView {...params} />,
+  },
+  {
+    path: '/product-details',
+    renderer: (params = {}): JSX.Element => <ProductOverview {...params} />,
   },
   {
     path: '/blog-search',
