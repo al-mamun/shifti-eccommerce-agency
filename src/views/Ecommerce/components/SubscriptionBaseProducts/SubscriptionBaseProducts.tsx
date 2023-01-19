@@ -259,12 +259,18 @@ const SubscriptionBaseProducts = (): JSX.Element => {
               </CardContent>
               <Box flexGrow={1} />
               <CardActions sx={{ justifyContent: 'flex-end', padding: 4 }}>
-                <Button
-                  size={'large'}
-                  variant={item?.isHighlighted ? 'contained' : 'outlined'}
+                <a
+                  href="https://www.shifti.com.au/pricing"
+                  style={{ textDecoration: 'none' }}
+                  target="_blank"
                 >
-                  {item?.btnText}
-                </Button>
+                  <Button
+                    size={'large'}
+                    variant={item?.isHighlighted ? 'contained' : 'outlined'}
+                  >
+                    {item?.btnText}
+                  </Button>
+                </a>
               </CardActions>
             </Box>
           </Grid>
