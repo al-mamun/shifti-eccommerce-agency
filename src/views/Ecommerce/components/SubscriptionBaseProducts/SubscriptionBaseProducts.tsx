@@ -1,4 +1,6 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable semi */
+import React, { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -9,6 +11,7 @@ import Grid from '@mui/material/Grid';
 import CardActions from '@mui/material/CardActions';
 
 import Container from 'components/Container';
+import { api } from 'api/config';
 
 const mock = [
   {
@@ -123,6 +126,17 @@ const mock = [
 
 const SubscriptionBaseProducts = (): JSX.Element => {
   const theme = useTheme();
+  const [subscriptionProduct, setSubscriptionProduct] = useState([]);
+  const [subscriptionType, setSubscriptionType] = useState('month');
+
+  useEffect(() => {
+    fetch(`${api}/api/frontend/subscription/product/list`)
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        setSubscriptionProduct(data);
+      });
+  }, []);
 
   return (
     <Container>
@@ -171,7 +185,7 @@ const SubscriptionBaseProducts = (): JSX.Element => {
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {subscriptionProduct?.map((item, i) => (
           <Grid item xs={12} md={4} key={i}>
             <Box
               component={Card}
@@ -194,7 +208,7 @@ const SubscriptionBaseProducts = (): JSX.Element => {
                 >
                   <Typography variant={'h6'} gutterBottom>
                     <Box component={'span'} fontWeight={600}>
-                      {item.title}
+                      {item?.title}
                     </Box>
                   </Typography>
                   <Box display={'flex'} alignItems={'flex-start'}>
@@ -209,7 +223,15 @@ const SubscriptionBaseProducts = (): JSX.Element => {
                     </Typography>
                     <Typography variant={'h2'} color={'primary'} gutterBottom>
                       <Box component={'span'} fontWeight={600}>
-                        {item.price}
+                        {subscriptionType == 'month' && (
+                          <span>{item?.price?.month}</span>
+                        )}
+                        {subscriptionType == 'annual' && (
+                          <span>{item?.price?.annual}</span>
+                        )}
+                        {subscriptionType == 'bio-annual' && (
+                          <span>{item?.price?.bio_annual}</span>
+                        )}
                       </Box>
                     </Typography>
                   </Box>
@@ -218,7 +240,7 @@ const SubscriptionBaseProducts = (): JSX.Element => {
                   </Typography>
                 </Box>
                 <Grid container spacing={1}>
-                  {item.features.map((feature, j) => (
+                  {item?.features?.map((feature, j) => (
                     <Grid item xs={12} key={j}>
                       <Typography
                         component={'p'}
@@ -229,7 +251,7 @@ const SubscriptionBaseProducts = (): JSX.Element => {
                             : 'none',
                         }}
                       >
-                        {feature.title}
+                        {feature?.title}
                       </Typography>
                     </Grid>
                   ))}
@@ -239,9 +261,9 @@ const SubscriptionBaseProducts = (): JSX.Element => {
               <CardActions sx={{ justifyContent: 'flex-end', padding: 4 }}>
                 <Button
                   size={'large'}
-                  variant={item.isHighlighted ? 'contained' : 'outlined'}
+                  variant={item?.isHighlighted ? 'contained' : 'outlined'}
                 >
-                  {item.btnText}
+                  {item?.btnText}
                 </Button>
               </CardActions>
             </Box>
