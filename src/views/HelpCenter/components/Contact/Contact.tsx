@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useTheme } from '@mui/material/styles';
@@ -13,6 +13,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
+import { ToastContainer, toast } from 'react-toastify';
+import { api } from 'api/config';
 
 const mock = [
   {
@@ -97,8 +99,30 @@ const Contact = (): JSX.Element => {
     email: '',
   };
 
-  const onSubmit = (values) => {
-    return values;
+  const onSubmit = (data) => {
+    alert();
+    fetch(`${api}/api/frontend/apply-job`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        toast.success('Successfully send your application', {
+          position: 'top-right',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      });
+      
   };
 
   const formik = useFormik({
@@ -121,7 +145,7 @@ const Contact = (): JSX.Element => {
         <Typography color="text.secondary" align={'center'}>
           Keep track of what's happening with your data, change permissions, and
           run reports against your data anywhere in the world. Keep track of
-          what's happening with your data, change permissions.
+          what's happening with your data, change permissions data 23.
         </Typography>
       </Box>
       <Box

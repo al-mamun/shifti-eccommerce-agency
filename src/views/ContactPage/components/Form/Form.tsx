@@ -9,7 +9,8 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-
+import { ToastContainer, toast } from 'react-toastify';
+import { api } from 'api/config';
 const validationSchema = yup.object({
   fullName: yup
     .string()
@@ -40,8 +41,30 @@ const Form = (): JSX.Element => {
     email: '',
   };
 
-  const onSubmit = (values) => {
-    return values;
+  const onSubmit = (data) => {
+    
+    fetch(`${api}/api/frontend/contact-send-us`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        toast.success('Successfully send your application', {
+          position: 'top-right',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      });
+      
   };
 
   const formik = useFormik({

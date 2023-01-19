@@ -86,6 +86,10 @@ const pages = {
     {
       title: 'About',
       href: '/about',
+    },
+    {
+      title: 'Terms',
+      href: '/company-terms',
     }
   ],
   account: [

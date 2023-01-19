@@ -2,7 +2,7 @@
 /* eslint-disable quotes */
 /* eslint-disable @typescript-eslint/prefer-as-const */
 /* eslint-disable semi */
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -12,7 +12,8 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 import Alert from '@mui/material/Alert';
-
+import { ToastContainer, toast } from 'react-toastify';
+import { api } from 'api/config';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -35,9 +36,39 @@ const ApplyModal = ({ handleApplyJobOpen, handleApplyClose }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [file, setFile] = useState()
+
+  function handleChange(event) {
+    setFile(event.target.files[0]);
+    alert(event.target.files[0]);
+  }
 
   const onSubmit = (data) => {
-    console.log(data);
+    
+    
+      fetch(`${api}/api/frontend/apply-job`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          handleApplyClose();
+          toast.success('Successfully send your application', {
+            position: 'top-right',
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
+        });
+  
   };
 
   return (
@@ -50,12 +81,21 @@ const ApplyModal = ({ handleApplyJobOpen, handleApplyClose }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+    
+          <form onSubmit={handleSubmit(onSubmit)} enctype="multipart/form-data">
             <Grid container spacing={4}>
               <Grid item xs={12}>
                 <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
-                  Enter your email
+                  Enter your information details
                 </Typography>
+                <TextField
+                  name={'job_id'}
+                  type={'hidden'}
+                  value={'2'}
+                  display={'none'}
+                  {...register('job_id', { required: true })}
+                  // @ts-ignore
+                />
                 <TextField
                   label="Full Name *"
                   variant="outlined"
@@ -93,11 +133,11 @@ const ApplyModal = ({ handleApplyJobOpen, handleApplyClose }) => {
                     borderRadius: '5px',
                     border: '1px solid gray',
                   }}
-                  name={'coverLetter'}
-                  {...register('coverLetter', { required: true })}
+                  name={'cover_letter'}
+                  {...register('cover_letter', { required: true })}
                 />
-                {errors.coverLetter &&
-                  errors.coverLetter.type === 'required' && (
+                {errors.cover_letter &&
+                  errors.cover_letter.type === 'required' && (
                     <Alert severity="error" sx={{ mt: 1 }}>
                       This is required
                     </Alert>
@@ -128,6 +168,37 @@ const ApplyModal = ({ handleApplyJobOpen, handleApplyClose }) => {
                   // @ts-ignore
                 />
                 {errors.salary && errors.salary.type === 'required' && (
+                  <Alert severity="error" sx={{ mt: 1 }}>
+                    This is required
+                  </Alert>
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                <Box
+                  display="flex"
+                  flexDirection={{ xs: 'column', sm: 'row' }}
+                  alignItems={{ xs: 'stretched', sm: 'center' }}
+                  justifyContent={'space-between'}
+                  width={1}
+                  marginBottom={2}
+                >
+                  <Box marginBottom={{ xs: 1, sm: 0 }}>
+                    <Typography variant={'subtitle2'}>
+                       Cv*
+                    </Typography>
+                  </Box>
+                </Box>
+                <TextField
+                  label=" cv *"
+                  variant="outlined"
+                  name={'cv'}
+                  type={'file'}
+                  onChange={handleChange}
+                  fullWidth
+                  {...register('cv', { required: true })}
+                  // @ts-ignore
+                />
+                {errors.cv && errors.cv.type === 'required' && (
                   <Alert severity="error" sx={{ mt: 1 }}>
                     This is required
                   </Alert>

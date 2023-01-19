@@ -5,7 +5,7 @@ import Divider from '@mui/material/Divider';
 
 import Main from 'layouts/Main';
 import Container from 'components/Container';
-
+import { ToastContainer, toast } from 'react-toastify';
 import { Hero, Jobs, Newsletter, About, CompanyValues } from './components';
 
 const CareerListing = (): JSX.Element => {
@@ -13,7 +13,20 @@ const CareerListing = (): JSX.Element => {
   return (
     <Main>
       <Box>
-       
+      <ToastContainer
+          position="top-right"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      {/* Same as */}
+      <ToastContainer />
         <Box
           component={'svg'}
           preserveAspectRatio="none"
