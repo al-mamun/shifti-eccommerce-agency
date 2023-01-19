@@ -12,6 +12,7 @@ import CardActions from '@mui/material/CardActions';
 
 import Container from 'components/Container';
 import { api } from 'api/config';
+import { Link } from 'react-router-dom';
 
 const mock = [
   {
@@ -172,7 +173,7 @@ const SubscriptionBaseProducts = (): JSX.Element => {
           Experience your music like never before. Buy music instruments &
           accessories online.
         </Typography>
-        <Box display="flex" justifyContent={'center'} marginTop={2}>
+        {/* <Box display="flex" justifyContent={'center'} marginTop={2}>
           <a
             href="https://www.shifti.com.au/pricing"
             style={{ textDecoration: 'none' }}
@@ -182,7 +183,7 @@ const SubscriptionBaseProducts = (): JSX.Element => {
               View all
             </Button>
           </a>
-        </Box>
+        </Box> */}
       </Box>
       <Grid container spacing={4}>
         {subscriptionProduct?.map((item, i) => (
@@ -259,10 +260,9 @@ const SubscriptionBaseProducts = (): JSX.Element => {
               </CardContent>
               <Box flexGrow={1} />
               <CardActions sx={{ justifyContent: 'flex-end', padding: 4 }}>
-                <a
-                  href="https://www.shifti.com.au/pricing"
+                <Link
+                  to={`/pricing/${item?.slug}`}
                   style={{ textDecoration: 'none' }}
-                  target="_blank"
                 >
                   <Button
                     size={'large'}
@@ -270,7 +270,7 @@ const SubscriptionBaseProducts = (): JSX.Element => {
                   >
                     {item?.btnText}
                   </Button>
-                </a>
+                </Link>
               </CardActions>
             </Box>
           </Grid>

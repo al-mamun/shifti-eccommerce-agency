@@ -29,7 +29,7 @@ import {
   Logistics as LogisticsView,
   Ecommerce as EcommerceView,
   ProductOverview,
-  Pricing as PricingView,
+  SingleSubscriptionProduct as SingleSubscriptionProductView,
   Listing as ListingView,
   About as AboutView,
   HelpCenter as HelpCenterView,
@@ -242,8 +242,10 @@ const routes = [
     renderer: (params = {}): JSX.Element => <AboutSideCoverView {...params} />,
   },
   {
-    path: '/pricing',
-    renderer: (params = {}): JSX.Element => <PricingView {...params} />,
+    path: '/pricing/:id',
+    renderer: (params = {}): JSX.Element => (
+      <SingleSubscriptionProductView {...params} />
+    ),
   },
   {
     path: '/product-details',

@@ -30,7 +30,7 @@ export { default as Rental } from './Rental';
 export { default as CloudHosting } from './CloudHosting';
 export { default as Logistics } from './Logistics';
 export { default as Ecommerce } from './Ecommerce';
-export { default as Pricing } from './Pricing';
+export { default as SingleSubscriptionProduct } from './Ecommerce/components/SingleSubscriptionProduct';
 export { default as About } from './About';
 export { default as HelpCenter } from './HelpCenter';
 export { default as HelpCenterArticle } from './HelpCenterArticle';
