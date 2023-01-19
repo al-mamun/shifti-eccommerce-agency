@@ -13,6 +13,7 @@ import {
   Products,
   QuickSearch,
   Reviews,
+  SubscriptionBaseProducts,
 } from './components';
 
 const Ecommerce = (): JSX.Element => {
@@ -42,6 +43,9 @@ const Ecommerce = (): JSX.Element => {
       </Box>
       <Container>
         <LatestProducts />
+      </Container>
+      <Container>
+        <SubscriptionBaseProducts />
       </Container>
       <Container paddingTop={'0 !important'}>
         <QuickSearch />
