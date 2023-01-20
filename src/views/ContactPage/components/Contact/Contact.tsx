@@ -7,7 +7,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import { useTheme } from '@mui/material/styles';
-
+import { api } from 'api/config';
 import Container from 'components/Container';
 
 const mock = [
@@ -66,28 +66,44 @@ const mock = [
 const Contact = (): JSX.Element => {
   const theme = useTheme();
   const [posts, setPosts] = useState([]);
+  const [pageTitle, contactInfoTitle] = useState([]);
+  const [pagecontent, contactInfoContent] = useState([]);
+  const [googleMap, setGoogleMap] = useState([]);
+
   useEffect(() => {
-    fetch('https://mamundevstudios.com/shifti_api/public/admin/contact/api')
+    fetch(`${api}/api/frontend/contact/api`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setPosts(data);
       })
       .catch((err) => {
         console.log(err.message);
       });
+
+      fetch(`${api}/api/frontend/contact/content`)
+        .then((response) => response.json())
+        .then((data) => {
+          
+          contactInfoTitle(data.page_title);
+          contactInfoContent(data.page_content);
+          setGoogleMap(data.google_map);
+       
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
   }, []);
+
   const LeftSide = (): JSX.Element => {
     return (
       <Box>
         <Box marginBottom={2}>
           <Typography variant={'h4'} sx={{ fontWeight: 700 }} gutterBottom>
-            Contact details
+            {pageTitle}
           </Typography>
           <Typography color="text.secondary">
-            Rather than worrying about switching offices every couple years, you
-            can instead stay in the same location and grow-up from your shared
-            coworking space to an office that takes up an entire floor.
+            {pagecontent}
+            
           </Typography>
         </Box>
         <Box
@@ -128,6 +144,7 @@ const Contact = (): JSX.Element => {
   const RightSide = (): JSX.Element => {
     return (
       <iframe
+        src={`${googleMap}`}
         width="100%"
         height="100%"
         frameBorder="0"
@@ -135,7 +152,6 @@ const Contact = (): JSX.Element => {
         marginHeight={0}
         marginWidth={0}
         scrolling="no"
-        src="https://maps.google.com/maps?width=100%&height=100%&hl=en&q=Milan&ie=UTF8&t=&z=14&iwloc=B&output=embed"
         style={{
           minHeight: 300,
           filter:

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useTheme } from '@mui/material/styles';
@@ -11,6 +11,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { ToastContainer, toast } from 'react-toastify';
 import { api } from 'api/config';
+
 const validationSchema = yup.object({
   fullName: yup
     .string()
@@ -52,7 +53,7 @@ const Form = (): JSX.Element => {
       body: JSON.stringify(data),
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then((data1) => {
         toast.success('Successfully send your application', {
           position: 'top-right',
           autoClose: 1000,
@@ -73,8 +74,25 @@ const Form = (): JSX.Element => {
     onSubmit,
   });
 
+  const [FromTitle, FromHeadeeTitle] = useState([]);
+  const [FromContent, FromHeaderContact] = useState([]);
+
+  useEffect(() => {
+      fetch(`${api}/api/frontend/contact/content`)
+        .then((response) => response.json())
+        .then((data) => {
+          
+          FromHeadeeTitle(data.from_header_title);
+          FromHeaderContact(data.from_header_content);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+  }, []);
+
   return (
     <Box>
+
       <Box marginBottom={2}>
         <Typography
           variant={'h4'}
@@ -82,14 +100,27 @@ const Form = (): JSX.Element => {
           gutterBottom
           align={'center'}
         >
-          Can't find the answer you need?
+          {FromTitle}
         </Typography>
         <Typography color="text.secondary" align={'center'}>
-          Keep track of what's happening with your data, change permissions, and
-          run reports against your data anywhere in the world. Keep track of
-          what's happening with your data, change permissions.
+          {FromContent}
+         
         </Typography>
       </Box>
+      <ToastContainer
+          position="top-right"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      {/* Same as */}
+      <ToastContainer />
       <Box
         maxWidth={600}
         margin={'0 auto'}

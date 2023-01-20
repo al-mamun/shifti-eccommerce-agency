@@ -209,14 +209,19 @@ const Categories = (): JSX.Element => {
                         marginTop: 2,
                       }}
                     />
+                    
                     <Box
+                      component={'img'}
+                      src={item.icon}
                       sx={{
                         color: 'primary.dark',
                         position: 'absolute',
-                        bottom: 0,
+                        top: '15px',
+                        width:'20px',
+                        left: '61px'
                       }}
                     >
-                      {item.icon}
+                     
                     </Box>
                   </Box>
                   <Typography

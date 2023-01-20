@@ -1,0 +1,7 @@
+@media screen and (max-width: 540px) {
+    .custom_link {
+        color: #666 !important;
+        text-decoration: none;
+        min-height: 48px;
+    }
+}

@@ -267,7 +267,7 @@ const LatestProducts = (): JSX.Element => {
                   </Box>
                   <CardActions sx={{ justifyContent: 'space-between' }}>
                     <Typography sx={{ fontWeight: 700 }} color={'primary'}>
-                      {item.price}
+                      {item.price}$
                     </Typography>
                     <button
                       onClick={() => addToCart(item.productID)}

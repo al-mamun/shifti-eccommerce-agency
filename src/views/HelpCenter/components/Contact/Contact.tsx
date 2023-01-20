@@ -100,7 +100,7 @@ const Contact = (): JSX.Element => {
   };
 
   const onSubmit = (data) => {
-    alert();
+
     fetch(`${api}/api/frontend/apply-job`, {
       method: 'POST',
       headers: {

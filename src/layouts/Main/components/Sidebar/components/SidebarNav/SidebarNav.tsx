@@ -2,7 +2,8 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
-
+import { Link } from 'react-router-dom';
+import './sidenav.css';
 import NavItem from './components/NavItem';
 
 interface Props {
@@ -43,8 +44,8 @@ const SidebarNav = ({ pages }: Props): JSX.Element => {
             component={'img'}
             src={
               mode === 'light'
-                ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
-                : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
+                ? 'https://mamundevstudios.com/shifti_api/public/shifti_logo.png'
+                : 'https://mamundevstudios.com/shifti_api/public/shifti_logo.png'
             }
             height={1}
             width={1}
@@ -52,8 +53,23 @@ const SidebarNav = ({ pages }: Props): JSX.Element => {
         </Box>
       </Box>
       <Box paddingX={2} paddingY={2}>
+      <Box className="menu_bar css-1mvbbh8-MuiTypography-root">
+          <Link to="/" className="custom_link">
+            Home
+          </Link>
+        </Box>
         <Box>
-          <NavItem title={'Landings'} items={landingPages} />
+          <Link to="/e-commerce" className="custom_link">
+            Product
+          </Link>
+
+          {/* <NavItem
+            title={'Home'}
+            id={'landing-pages'}
+            items={landingPages}
+            colorInvert={colorInvert}
+
+          />*/}
         </Box>
         <Box>
           <NavItem title={'Company'} items={companyPages} />
@@ -65,35 +81,16 @@ const SidebarNav = ({ pages }: Props): JSX.Element => {
           <NavItem title={'Account'} items={accountPages} />
         </Box>
         <Box>
-          <NavItem title={'Blog'} items={blogPages} />
+          <Link to="/blog-newsroom" className="custom_link">
+            Blog
+          </Link>
         </Box>
-        <Box>
-          <NavItem title={'Portfolio'} items={portfolioPages} />
+        <Box >
+          <Link to="/contact-page" className="custom_link">
+            Contact
+          </Link>
         </Box>
-        <Box marginTop={2}>
-          <Button
-            size={'large'}
-            variant="outlined"
-            fullWidth
-            component="a"
-            href="/docs/introduction"
-          >
-            Documentation
-          </Button>
-        </Box>
-        <Box marginTop={1}>
-          <Button
-            size={'large'}
-            variant="contained"
-            color="primary"
-            fullWidth
-            component="a"
-            target="blank"
-            href="https://mui.com/store/items/the-front-landing-page/"
-          >
-            Purchase now
-          </Button>
-        </Box>
+        
       </Box>
     </Box>
   );

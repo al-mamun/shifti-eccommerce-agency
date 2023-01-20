@@ -9,6 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
 import {Link} from 'react-router-dom';
+import { api } from 'api/config';
 
 const mock = [
   {
@@ -41,7 +42,7 @@ const PopularNews = (): JSX.Element => {
   const theme = useTheme();
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    fetch('https://mamundevstudios.com/shifti_api/public/admin/blog/api')
+    fetch(`${api}/api/frontend/blog/list`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -179,7 +180,7 @@ const PopularNews = (): JSX.Element => {
                         />
                       </Box>
                     }
-                    href="blog-article/"
+                    href={`/blog-article/${item?.slug}`}
                   >
                     Read More
                   </Button>

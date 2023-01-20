@@ -260,7 +260,7 @@ const routes = [
     renderer: (params = {}): JSX.Element => <BlogNewsroomView {...params} />,
   },
   {
-    path: '/blog-article',
+    path: '/blog-article/:id',
     renderer: (params = {}): JSX.Element => <BlogArticleView {...params} />,
   },
   {
