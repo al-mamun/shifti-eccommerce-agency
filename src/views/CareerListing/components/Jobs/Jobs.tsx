@@ -9,6 +9,7 @@ import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ApplyModal from '../ApplyModal/ApplyModal';
+import { api } from 'api/config';
 
 export const mock = [
   {
@@ -80,7 +81,69 @@ const Jobs = (): JSX.Element => {
   const handleApplyClose = () => setOpenApplication(false);
 
   const [team, setTeam] = useState([]);
+  function categoryFilter(status) {
+    const list = {
+      status: status,
+    };
+    fetch(`${api}/api/frontend/job/opening/category/filter`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(list),
+    }) .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
 
+  }
+  function locationFilter(status) {
+    const list = {
+      status: status,
+    };
+    fetch(`${api}/api/frontend/job/opening/location/filter`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(list),
+    }) .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+  }
+  function teamFilter(status) {
+    const list = {
+      status: status,
+    };
+    fetch(`${api}/api/frontend/job/opening/team/filter`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(list),
+    }) .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+  }
   useEffect(() => {
     fetch(
       'https://mamundevstudios.com/shifti_api/public/api/frontend/job-opening',
@@ -168,13 +231,13 @@ const Jobs = (): JSX.Element => {
         <Grid item xs={12} md={4}>
           <FormControl variant="outlined" sx={{ minWidth: 1 }}>
             <InputLabel id="career-listing__jobs-role--label">Roles</InputLabel>
-            <Select labelId="career-listing__jobs-role--label" label="Roles">
+            <Select labelId="career-listing__jobs-role--label" name="categories" label="Roles" onChange={(event) => categoryFilter(event.target.value)}>
               <MenuItem value="">
                 <em>All roles</em>
               </MenuItem>
 
               {categories.map((item, i) => (
-                <MenuItem value={'item.name'}>{item.name}</MenuItem>
+                <MenuItem value={item.name}>{item.name}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -182,7 +245,7 @@ const Jobs = (): JSX.Element => {
         <Grid item xs={12} md={4}>
           <FormControl variant="outlined" sx={{ minWidth: 1 }}>
             <InputLabel id="career-listing__jobs-role--label">Teams</InputLabel>
-            <Select labelId="career-listing__jobs-role--label" label="Teams">
+            <Select labelId="career-listing__jobs-role--label" label="Teams"  onChange={(event) => teamFilter(event.target.value)}>
               <MenuItem value="">
                 <em>All teams</em>
               </MenuItem>
@@ -203,6 +266,7 @@ const Jobs = (): JSX.Element => {
             <Select
               labelId="career-listing__jobs-role--label"
               label="Locations"
+              onChange={(event) => locationFilter(event.target.value)}
             >
               <MenuItem value="">
                 <em>All locations</em>
