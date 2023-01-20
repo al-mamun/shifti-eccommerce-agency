@@ -5,6 +5,14 @@ import { useTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import './sidenav.css';
 import NavItem from './components/NavItem';
+import { api } from 'api/config';
+import { useNavigate } from 'react-router-dom';
+import { ReactSession } from 'react-client-session';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useCallback } from 'react';
+import { useContext } from 'react';
+import { CartData } from 'context/CartContext';
 
 interface Props {
   pages: {
@@ -20,6 +28,22 @@ interface Props {
 const SidebarNav = ({ pages }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
+  const navigate = useNavigate();
+  const [authUser, setAuthUser] = useState(null);
+  const { userData, setuserData, cartCount } = useContext(CartData);
+
+  console.log(cartCount);
+
+  ReactSession.setStoreType('sessionStorage');
+
+  const authData = useCallback(() => {
+    const authUser = ReactSession.get('userData');
+    return authUser;
+  }, []);
+
+  useEffect(() => {
+    setAuthUser(authData());
+  }, [authData, userData]);
 
   const {
     landings: landingPages,
@@ -29,6 +53,24 @@ const SidebarNav = ({ pages }: Props): JSX.Element => {
     portfolio: portfolioPages,
     blog: blogPages,
   } = pages;
+
+  const logOut = () => {
+    fetch(`${api}/api/customer/logout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(() => {
+      navigate('/');
+      const userData = {};
+      setuserData({});
+      ReactSession.set('userData', userData);
+    });
+  };
+
+  const login = () => {
+    navigate('/signin-simple');
+  };
 
   return (
     <Box>
@@ -72,13 +114,13 @@ const SidebarNav = ({ pages }: Props): JSX.Element => {
           />*/}
         </Box>
         <Box>
-          <NavItem title={'Company'} items={companyPages} />
+          <NavItem title={'Company'} items={secondaryPages} />
         </Box>
+       
         <Box>
-          <NavItem title={'Pages'} items={secondaryPages} />
-        </Box>
-        <Box>
-          <NavItem title={'Account'} items={accountPages} />
+          <Link to="/faq" className="custom_link">
+            Faq
+          </Link>
         </Box>
         <Box>
           <Link to="/blog-newsroom" className="custom_link">
@@ -90,6 +132,58 @@ const SidebarNav = ({ pages }: Props): JSX.Element => {
             Contact
           </Link>
         </Box>
+        {authUser?.user ? (
+          <>
+            {/* <Box marginLeft={4}>
+              <Link to="/cart-page" className="custom_link">
+                Cart
+              </Link>
+            </Box> */}
+
+            <Box>
+              <NavItem
+                title={'Account'}
+                items={portfolioPages}
+              />
+            </Box>
+
+            <Box marginLeft={4}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => logOut()}
+                size="large"
+              >
+                Log Out
+              </Button>
+            </Box>
+          </>
+        ) : (
+          <>
+            <Box marginLeft={4}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => login()}
+                size="large"
+              >
+                Log in
+              </Button>
+            </Box>
+
+            <Box marginLeft={4}>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => navigate('/signup-simple')}
+                size="large"
+              >
+                Sign up
+              </Button>
+            </Box>
+          </>
+        )}
+      
         
       </Box>
     </Box>

@@ -1,7 +1,10 @@
 @media screen and (max-width: 540px) {
     .custom_link {
-        color: #666 !important;
+        color: #1e2022 !important;
         text-decoration: none;
         min-height: 48px;
+        display: block;
+        vertical-align: middle;
+        padding-top: 11px;
     }
 }

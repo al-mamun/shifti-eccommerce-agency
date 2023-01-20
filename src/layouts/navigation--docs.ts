@@ -70,10 +70,7 @@ const pages = [
         title: 'Components',
         href: '/blocks',
       },
-      {
-        title: 'Demo Pages',
-        href: '/demos',
-      },
+    
       {
         title: 'MUI Components',
         href: 'https://mui.com/components/box/',

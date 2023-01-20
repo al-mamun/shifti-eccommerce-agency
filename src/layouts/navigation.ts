@@ -73,6 +73,7 @@ const pages = {
       href: '/e-commerce',
     },
   ],
+  
   company: [
     {
       title: 'Career Lising',
@@ -105,8 +106,21 @@ const pages = {
   secondary: [
    
     {
-      title: 'FAQ',
-      href: '/faq',
+      title: 'Career Lising',
+      href: '/shifti/career-listing',
+    },
+    
+    {
+      title: 'Customer Stories',
+      href: '/shifti/customers',
+    },
+    {
+      title: 'About',
+      href: '/shifti/about',
+    },
+    {
+      title: 'Terms',
+      href: '/shifti/company-terms',
     },
     
   ],
@@ -130,20 +144,12 @@ const pages = {
   ],
   portfolio: [
     {
-      title: 'Grid View',
-      href: '/portfolio-grid',
+      title: 'My Account',
+      href: 'shifti/account-general',
     },
     {
-      title: 'Masonry',
-      href: '/portfolio-masonry',
-    },
-    {
-      title: 'Basic',
-      href: '/portfolio-page',
-    },
-    {
-      title: 'Parallax',
-      href: '/agency',
+      title: 'My Cart',
+      href: '/shifti/cart-page',
     },
   ],
 };
