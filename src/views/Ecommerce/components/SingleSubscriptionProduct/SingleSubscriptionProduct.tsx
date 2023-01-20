@@ -126,8 +126,8 @@ const SingleSubscriptionProduct = (): JSX.Element => {
     fetch(`${api}/api/frontend/subscriptions/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setSubscriptions(data);
+        console.log(data?.product);
+        setSubscriptions(data?.product);
       });
   }, []);
 
@@ -169,7 +169,6 @@ const SingleSubscriptionProduct = (): JSX.Element => {
                       find what you needed, these could help!
                     </Typography>
                   </Box>
-                  {renderToggler()}
                 </Box>
               </Container>
             </Box>
@@ -195,7 +194,7 @@ const SingleSubscriptionProduct = (): JSX.Element => {
                             fontWeight={600}
                             gutterBottom
                           >
-                            {item?.title}
+                            {item?.sub_title}
                           </Typography>
                           <Typography color={'text.secondary'}>
                             {item?.subtitle}
@@ -207,26 +206,16 @@ const SingleSubscriptionProduct = (): JSX.Element => {
                           marginBottom={2}
                         >
                           <Typography variant={'h3'} fontWeight={700}>
-                            {pricingOption == 'month' && (
-                              <span>{item?.price?.month} </span>
-                            )}
-                            {pricingOption == 'annual' && (
-                              <span>{item?.price?.annual}</span>
-                            )}
-                            {pricingOption == 'bio-annual' && (
-                              <span>{item?.price?.bio_annual}</span>
-                            )}
+                           
+                              <span>${item?.price} </span>
+                        
                           </Typography>
                           <Typography
                             variant={'subtitle1'}
                             color={'text.secondary'}
                             fontWeight={700}
                           >
-                            {pricingOption == 'month' && <span> /M</span>}
-                            {pricingOption == 'annual' && <span>/Y</span>}
-                            {pricingOption == 'bio-annual' && (
-                              <span>{item?.price?.bio_annual}</span>
-                            )}
+                              <span>{ item?.type }</span>
                           </Typography>
                         </Box>
                         <Grid container spacing={1}>
@@ -275,7 +264,7 @@ const SingleSubscriptionProduct = (): JSX.Element => {
                         sx={{ justifyContent: 'flex-end', padding: 4 }}
                       >
                         <Button size={'large'} variant={'contained'}>
-                          Learn More
+                            Select Plan
                         </Button>
                       </CardActions>
                     </Box>
