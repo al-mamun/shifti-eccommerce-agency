@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -15,11 +15,12 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Main from 'layouts/Main';
-
+import { ReactSession } from 'react-client-session';
 import Container from 'components/Container';
 import { useParams } from 'react-router-dom';
 import { api } from 'api/config';
-
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 const mock = [
   {
     title: 'Starter',
@@ -57,7 +58,25 @@ const mock = [
 ];
 
 const SingleSubscriptionProduct = (): JSX.Element => {
+  const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
   const theme = useTheme();
+  const [product_title, setSubscriptionsTitle] = useState([]);
+  const [product_content, setSubscriptionsContent] = useState([]);
+
+  const [authUser, setAuthUser] = useState(null);
+
+  ReactSession.setStoreType('sessionStorage');
+
+  const authData = useCallback(() => {
+    const authUser = ReactSession.get('userData');
+    return authUser;
+  }, []);
+
+  useEffect(() => {
+    setAuthUser(authData());
+    console.log(authUser);
+  }, [authData]);
   const { id } = useParams();
   const [subscriptions, setSubscriptions] = useState([]);
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -120,7 +139,56 @@ const SingleSubscriptionProduct = (): JSX.Element => {
       </ToggleButtonGroup>
     </Box>
   );
-
+  function addToCart(subscriber_id, product_id) {
+    const list = {
+      customer_id: `${authUser?.user?.id}`,
+      subscriber_id: subscriber_id,
+      product_id: product_id,
+    };
+    const token = `${authUser?.token}`;
+    fetch(`${api}/api/subcraption-reqeust`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(list),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message == 'Unauthenticated.') {
+          setErrorMessage('test');
+          toast.error(data.msg, {
+            position: 'top-right',
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
+          setTimeout(() => {
+            navigate('/signin-simple');
+          }, 5000);
+          return;
+        }
+        toast.success(data?.msg, {
+          position: 'top-right',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+        setTimeout(() => {
+          navigate('/subcription-check-out');
+        }, 2000);
+      });
+  }      
   useEffect(() => {
     console.log(id);
     fetch(`${api}/api/frontend/subscriptions/${id}`)
@@ -128,6 +196,8 @@ const SingleSubscriptionProduct = (): JSX.Element => {
       .then((data) => {
         console.log(data?.product);
         setSubscriptions(data?.product);
+        setSubscriptionsTitle(data?.title);
+        setSubscriptionsContent(data?.content);
       });
   }, []);
 
@@ -136,6 +206,20 @@ const SingleSubscriptionProduct = (): JSX.Element => {
       <Main>
         <Container>
           <Box>
+          <ToastContainer
+            position="top-right"
+            autoClose={1000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+        {/* Same as */}
+        <ToastContainer />
             <Box
               sx={{
                 position: 'relative',
@@ -154,7 +238,7 @@ const SingleSubscriptionProduct = (): JSX.Element => {
                         fontWeight: 900,
                       }}
                     >
-                      Flexible pricing options
+                      { product_title }
                     </Typography>
                     <Typography
                       variant="h6"
@@ -162,11 +246,7 @@ const SingleSubscriptionProduct = (): JSX.Element => {
                       color="text.primary"
                       align={'center'}
                     >
-                      We are founded by a leading academic and researcher in the
-                      field of Industrial Systems Engineering.
-                      <br />
-                      For entrepreneurs, startups and freelancers. If you didn’t
-                      find what you needed, these could help!
+                     { product_content }
                     </Typography>
                   </Box>
                 </Box>
@@ -263,7 +343,11 @@ const SingleSubscriptionProduct = (): JSX.Element => {
                       <CardActions
                         sx={{ justifyContent: 'flex-end', padding: 4 }}
                       >
-                        <Button size={'large'} variant={'contained'}>
+                        <Button 
+                          size={'large'} 
+                          variant={'contained'}
+                          onClick={() => addToCart(item.id,item.product_id)}
+                        >
                             Select Plan
                         </Button>
                       </CardActions>

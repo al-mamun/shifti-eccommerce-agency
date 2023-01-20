@@ -40,7 +40,10 @@ const Checkout = (): JSX.Element => {
   const navigate = useNavigate();
 
   const [authUser, setAuthUser] = useState(null);
-
+  const [subTotal, setSubTotal] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(null);
+  const [discount, setDiscount] = useState(null);
+  
   ReactSession.setStoreType('sessionStorage');
 
   const authData = useCallback(() => {
@@ -64,7 +67,7 @@ const Checkout = (): JSX.Element => {
     console.log(data);
 
     // setCardData(data);
-    fetch(`${api}/api/place-order`, {
+    fetch(`${api}/api/subscription-place-order`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -82,7 +85,28 @@ const Checkout = (): JSX.Element => {
         // setCardData(data);
       });
   };
-
+  useEffect(() => {
+    setAuthUser(authData());
+    console.log(authUser);
+    fetch(`${api}/api/subcraption-get-cart-summary`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${userData?.token} `,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setSubTotal(data.subTotal);
+        setTotalAmount(data.totalAmount);
+        setDiscount(data.discount);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [authData]);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Main>
@@ -363,7 +387,7 @@ const Checkout = (): JSX.Element => {
                                 color={'text.secondary'}
                                 variant={'subtitle2'}
                               >
-                                Price :${item?.product?.price}
+                                Price :${subTotal}
                               </Typography>
                               <Typography
                                 color={'text.secondary'}
@@ -440,7 +464,7 @@ const Checkout = (): JSX.Element => {
                           Subtotal
                         </Typography>
                         <Typography color={'text.secondary'} fontWeight={700}>
-                          $ {orderSummary?.subTotal}
+                          $ {subTotal}
                         </Typography>
                       </Box>
                       <Box display={'flex'} justifyContent={'space-between'}>
@@ -448,7 +472,7 @@ const Checkout = (): JSX.Element => {
                           Quantity
                         </Typography>
                         <Typography color={'text.secondary'} fontWeight={700}>
-                          {orderSummary?.quantity}
+                          1
                         </Typography>
                       </Box>
                       {/* <Box display={'flex'} justifyContent={'space-between'}>
@@ -463,7 +487,7 @@ const Checkout = (): JSX.Element => {
                           Order total
                         </Typography>
                         <Typography variant={'h6'} fontWeight={700}>
-                          $ {orderSummary?.totalAmount}
+                          $ {totalAmount}
                         </Typography>
                       </Box>
                     </Stack>
