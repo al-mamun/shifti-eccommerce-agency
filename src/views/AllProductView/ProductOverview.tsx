@@ -10,7 +10,7 @@ import {
   Reviews,
   SimilarProducts,
   Newsletter,
-} from './components';
+} from './ProductOverview/components';
 
 import Container from 'components/Container';
 import Main from 'layouts/Main';

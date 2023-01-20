@@ -161,7 +161,7 @@ const Categories = (): JSX.Element => {
           Securely and Comfortably
         </Typography>
         <Box marginTop={2} display={'flex'} justifyContent={'center'}>
-          <Link to={`/listing/all`} style={{ textDecoration: 'none' }}>
+          <Link to={`/category/all`} style={{ textDecoration: 'none' }}>
             <Button variant="contained" color="primary" size="large">
               See all categories
             </Button>
@@ -173,7 +173,7 @@ const Categories = (): JSX.Element => {
           {posts.map((item, i) => (
             <Grid item xs={6} md={2} key={i}>
               <Link
-                to={`/listing/${item?.slug}`}
+                to={`/category/${item?.slug}`}
                 style={{ textDecoration: 'none' }}
               >
                 <Box

@@ -110,7 +110,7 @@ const Products = (): JSX.Element => {
           accessories online.
         </Typography>
         <Box display="flex" justifyContent={'center'} marginTop={2}>
-          <Link to={'/listing/all'} style={{ textDecoration: 'none' }}>
+          <Link to={'/product/all'} style={{ textDecoration: 'none' }}>
             <Button variant="contained" color="primary" size="large">
               View all
             </Button>

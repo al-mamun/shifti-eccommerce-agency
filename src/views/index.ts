@@ -47,6 +47,7 @@ export { default as BlogNewsroom } from './BlogNewsroom';
 export { default as BlogArticle } from './BlogArticle';
 export { default as Categories } from './Categories';
 export { default as Listing } from './ProductView/Listing';
+export { default as AllProductView } from './AllProductView/Listing';
 export { default as ProductOverview } from './ProductView/ProductOverview';
 export { default as BlogReachView } from './BlogReachView';
 export { default as PasswordResetCover } from './PasswordResetCover';

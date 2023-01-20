@@ -32,6 +32,7 @@ import {
   ProductOverview,
   SingleSubscriptionProduct as SingleSubscriptionProductView,
   Listing as ListingView,
+  AllProductView,
   About as AboutView,
   HelpCenter as HelpCenterView,
   HelpCenterArticle as HelpCenterArticleView,
@@ -129,8 +130,12 @@ const routes = [
     renderer: (params = {}): JSX.Element => <CategoriesView {...params} />,
   },
   {
-    path: '/listing/:slug',
+    path: '/category/:slug',
     renderer: (params = {}): JSX.Element => <ListingView {...params} />,
+  },
+  {
+    path: '/product/:slug',
+    renderer: (params = {}): JSX.Element => <AllProductView {...params} />,
   },
   {
     path: '/order-complete',
