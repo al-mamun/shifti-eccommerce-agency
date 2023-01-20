@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 
 import Container from 'components/Container';
@@ -12,8 +12,15 @@ import {
   Partners,
 } from './components';
 import { Main } from 'layouts';
+import { useParams } from 'react-router-dom';
 
 const Listing = (): JSX.Element => {
+  const { slug } = useParams();
+
+  useEffect(() => {
+    console.log(slug);
+  }, []);
+
   return (
     <Main>
       <Box bgcolor={'alternate.main'}>

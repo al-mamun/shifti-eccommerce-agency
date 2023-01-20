@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable quotes */
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
+import { api } from 'api/config';
+import { Link } from 'react-router-dom';
 
 const mock = [
   {
@@ -107,13 +109,12 @@ const mock = [
 ];
 
 const Categories = (): JSX.Element => {
-
   const theme = useTheme();
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    fetch('https://mamundevstudios.com/shifti_api/public/api/frontend/get-categories', {
-        method: 'POST'
-      })
+    fetch(`${api}/api/frontend/get-categories`, {
+      method: 'POST',
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -160,79 +161,84 @@ const Categories = (): JSX.Element => {
           Securely and Comfortably
         </Typography>
         <Box marginTop={2} display={'flex'} justifyContent={'center'}>
-          <Button variant="contained" color="primary" size="large">
-            See all categories
-          </Button>
+          <Link to={`/listing/all`} style={{ textDecoration: 'none' }}>
+            <Button variant="contained" color="primary" size="large">
+              See all categories
+            </Button>
+          </Link>
         </Box>
       </Box>
       <Box>
         <Grid container spacing={4}>
           {posts.map((item, i) => (
             <Grid item xs={6} md={2} key={i}>
-              <Box
-                display={'block'}
-                width={1}
-                height={1}
-                sx={{
-                  textDecoration: 'none',
-                  transition: 'all .2s ease-in-out',
-                  '&:hover': {
-                    transform: 'translateY(-4px)',
-                  },
-                }}
+              <Link
+                to={`/listing/${item?.slug}`}
+                style={{ textDecoration: 'none' }}
               >
                 <Box
-                  component={Card}
-                  padding={4}
+                  display={'block'}
                   width={1}
                   height={1}
-                  bgcolor={'alternate.main'}
-                  data-aos={'fade-up'}
-                  data-aos-delay={i * 100}
-                  data-aos-offset={100}
-                  data-aos-duration={600}
+                  sx={{
+                    textDecoration: 'none',
+                    transition: 'all .2s ease-in-out',
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                    },
+                  }}
                 >
                   <Box
-                    position={'relative'}
-                    display={'flex'}
-                    justifyContent={'center'}
+                    component={Card}
+                    padding={4}
+                    width={1}
+                    height={1}
+                    bgcolor={'alternate.main'}
+                    data-aos={'fade-up'}
+                    data-aos-delay={i * 100}
+                    data-aos-offset={100}
+                    data-aos-duration={600}
                   >
                     <Box
-                      width={50}
-                      height={50}
-                      bgcolor={'secondary.dark'}
-                      borderRadius={'100%'}
-                      sx={{
-                        transform: `translate(${theme.spacing(
-                          2,
-                        )}, ${theme.spacing(-2)})`,
-                        marginTop: 2,
-                      }}
-                    />
-                    
-                    <Box
-                      component={'img'}
-                      src={item.icon}
-                      sx={{
-                        color: 'primary.dark',
-                        position: 'absolute',
-                        top: '15px',
-                        width:'20px',
-                        left: '61px'
-                      }}
+                      position={'relative'}
+                      display={'flex'}
+                      justifyContent={'center'}
                     >
-                     
+                      <Box
+                        width={50}
+                        height={50}
+                        bgcolor={'secondary.dark'}
+                        borderRadius={'100%'}
+                        sx={{
+                          transform: `translate(${theme.spacing(
+                            2,
+                          )}, ${theme.spacing(-2)})`,
+                          marginTop: 2,
+                        }}
+                      />
+
+                      <Box
+                        component={'img'}
+                        src={item.icon}
+                        sx={{
+                          color: 'primary.dark',
+                          position: 'absolute',
+                          top: '15px',
+                          width: '20px',
+                          left: '61px',
+                        }}
+                      ></Box>
                     </Box>
+                    <Typography
+                      variant={'subtitle1'}
+                      align={'center'}
+                      sx={{ fontWeight: 500, marginTop: 2 }}
+                    >
+                      {item.category_name}
+                    </Typography>
                   </Box>
-                  <Typography
-                    variant={'subtitle1'}
-                    align={'center'}
-                    sx={{ fontWeight: 500, marginTop: 2 }}
-                  >
-                    {item.category_name}
-                  </Typography>
                 </Box>
-              </Box>
+              </Link>
             </Grid>
           ))}
         </Grid>

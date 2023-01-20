@@ -129,7 +129,7 @@ const routes = [
     renderer: (params = {}): JSX.Element => <CategoriesView {...params} />,
   },
   {
-    path: '/listing',
+    path: '/listing/:slug',
     renderer: (params = {}): JSX.Element => <ListingView {...params} />,
   },
   {

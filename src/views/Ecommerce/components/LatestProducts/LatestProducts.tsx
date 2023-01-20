@@ -15,6 +15,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import './product.css';
 import { ReactSession } from 'react-client-session';
+import { Link } from 'react-router-dom';
 
 const mock = [
   {
@@ -106,7 +107,9 @@ const LatestProducts = (): JSX.Element => {
       });
   }
   useEffect(() => {
-    fetch('https://mamundevstudios.com/shifti_api/public/api/frontend/latest/product/list')
+    fetch(
+      'https://mamundevstudios.com/shifti_api/public/api/frontend/latest/product/list',
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -148,12 +151,14 @@ const LatestProducts = (): JSX.Element => {
           data-aos={'fade-up'}
         >
           Experience your music like never before. Buy music instruments &
-          accessories online. 
+          accessories online.
         </Typography>
         <Box display="flex" justifyContent={'center'} marginTop={2}>
-          <Button variant="contained" color="primary" size="large">
-            View all
-          </Button>
+          <Link to={'/listing/all'} style={{ textDecoration: 'none' }}>
+            <Button variant="contained" color="primary" size="large">
+              View all
+            </Button>
+          </Link>
         </Box>
       </Box>
       <Grid container spacing={4}>

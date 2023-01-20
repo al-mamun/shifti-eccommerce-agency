@@ -17,6 +17,7 @@ import './product.css';
 import { ReactSession } from 'react-client-session';
 import { CartData } from 'context/CartContext';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Products = (): JSX.Element => {
   const theme = useTheme();
@@ -109,9 +110,11 @@ const Products = (): JSX.Element => {
           accessories online.
         </Typography>
         <Box display="flex" justifyContent={'center'} marginTop={2}>
-          <Button variant="contained" color="primary" size="large">
-            View all
-          </Button>
+          <Link to={'/listing/all'} style={{ textDecoration: 'none' }}>
+            <Button variant="contained" color="primary" size="large">
+              View all
+            </Button>
+          </Link>
         </Box>
       </Box>
       <Grid container spacing={4}>
