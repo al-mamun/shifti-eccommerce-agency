@@ -12,6 +12,7 @@ import {
   ContactPage as ContactPageView,
   Cart as CartPageView,
   Checkout as CheckOutPage,
+  SubscCriptionCheckout as SubscCriptionCheckoutView,
   Coworking as CoworkingView,
   Categories as CategoriesView,
   Elearning as ElearningView,
@@ -116,6 +117,12 @@ const routes = [
   {
     path: '/check-out-page',
     renderer: (params = {}): JSX.Element => <CheckOutPage {...params} />,
+  },
+  {
+    path: '/subcription-check-out',
+    renderer: (params = {}): JSX.Element => (
+      <SubscCriptionCheckoutView {...params} />
+    ),
   },
   {
     path: '/categorie',

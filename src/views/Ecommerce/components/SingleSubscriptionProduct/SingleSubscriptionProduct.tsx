@@ -79,9 +79,9 @@ const SingleSubscriptionProduct = (): JSX.Element => {
           sx={{
             backgroundColor:
               pricingOption === 'annual'
-                ? `${theme.palette.primary.light} !important`
+                ? `${theme?.palette.primary.light} !important`
                 : 'transparent',
-            border: `1px solid ${theme.palette.primary.main}`,
+            border: `1px solid ${theme?.palette?.primary.main}`,
           }}
         >
           <Typography
@@ -101,9 +101,9 @@ const SingleSubscriptionProduct = (): JSX.Element => {
           sx={{
             backgroundColor:
               pricingOption === 'monthly'
-                ? `${theme.palette.primary.light} !important`
+                ? `${theme?.palette?.primary?.light} !important`
                 : 'transparent',
-            border: `1px solid ${theme.palette.primary.main}`,
+            border: `1px solid ${theme?.palette?.primary?.main}`,
           }}
         >
           <Typography
@@ -207,16 +207,26 @@ const SingleSubscriptionProduct = (): JSX.Element => {
                           marginBottom={2}
                         >
                           <Typography variant={'h3'} fontWeight={700}>
-                            {pricingOption === 'annual'
-                              ? item?.price?.annual
-                              : item?.price?.monthly}
+                            {pricingOption == 'month' && (
+                              <span>{item?.price?.month} </span>
+                            )}
+                            {pricingOption == 'annual' && (
+                              <span>{item?.price?.annual}</span>
+                            )}
+                            {pricingOption == 'bio-annual' && (
+                              <span>{item?.price?.bio_annual}</span>
+                            )}
                           </Typography>
                           <Typography
                             variant={'subtitle1'}
                             color={'text.secondary'}
                             fontWeight={700}
                           >
-                            {pricingOption === 'annual' ? '/y' : '/mo'}
+                            {pricingOption == 'month' && <span> /M</span>}
+                            {pricingOption == 'annual' && <span>/Y</span>}
+                            {pricingOption == 'bio-annual' && (
+                              <span>{item?.price?.bio_annual}</span>
+                            )}
                           </Typography>
                         </Box>
                         <Grid container spacing={1}>
@@ -235,7 +245,7 @@ const SingleSubscriptionProduct = (): JSX.Element => {
                                 >
                                   <Box
                                     component={Avatar}
-                                    bgcolor={theme.palette.primary.main}
+                                    bgcolor={theme?.palette?.primary?.main}
                                     width={20}
                                     height={20}
                                   >
@@ -254,7 +264,7 @@ const SingleSubscriptionProduct = (): JSX.Element => {
                                     </svg>
                                   </Box>
                                 </Box>
-                                <ListItemText primary={feature} />
+                                <ListItemText primary={feature?.title} />
                               </Box>
                             </Grid>
                           ))}
