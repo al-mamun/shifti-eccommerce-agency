@@ -216,7 +216,7 @@ const Billing = (): JSX.Element => {
                         You may also consider to update your{' '}
                         <Link
                           color={'primary'}
-                          href={'/account-general'}
+                          href={'/account'}
                           underline={'none'}
                         >
                           private information.

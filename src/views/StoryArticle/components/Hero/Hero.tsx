@@ -32,7 +32,7 @@ const Hero = (): JSX.Element => {
 
   useEffect(() => {
     console.log(id);
-    fetch(`${api}/api/frontend/blog/page/${id}`)
+    fetch(`${api}/api/frontend/single/stroies/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data?.product);

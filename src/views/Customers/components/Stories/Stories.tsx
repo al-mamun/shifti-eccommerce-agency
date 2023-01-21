@@ -8,6 +8,8 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
+import {Link} from 'react-router-dom';
+import { api } from 'api/config';
 
 const mock = [
   {
@@ -79,8 +81,11 @@ const Stories = (): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
   const [posts, setPosts] = useState([]);
+  const [pageContent, setPageContent] = useState([]);
+  const [pageSubContent, setPageSubContent] = useState([]);
+  
   useEffect(() => {
-    fetch('https://mamundevstudios.com/shifti_api/public/admin/stroies/api')
+    fetch(`${api}/api/frontend/stroies/list`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -89,6 +94,19 @@ const Stories = (): JSX.Element => {
       .catch((err) => {
         console.log(err.message);
       });
+
+      fetch(`${api}/api/frontend/stroies/page/content`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPageContent(data?.page_content);
+        setPageSubContent(data?.page_sub_content);
+        
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
   }, []);
   return (
     <Box>
@@ -102,7 +120,7 @@ const Stories = (): JSX.Element => {
           color={'secondary'}
           align={'center'}
         >
-          Success stories
+          {pageSubContent}Success stories
         </Typography>
         <Box
           component={Typography}
@@ -110,9 +128,8 @@ const Stories = (): JSX.Element => {
           variant={'h3'}
           align={'center'}
         >
-          See how we are helping teams
-          <br />
-          and businesses
+          {pageContent}
+          
         </Box>
       </Box>
       <Grid container spacing={4}>
@@ -169,28 +186,33 @@ const Stories = (): JSX.Element => {
                 </Box>
                 <Box flexGrow={1} />
                 <Box component={CardActions} justifyContent={'flex-start'}>
-                  <Button
-                    size="large"
-                    endIcon={
-                      <svg
-                        width={16}
-                        height={16}
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </svg>
-                    }
+                  <Link
+                    to={`/story/${item?.slug}`}
+                    style={{ textDecoration: 'none' }}
                   >
-                    Learn more
-                  </Button>
+                    <Button
+                      size="large"
+                      endIcon={
+                        <svg
+                          width={16}
+                          height={16}
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                          />
+                        </svg>
+                      }
+                    >
+                      Read more
+                    </Button>
+                  </Link>
                 </Box>
               </Box>
             </Box>

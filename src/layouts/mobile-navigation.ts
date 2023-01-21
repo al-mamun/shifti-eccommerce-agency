@@ -95,7 +95,7 @@ const pages = {
     account: [
       {
         title: 'My Account',
-        href: '/account-general',
+        href: '/account',
       },
       {
         title: 'My Cart',

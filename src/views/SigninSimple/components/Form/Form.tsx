@@ -76,7 +76,7 @@ const Form = (): JSX.Element => {
         });
       });
     setTimeout(() => {
-      navigate('/account-general');
+      navigate('/account');
     }, 2000);
   };
 

@@ -152,16 +152,13 @@ const Topbar = ({
         </Box>
 
         <Box marginLeft={4}>
-          <NavItem
-            title={'Pages'}
-            id={'secondary-pages'}
-            items={secondaryPages}
-            colorInvert={colorInvert}
-          />
+          <Link to="/faq" className="custom_link">
+            Faq
+          </Link>
         </Box>
 
         <Box marginLeft={4}>
-          <Link to="/blog-newsroom" className="custom_link">
+          <Link to="/blog" className="custom_link">
             Blog
           </Link>
         </Box>

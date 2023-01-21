@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 const pages = [
   {
     id: 'general',
-    href: '/account-general',
+    href: '/account',
     title: 'General',
   },
   {

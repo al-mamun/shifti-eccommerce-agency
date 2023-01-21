@@ -96,7 +96,7 @@ const pages = {
   account: [
     {
       title: 'My Account',
-      href: '/account-general',
+      href: '/account',
     },
     {
       title: 'My Cart',
@@ -145,7 +145,7 @@ const pages = {
   portfolio: [
     {
       title: 'My Account',
-      href: 'shifti/account-general',
+      href: 'shifti/account',
     },
     {
       title: 'My Cart',

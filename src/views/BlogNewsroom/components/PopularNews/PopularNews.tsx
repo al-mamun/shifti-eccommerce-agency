@@ -160,30 +160,34 @@ const PopularNews = (): JSX.Element => {
                   {item.description}
                 </Typography>
                 <Box marginTop={2} display={'flex'} justifyContent={'flex-end'}>
-                  
-                  <Button
-                    endIcon={
-                      <Box
-                        component={'svg'}
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        width={24}
-                        height={24}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </Box>
-                    }
-                    href={`/blog-article/${item?.slug}`}
-                  >
+                <Link
+                  to={`/blog/${item?.slug}`}
+                  style={{ textDecoration: 'none' }}
+                >
+                    <Button
+                      endIcon={
+                        <Box
+                          component={'svg'}
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          width={24}
+                          height={24}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                          />
+                        </Box>
+                      }
+                    
+                    >
                     Read More
                   </Button>
+                  </Link>
                 </Box>
               </CardContent>
             </Box>

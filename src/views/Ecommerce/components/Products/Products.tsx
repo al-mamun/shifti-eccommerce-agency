@@ -18,6 +18,7 @@ import { ReactSession } from 'react-client-session';
 import { CartData } from 'context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { api } from 'api/config';
 
 const Products = (): JSX.Element => {
   const theme = useTheme();
@@ -33,14 +34,13 @@ const Products = (): JSX.Element => {
     const authUser = ReactSession.get('userData');
     return authUser;
   }, []);
-
   useEffect(() => {
     setAuthUser(authData());
   }, [authData]);
 
   useEffect(() => {
     fetch(
-      'https://mamundevstudios.com/shifti_api/public/api/frontend/featured/products/list',
+      `${api}/api/frontend/featured/products/list`,
     )
       .then((response) => response.json())
       .then((data) => {

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -7,6 +7,8 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
+import { api } from 'api/config';
+import {Link} from 'react-router-dom';
 
 const mock = [
   {
@@ -53,6 +55,18 @@ const mock = [
 
 const SidebarArticles = (): JSX.Element => {
   const theme = useTheme();
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetch(`${api}/api/frontend/blog/upcomming/post`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
   return (
     <Box component={Card} variant={'outlined'} padding={2}>
       <Typography
@@ -63,10 +77,10 @@ const SidebarArticles = (): JSX.Element => {
           marginBottom: 2,
         }}
       >
-        Upcoming updates dd
+        Upcoming updates 
       </Typography>
       <Grid container spacing={2}>
-        {mock.map((item, i) => (
+        {posts.map((item, i) => (
           <Grid key={i} item xs={12}>
             <Box
               component={Card}
@@ -113,7 +127,12 @@ const SidebarArticles = (): JSX.Element => {
                     {item.author.name} - {item.date}
                   </Typography>
                 </Box>
-                <Button size={'small'}>Read More</Button>
+                <Link
+                  to={`/blog/${item?.slug}`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <Button size={'small'}>Read More</Button>
+                </Link>
               </CardContent>
             </Box>
           </Grid>

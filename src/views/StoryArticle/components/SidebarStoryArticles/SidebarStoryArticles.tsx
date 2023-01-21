@@ -53,7 +53,7 @@ const mock = [
   },
 ];
 
-const SidebarArticles = (): JSX.Element => {
+const SidebarStoryArticles = (): JSX.Element => {
   const theme = useTheme();
   const [posts, setPosts] = useState([]);
   useEffect(() => {
@@ -77,7 +77,7 @@ const SidebarArticles = (): JSX.Element => {
           marginBottom: 2,
         }}
       >
-        Upcoming updates
+        Upcoming updates 
       </Typography>
       <Grid container spacing={2}>
         {posts.map((item, i) => (
@@ -142,4 +142,4 @@ const SidebarArticles = (): JSX.Element => {
   );
 };
 
-export default SidebarArticles;
+export default SidebarStoryArticles;

@@ -46,6 +46,7 @@ import {
   BlogSearch as BlogSearchView,
   BlogNewsroom as BlogNewsroomView,
   BlogArticle as BlogArticleView,
+  StoryArticle as StoryArticleView,
   BlogReachView as BlogReachViewView,
   PasswordResetCover as PasswordResetCoverView,
   PasswordResetSimple as PasswordResetSimpleView,
@@ -268,12 +269,20 @@ const routes = [
     renderer: (params = {}): JSX.Element => <BlogSearchView {...params} />,
   },
   {
-    path: '/blog-newsroom',
+    path: '/blog',
     renderer: (params = {}): JSX.Element => <BlogNewsroomView {...params} />,
   },
   {
-    path: '/blog-article/:id',
-    renderer: (params = {}): JSX.Element => <BlogArticleView {...params} />,
+    path: '/blog/:id',
+    renderer: (params = {}): JSX.Element => (
+      <BlogArticleView {...params} />
+    ),
+  },
+  {
+    path: '/story/:id',
+    renderer: (params = {}): JSX.Element => (
+      <StoryArticleView {...params} />
+    ),
   },
   {
     path: '/blog-reach-view',
@@ -316,7 +325,7 @@ const routes = [
     ),
   },
   {
-    path: '/account-general',
+    path: '/account',
     renderer: (params = {}): JSX.Element => (
       <PrivateRoute>
         <AccountGeneralView {...params} />,

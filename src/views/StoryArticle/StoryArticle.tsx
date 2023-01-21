@@ -12,30 +12,16 @@ import {
   Content,
   FooterNewsletter,
   Hero,
-  SidebarArticles,
+  SidebarStoryArticles,
   SidebarNewsletter,
   SimilarStories,
 } from './components';
 
-const BlogArticle = (): JSX.Element => {
+const StoryArticle = (): JSX.Element => {
 
   const theme = useTheme();
   const { id } = useParams();
-  const [blog_title, setBlogTitle] = useState([]);
-  const [blogImage, setImage] = useState([]);
-  const [Description, setDescription] = useState([]);
-
-  useEffect(() => {
-    console.log(id);
-    fetch(`${api}/api/frontend/blog/page/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data?.product);
-        setBlogTitle(data?.product);
-        setImage(data?.title);
-        setDescription(data?.description);
-      });
-  }, []);
+ 
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -48,12 +34,12 @@ const BlogArticle = (): JSX.Element => {
         <Container>
           <Grid container spacing={4}>
             <Grid item xs={12} md={8}>
-              <Content />
+             <Content /> 
             </Grid>
             <Grid item xs={12} md={4}>
               {isMd ? (
                 <Box marginBottom={4}>
-                  <SidebarArticles />
+                  <SidebarStoryArticles />
                 </Box>
               ) : null}
               <SidebarNewsletter />
@@ -108,4 +94,4 @@ const BlogArticle = (): JSX.Element => {
 };
 
 
-export default BlogArticle;
+export default StoryArticle;

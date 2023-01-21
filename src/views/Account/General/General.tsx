@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-
+import { useNavigate } from 'react-router-dom';
 import Page from '../components/Page';
 import Main from 'layouts/Main';
 import { useForm } from 'react-hook-form';
@@ -18,12 +18,14 @@ import { useContext } from 'react';
 import { CartData } from 'context/CartContext';
 import { countries } from './../../../data/countrys';
 import Autocomplete from '@mui/material/Autocomplete';
+import { api } from 'api/config';
+import { ToastContainer, toast } from 'react-toastify';
 
 const General = (): JSX.Element => {
   const { register, handleSubmit } = useForm();
   const [authUser, setAuthUser] = useState(null);
   const { userData, cartItemCount } = useContext(CartData);
-
+  const navigate = useNavigate();
   ReactSession.setStoreType('sessionStorage');
 
   const authData = useCallback(() => {
@@ -34,18 +36,91 @@ const General = (): JSX.Element => {
   useEffect(() => {
     setAuthUser(authData());
     cartItemCount();
-  }, []);
+  }, [authData]);
+  
+  const [traddress, setAddress] = useState([]);
+  const [city, setCity] = useState([]);
+  const [zipCode, setZipCode] = useState([]);
+  const [trcountry, setCountry] = useState([]);
+  const [phone_number, setphoneNumber] = useState([]);
+  
 
-  const onSubmit = (values) => {
-    return values;
+ useEffect(() => {
+    const authUser = ReactSession.get('userData');
+    console.log(authUser);
+    setTimeout(() => {
+      fetch(`${api}/api/customer-data-address`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${authUser?.token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data?.address);
+          setAddress(data?.address);
+          setCity(data?.city);
+          setZipCode(data?.post_code);
+          setCountry(data?.country);
+          setphoneNumber(data?.phone);
+          
+        });
+      }, 1000)
+    }, [authData]);
+
+  const onSubmit = (dataList) => {
+   
+    // setCardData(data);
+    fetch(`${api}/api/customer-data-update`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${userData?.token} `,
+      },
+      body: JSON.stringify(dataList),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      toast.success(data?.msg, {
+        position: 'top-right',
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    });
+
+   
   };
+
+ 
 
   return (
     <Main>
       <Page>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
         <Box>
           <Typography variant="h6" gutterBottom fontWeight={700}>
-            Change your private information
+            Change your private informationss
           </Typography>
           <Typography variant={'subtitle2'} color={'text.secondary'}>
             Please read our{' '}
@@ -68,13 +143,9 @@ const General = (): JSX.Element => {
                   First Name
                 </Typography>
                 <TextField
-                  label={
-                    authUser?.user
-                      ? authUser?.user?.first_name
-                      : userData?.user?.first_name
-                  }
                   variant="outlined"
                   name={'first_name'}
+                  label={authUser?.user?.first_name}
                   // defaultValue={authUser?.user?.first_name}
                   fullWidth
                   {...register('first_name')}
@@ -96,6 +167,7 @@ const General = (): JSX.Element => {
                   }
                   variant="outlined"
                   name={'last_name'}
+                 
                   fullWidth
                   defaultValue={authUser?.user?.last_name}
                   {...register('last_name')}
@@ -110,11 +182,7 @@ const General = (): JSX.Element => {
                   Your email
                 </Typography>
                 <TextField
-                  label={
-                    authUser?.user
-                      ? authUser?.user?.email
-                      : userData?.user?.email
-                  }
+                  label={authUser?.user?.email}
                   variant="outlined"
                   name={'email'}
                   fullWidth
@@ -127,19 +195,16 @@ const General = (): JSX.Element => {
                   variant={'subtitle2'}
                   sx={{ marginBottom: 2 }}
                   fontWeight={700}
+                  
                 >
                   Phone
                 </Typography>
                 <TextField
-                  label={
-                    authUser?.user
-                      ? authUser?.user?.phone
-                      : userData?.user?.phone
-                  }
                   variant="outlined"
+                  label={phone_number}
                   name={'phone'}
                   fullWidth
-                  defaultValue={authUser?.user?.phone}
+                  defaultValue={authUser?.user?.phone_number}
                   {...register('phone')}
                 />
               </Grid>
@@ -152,15 +217,10 @@ const General = (): JSX.Element => {
                   Zip Code
                 </Typography>
                 <TextField
-                  label={
-                    authUser?.zip_code
-                      ? authUser?.user?.zip_code
-                      : userData?.user?.zip_code
-                  }
+                  label={zipCode}
                   variant="outlined"
                   name={'zip_code'}
                   fullWidth
-                  defaultValue={authUser?.user?.zip_code}
                   {...register('zip_code')}
                 />
               </Grid>
@@ -179,7 +239,6 @@ const General = (): JSX.Element => {
                 <Autocomplete
                   options={countries}
                   autoHighlight
-                  // @ts-ignore
                   getOptionLabel={(option) => option.label}
                   renderOption={(props, option) => (
                     <Box
@@ -200,8 +259,10 @@ const General = (): JSX.Element => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="Choose a country"
+                      label={trcountry}
                       name={'country'}
+                      value={trcountry}
+                      {...register('country')}
                       inputProps={{
                         ...params.inputProps,
                         autoComplete: 'new-password', // disable autocomplete and autofill
@@ -219,12 +280,13 @@ const General = (): JSX.Element => {
                   City
                 </Typography>
                 <TextField
-                  label={
-                    authUser?.user ? authUser?.user?.city : userData?.user?.city
-                  }
+               
+               label={city}
                   variant="outlined"
                   name={'city'}
                   fullWidth
+                  defaultValue={city}
+                  {...register('city')}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -236,13 +298,10 @@ const General = (): JSX.Element => {
                   Enter your address
                 </Typography>
                 <TextField
-                  label={
-                    authUser?.user
-                      ? authUser?.user?.address
-                      : userData?.user?.address
-                  }
+                  label={traddress}
                   variant="outlined"
                   name={'address'}
+                  {...register('address')}
                   fullWidth
                 />
               </Grid>

@@ -123,7 +123,7 @@ const SidebarNav = ({ pages }: Props): JSX.Element => {
           </Link>
         </Box>
         <Box>
-          <Link to="/blog-newsroom" className="custom_link">
+          <Link to="/blog" className="custom_link">
             Blog
           </Link>
         </Box>

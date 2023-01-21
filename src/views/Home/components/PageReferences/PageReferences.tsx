@@ -330,7 +330,7 @@ const data = [
     pages: [
       {
         title: 'Account General',
-        href: '/account-general',
+        href: '/account',
         cover:
           'https://assets.maccarianagency.com/screenshots/the-front/img36.png',
         coverDark:

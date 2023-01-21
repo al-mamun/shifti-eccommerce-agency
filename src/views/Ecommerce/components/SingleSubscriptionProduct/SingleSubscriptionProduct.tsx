@@ -58,6 +58,7 @@ const mock = [
 ];
 
 const SingleSubscriptionProduct = (): JSX.Element => {
+  
   const [errorMessage, setErrorMessage] = useState(null);
   const navigate = useNavigate();
   const theme = useTheme();
