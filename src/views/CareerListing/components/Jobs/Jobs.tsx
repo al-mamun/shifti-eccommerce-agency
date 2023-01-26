@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ApplyModal from '../ApplyModal/ApplyModal';
 import { api } from 'api/config';
+import { Link } from 'react-router-dom';
 
 export const mock = [
   {
@@ -350,10 +351,14 @@ const Jobs = (): JSX.Element => {
                 </Typography>
               </Box>
               <Box marginLeft={2}>
+              <Link
+                  to={`/career-opening/${item?.slug}`}
+                  style={{ textDecoration: 'none' }}
+                >
                 <Button
                   variant="outlined"
                   color="primary"
-                  onClick={() => setOpenApplication(true)}
+                  // onClick={() => setOpenApplication(true)}
                   size="small"
                   endIcon={
                     <Box
@@ -374,6 +379,7 @@ const Jobs = (): JSX.Element => {
                 >
                   Apply
                 </Button>
+                </Link>
               </Box>
             </Box>
           </Grid>

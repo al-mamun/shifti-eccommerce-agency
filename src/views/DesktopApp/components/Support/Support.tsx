@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -8,7 +9,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
-
+import { api } from 'api/config';
+import parse from 'html-react-parser';
+import { Link } from 'react-router-dom';
 const mock = [
   {
     name: 'Clara Bertoletti',
@@ -33,6 +36,44 @@ const mock = [
 ];
 
 const Support = (): JSX.Element => {
+  const theme = useTheme();
+  const [cardNumber, setCardNumber] = useState([]);
+  const [team_title, setTeamTitle] = useState([]);
+  const [team_content, setTeamContent] = useState([]);
+  const [feature, setFeature] = useState([]);
+
+useEffect(() => {
+    fetch(`${api}/api/frontend/home/page/content`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data?.feature);
+      setTeamTitle(data?.team_title);
+      setTeamContent(data?.team_content);
+      setFeature(data?.feature);
+    });
+
+    fetch(`${api}/api/frontend/team/list`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data?.address);
+      setCardNumber(data);
+    });
+
+  }, []);
+
+
   return (
     <Box>
       <Box marginBottom={2}>
@@ -48,39 +89,42 @@ const Support = (): JSX.Element => {
           Support Team
         </Typography>
         <Typography variant={'h4'} sx={{ fontWeight: 700 }} align={'center'}>
-          Our friendly support team will help you with anything
+          {team_title}
         </Typography>
         <Typography
           variant="h6"
           component="p"
           color="text.secondary"
           align={'center'}
-        >
-          We aim to take care of you. Need help with installation, find a bug,
-          or just need a clarifiction about our documentation?
-          <br />
-          We'll be there to lend a helping hand.
+        >{ parse(`${ team_content }`) }
+          
+      
         </Typography>
         <Box marginTop={2} display={'flex'} justifyContent={'center'}>
-          <Button
-            color={'primary'}
-            variant={'contained'}
-            size={'large'}
-            startIcon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                width={20}
-                height={20}
-              >
-                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-              </svg>
-            }
+          <Link
+            to={'/contact-page/'}
+            style={{ textDecoration: 'none' }}
           >
-            Contact us
-          </Button>
+            <Button
+              color={'primary'}
+              variant={'contained'}
+              size={'large'}
+              startIcon={
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  width={20}
+                  height={20}
+                >
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                </svg>
+              }
+            >
+              Contact us
+            </Button>
+          </Link>
         </Box>
       </Box>
       <Box
@@ -94,14 +138,7 @@ const Support = (): JSX.Element => {
           display={'flex'}
           overflow={'auto'}
         >
-          {[
-            'All features',
-            'Email support',
-            'Google Ads',
-            'SSO via Google',
-            'API access',
-            'Facebook Ads',
-          ].map((item, i) => (
+          {feature.map((item, i) => (
             <Box
               key={i}
               display={'flex'}
@@ -149,7 +186,7 @@ const Support = (): JSX.Element => {
         </Box>
       </Box>
       <Grid container spacing={2}>
-        {mock.map((item, i) => (
+        {cardNumber.map((item, i) => (
           <Grid item xs={6} md={3} key={i}>
             <ListItem
               disableGutters

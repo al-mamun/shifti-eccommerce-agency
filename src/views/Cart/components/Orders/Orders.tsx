@@ -41,7 +41,7 @@ const Orders = (): JSX.Element => {
 
   const calculateTotal = (price: string, quantity: string) => {
     const p = price.split('৳')[1];
-    const total = parseInt(p) * parseFloat(quantity);
+    const total = parseInt(price) * parseFloat(quantity);
     return total;
   };
 

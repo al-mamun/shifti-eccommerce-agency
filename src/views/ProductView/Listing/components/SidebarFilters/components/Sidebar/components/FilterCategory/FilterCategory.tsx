@@ -23,6 +23,7 @@ const FilterCategory = (): JSX.Element => {
     index === -1 ? newGenders.push(item) : newGenders.splice(index, 1);
     setGenders(newGenders);
   };
+ 
 
   return (
     <Box>
@@ -33,7 +34,7 @@ const FilterCategory = (): JSX.Element => {
         marginBottom={1}
         onClick={() => handleClick()}
       >
-        <Typography fontWeight={700}>Gender</Typography>
+        <Typography fontWeight={700}>Category</Typography>
         {open ? <ExpandLess /> : <ExpandMore />}
       </Box>
       <Collapse in={open} timeout="auto" unmountOnExit>

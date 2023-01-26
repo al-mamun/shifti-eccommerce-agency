@@ -18,9 +18,7 @@ const Orders = (): JSX.Element => {
   const { cartData, orderSummary, CardData } = useContext(CartData);
 
   const calculateTotal = (price, quantity) => {
-    const p = price.split('৳')[1];
-    const total = parseInt(p) * parseFloat(quantity);
-
+    const total = parseInt(price) * parseFloat(quantity);
     return total;
   };
 

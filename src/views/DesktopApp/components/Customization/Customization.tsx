@@ -1,18 +1,44 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, {  useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { api } from 'api/config';
+import parse from 'html-react-parser';
 
 const Customization = (): JSX.Element => {
   const theme = useTheme();
+
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
 
+  const [page_title, settitle] = useState([]);
+  const [page_content, setContent] = useState([]);
+  const [thumbnail, setThumbnail] = useState([]);
+  const [thumbnail2, setThumbnail2] = useState([]);
+
+  useEffect(() => {
+        fetch(`${api}/api/frontend/home/page/content`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data?.feature);
+          settitle(data?.product_title);
+          setContent(data?.product_content);
+          setThumbnail(data?.product_content_banner);
+          setThumbnail2(data?.product_thumbnail);
+        });
+
+      }, []);
   return (
     <Box>
       <Box marginBottom={4}>
@@ -36,7 +62,7 @@ const Customization = (): JSX.Element => {
             fontWeight: 700,
           }}
         >
-          Customize your product
+           { parse(`${ page_title }`) }
         </Typography>
         <Typography
           variant="h6"
@@ -44,12 +70,7 @@ const Customization = (): JSX.Element => {
           color={'text.secondary'}
           data-aos={'fade-up'}
         >
-          We aim to take care of you.
-          <br />
-          Need help with installation, find a bug, or just need a clarifiction
-          about our documentation?
-          <br />
-          We'll be there to lend a helping hand.
+          { parse(`${ page_content }`) }
         </Typography>
         <Box
           display="flex"
@@ -87,9 +108,7 @@ const Customization = (): JSX.Element => {
               loading="lazy"
               height={1}
               width={1}
-              src={
-                'https://assets.maccarianagency.com/screenshots/dashboard.png'
-              }
+              src={`${thumbnail}`}
               alt="..."
               boxShadow={3}
               borderRadius={2}
@@ -114,9 +133,7 @@ const Customization = (): JSX.Element => {
               loading="lazy"
               height={1}
               width={1}
-              src={
-                'https://assets.maccarianagency.com/screenshots/dashboard1.jpg'
-              }
+              src={`${thumbnail2}`}
               alt="..."
               boxShadow={3}
               borderRadius={2}

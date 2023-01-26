@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -7,10 +7,22 @@ import Typography from '@mui/material/Typography';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import { ContactCard, Content } from './components';
+import { useParams } from 'react-router-dom';
+import { api } from 'api/config';
 
 const CompanyTerms = (): JSX.Element => {
   const theme = useTheme();
+  const [terms, setTerms] = useState([]);
 
+  useEffect(() => {
+    
+    fetch(`${api}/api/frontend/terms/condition/list`)
+      .then((res) => res.json())
+      .then((data) => {
+        setTerms(data);
+     
+      });
+  }, []);
   return (
     <Main>
       <Container>

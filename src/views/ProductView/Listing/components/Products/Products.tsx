@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { alpha, useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -8,8 +9,14 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Link from '@mui/material/Link';
-
+import Pagination from '@mui/material/Pagination';
 import { ProductQuickViewDialog } from './components';
+import { useForm } from 'react-hook-form';
+import { api } from 'api/config';
+import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { ReactSession } from 'react-client-session';
+import { useParams } from 'react-router-dom';
 
 const mock = [
   {
@@ -123,12 +130,129 @@ const mock = [
 ];
 
 const Products = (): JSX.Element => {
+ 
   const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
+
+  const { slug } = useParams();
   const [openId, setOpenId] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
+  const [posts, setPosts] = useState([]);
+  const [authUser, setAuthUser] = useState(null);
+  const [count, totalData] = useState(0);
+
+  function setPageApi(event) {
+
+    fetch(`${api}/api/frontend/category_info/total/product/${slug}/${event}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+  
+        setPosts(data);
+      })
+
+      .catch((err) => {
+        console.log(err.message);
+      });
+    
+      
+    // const [authorName, setAuthor] = useState([]);
+    // const [postDate, setPostDate] = useState([]);
+    // const [profileInamge, setAvatar] = useState([]);
+
+   
+
+  }
+
+  
+  ReactSession.setStoreType('sessionStorage');
+
+  const authData = useCallback(() => {
+    const authUser = ReactSession.get('userData');
+    return authUser;
+  }, []);
+
+  useEffect(() => {
+    setAuthUser(authData());
+    console.log(authUser);
+  }, [authData]);
+
+  function addToCart(id) {
+    const list = {
+      customer_id: `${authUser?.user?.id}`,
+      product_id: id,
+    };
+    const token = `${authUser?.token}`;
+    fetch(`${api}/api/add-to-cart`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(list),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message == 'Unauthenticated.') {
+          setErrorMessage('test');
+          toast.error(data.msg, {
+            position: 'top-right',
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
+          setTimeout(() => {
+            navigate('/signin-simple');
+          }, 5000);
+          return;
+        }
+        toast.success(data?.msg, {
+          position: 'top-right',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      });
+  }
+  useEffect(() => {
+    fetch(`${api}/api/frontend/category/product/${slug}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+      fetch(`${api}/api/frontend/category/total/product/${slug}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.total);
+      
+        totalData(data?.total);
+      })
+  
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
   return (
     <Grid container spacing={{ xs: 4, md: 2 }}>
-      {mock.map((item, i) => (
+      {posts.map((item, i) => (
         <Grid item xs={12} sm={6} md={4} key={i}>
           <Box display={'block'} width={1} height={1}>
             <Card
@@ -198,7 +322,7 @@ const Products = (): JSX.Element => {
                 >
                   {item.title}
                 </Typography>
-                <Typography fontWeight={700}>{item.price}</Typography>
+                <Typography fontWeight={700}>${item.price}</Typography>
               </Box>
               <Box marginTop={0.5} display={'flex'} alignItems={'center'}>
                 <Box display={'flex'} alignItems={'center'}>
@@ -314,6 +438,9 @@ const Products = (): JSX.Element => {
           </Box>
         </Grid>
       ))}
+      <Box display={'flex'} justifyContent={'center'} width={1}>
+        <Pagination count={count}  onChange={(e, value) => setPageApi(value)}  size={'large'} color="primary" />
+      </Box>
     </Grid>
   );
 };

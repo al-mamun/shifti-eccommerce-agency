@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
+import { api } from 'api/config';
 const mock = [
   {
     title: '1. What information do we collect?',
@@ -53,6 +53,18 @@ const PrivacySection = ({
   title: string;
   description: string;
 }) => {
+
+  const [terms, setTerms] = useState([]);
+  useEffect(() => {
+    
+    fetch(`${api}/api/frontend/terms/condition/list`)
+      .then((res) => res.json())
+      .then((data) => {
+        setTerms(data);
+     
+      });
+  }, []);
+
   return (
     <Box>
       <Typography

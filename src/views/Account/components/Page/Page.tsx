@@ -26,11 +26,11 @@ const pages = [
   //   href: '/account-notifications',
   //   title: 'Notifications',
   // },
-  // {
-  //   id: 'billing',
-  //   href: '/account-billing',
-  //   title: 'Billing Information',
-  // },
+  {
+    id: 'billing',
+    href: '/account-billing',
+    title: 'Billing Information',
+  },
   {
     id: 'myorders',
     href: '/my-orders',

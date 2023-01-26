@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {  useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
@@ -9,6 +9,8 @@ import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
+import { api } from 'api/config';
+import parse from 'html-react-parser';
 
 const mock = [
   {
@@ -45,7 +47,27 @@ const mock = [
 
 const Team = (): JSX.Element => {
   const theme = useTheme();
+  const [cardNumber, setCardNumber] = useState([]);
+  const [team_title, setTeamTitle] = useState([]);
+  const [team_content, setTeamContent] = useState([]);
+  const [feature, setFeature] = useState([]);
 
+useEffect(() => {
+
+    fetch(`${api}/api/frontend/team/list`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data?.address);
+      setCardNumber(data);
+    });
+
+  }, []);
   return (
     <Box>
       <Box marginBottom={4}>
@@ -77,7 +99,7 @@ const Team = (): JSX.Element => {
         </Typography>
       </Box>
       <Grid container spacing={2}>
-        {mock.map((item, i) => (
+        {cardNumber.map((item, i) => (
           <Grid item xs={12} md={4} key={i}>
             <Box
               width={1}

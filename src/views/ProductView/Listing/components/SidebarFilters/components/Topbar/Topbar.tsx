@@ -13,6 +13,7 @@ interface Props {
 }
 
 const Topbar = ({ onSidebarOpen }: Props): JSX.Element => {
+  
   const theme = useTheme();
   const [sortBy, setSortBy] = useState(2);
 

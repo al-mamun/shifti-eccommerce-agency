@@ -38,9 +38,6 @@ const SidebarFilters = ({ children }: Props): JSX.Element => {
       <Box marginLeft={{ xs: 0, md: 4 }} width={1}>
         <Topbar onSidebarOpen={handleSidebarOpen} />
         <Box paddingY={4}>{children}</Box>
-        <Box display={'flex'} justifyContent={'center'} width={1}>
-          <Pagination count={10} size={'large'} color="primary" />
-        </Box>
       </Box>
     </Box>
   );

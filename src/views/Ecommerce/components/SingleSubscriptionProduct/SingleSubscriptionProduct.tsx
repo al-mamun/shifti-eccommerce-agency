@@ -21,6 +21,7 @@ import { useParams } from 'react-router-dom';
 import { api } from 'api/config';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import parse from 'html-react-parser';
 const mock = [
   {
     title: 'Starter',
@@ -64,7 +65,8 @@ const SingleSubscriptionProduct = (): JSX.Element => {
   const theme = useTheme();
   const [product_title, setSubscriptionsTitle] = useState([]);
   const [product_content, setSubscriptionsContent] = useState([]);
-
+  // const [moduleProduct, setModuleProduct] = useState([]);
+  const [subscriptions, setSubscriptions] = useState([]);
   const [authUser, setAuthUser] = useState(null);
 
   ReactSession.setStoreType('sessionStorage');
@@ -79,7 +81,7 @@ const SingleSubscriptionProduct = (): JSX.Element => {
     console.log(authUser);
   }, [authData]);
   const { id } = useParams();
-  const [subscriptions, setSubscriptions] = useState([]);
+  
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -191,14 +193,16 @@ const SingleSubscriptionProduct = (): JSX.Element => {
       });
   }      
   useEffect(() => {
+
     console.log(id);
     fetch(`${api}/api/frontend/subscriptions/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data?.product);
+        console.log('Hi' + data?.product);
         setSubscriptions(data?.product);
         setSubscriptionsTitle(data?.title);
         setSubscriptionsContent(data?.content);
+   
       });
   }, []);
 
@@ -239,7 +243,8 @@ const SingleSubscriptionProduct = (): JSX.Element => {
                         fontWeight: 900,
                       }}
                     >
-                      { product_title }
+                      { parse(`${ product_title }`) }
+      
                     </Typography>
                     <Typography
                       variant="h6"
@@ -247,7 +252,8 @@ const SingleSubscriptionProduct = (): JSX.Element => {
                       color="text.primary"
                       align={'center'}
                     >
-                     { product_content }
+                      { parse(`${ product_content }`) }
+             
                     </Typography>
                   </Box>
                 </Box>
@@ -300,44 +306,47 @@ const SingleSubscriptionProduct = (): JSX.Element => {
                           </Typography>
                         </Box>
                         <Grid container spacing={1}>
-                          {item?.features?.map((feature, j) => (
+                        <Grid container spacing={1}>
+                          {item?.module?.map((feature, j) => (
                             <Grid item xs={12} key={j}>
-                              <Box
-                                component={ListItem}
-                                disableGutters
-                                width={'auto'}
-                                padding={0}
+                              <Typography
+                                component={'p'}
+                                align={'left'}
+                               
                               >
-                                <Box
-                                  component={ListItemAvatar}
-                                  minWidth={'auto !important'}
-                                  marginRight={2}
-                                >
-                                  <Box
-                                    component={Avatar}
-                                    bgcolor={theme?.palette?.primary?.main}
-                                    width={20}
-                                    height={20}
+                              <Box
+                                component={Avatar}
+                                bgcolor={theme?.palette?.primary?.main}
+                                width={20}
+                                height={20}
+                                style={{
+                                  float: 'left',
+                                  marginRight:'10px'
+                                }}
+                              >
+                                  <svg
+                                    width={12}
+                                    height={12}
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
                                   >
-                                    <svg
-                                      width={12}
-                                      height={12}
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      viewBox="0 0 20 20"
-                                      fill="currentColor"
-                                    >
-                                      <path
-                                        fillRule="evenodd"
-                                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                        clipRule="evenodd"
-                                      />
-                                    </svg>
-                                  </Box>
+                                    <path
+                                      fillRule="evenodd"
+                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                      clipRule="evenodd"
+                                    />
+                                  </svg> 
+                                  
+                                
                                 </Box>
-                                <ListItemText primary={feature?.title} />
-                              </Box>
+                                {feature?.module_title}
+                              </Typography>
                             </Grid>
+                            
                           ))}
+                        </Grid>
+                        
                         </Grid>
                       </CardContent>
                       <Box flexGrow={1} />

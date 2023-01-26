@@ -69,7 +69,7 @@ const Hero = (): JSX.Element => {
               Latest updates and Hand-picked resources.
             </Typography>
           </Box>
-          <Box
+          {/* <Box
             padding={2}
             width={1}
             component={Card}
@@ -129,7 +129,7 @@ const Hero = (): JSX.Element => {
                 </Box>
               </Box>
             </form>
-          </Box>
+          </Box> */}
         </Box>
       </Container>
       <Box

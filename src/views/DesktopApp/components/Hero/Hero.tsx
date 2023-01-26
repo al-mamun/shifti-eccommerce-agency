@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {  useEffect, useState } from 'react';
 import { alpha, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+import { api } from 'api/config';
+import parse from 'html-react-parser';
 
 const Hero = (): JSX.Element => {
   const theme = useTheme();
@@ -12,6 +14,28 @@ const Hero = (): JSX.Element => {
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+
+  const [page_title, settitle] = useState([]);
+  const [page_content, setContent] = useState([]);
+  const [thumbnail, setThumbnail] = useState([]);
+
+  useEffect(() => {
+        fetch(`${api}/api/frontend/home/page/content`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data?.feature);
+          settitle(data?.title);
+          setContent(data?.content);
+          setThumbnail(data?.thumbnail);
+        });
+
+      }, []);
 
   return (
     <Grid container spacing={4}>
@@ -23,28 +47,14 @@ const Hero = (): JSX.Element => {
               color="text.primary"
               sx={{ fontWeight: 700 }}
             >
-              Beautiful data representation{' '}
-              <Typography
-                color={'primary'}
-                component={'span'}
-                variant={'inherit'}
-                sx={{
-                  background: `linear-gradient(180deg, transparent 82%, ${alpha(
-                    theme.palette.secondary.main,
-                    0.3,
-                  )} 0%)`,
-                }}
-              >
-                built with theFront
-              </Typography>
+              { parse(`${ page_title }`) }
+            
             </Typography>
           </Box>
           <Box marginBottom={3}>
             <Typography variant="h6" component="p" color="text.secondary">
-              World developers use our theFront theme to build their internal
-              tools and client admin applications.
-              <br />
-              Save yourself time and money.
+            { parse(`${ page_content }`) }
+           
             </Typography>
           </Box>
           <Box
@@ -90,7 +100,7 @@ const Hero = (): JSX.Element => {
           loading="lazy"
           height={1}
           width={1}
-          src={'https://assets.maccarianagency.com/screenshots/dashboard.png'}
+          src={`${thumbnail}`}
           alt="..."
           boxShadow={3}
           borderRadius={2}

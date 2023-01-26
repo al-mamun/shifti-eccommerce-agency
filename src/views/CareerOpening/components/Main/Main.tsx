@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
@@ -12,12 +12,35 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
+import { api } from 'api/config';
+import { useParams } from 'react-router-dom';
+import parse from 'html-react-parser';
 
 const Main = (): JSX.Element => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+
+  const [job_title, settitle] = useState();
+  const [loctaion, setLocation] = useState();
+  const [descraption, setDescraption] = useState();
+  const [why_to_apply, setWhyToApply] = useState();
+  const [expDate, setExpDate] = useState();
+  const { slug } = useParams();
+
+  useEffect(() => {
+    console.log(slug);
+    fetch(`${api}/api/frontend/single/job/${slug}`)
+      .then((res) => res.json())
+      .then((data) => {
+        settitle(data?.title);
+        setLocation(data?.location);
+        setDescraption(data?.descraption);
+        setWhyToApply(data?.why_to_apply);
+        setExpDate(data?.expire_date);
+      });
+  }, []);
 
   return (
     <Box>
@@ -29,114 +52,22 @@ const Main = (): JSX.Element => {
       >
         <Box>
           <Typography fontWeight={700} variant={'h4'} gutterBottom>
-            UX /UI Designer
+            {job_title}
           </Typography>
-          <Typography variant={'h6'}>San Francisco, CA · Full time</Typography>
+          <Typography variant={'h6'}>{loctaion} · Full time</Typography>
         </Box>
-        <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
-          <Button variant="contained" color="primary" size="large">
-            Apply now
-          </Button>
-          <Box
-            component={Button}
-            variant="outlined"
-            color="primary"
-            size="large"
-            marginLeft={2}
-          >
-            Refer a friend
-          </Box>
-        </Box>
+        
       </Box>
       <Divider sx={{ marginY: 4 }} />
       <Grid container spacing={isMd ? 4 : 2}>
         <Grid item xs={12} md={8}>
-          <Box marginBottom={3}>
-            <Typography variant={'h5'} fontWeight={700} gutterBottom>
-              Who we are
-            </Typography>
-            <Typography component={'p'}>
-              We believe lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Phasellus feugiat elit vitae enim lacinia semper. Cras nulla
-              lectus, porttitor vitae urna iaculis, malesuada tincidunt lectus.
-              Proin nec tellus sit amet massa auctor imperdiet id vitae diam.
-              Aenean gravida est nec diam suscipit iaculis. Praesent urna velit,
-              auctor nec turpis et, vehicula lobortis sem. Vivamus convallis mi
-              sagittis eleifend laoreet. Praesent vitae venenatis enim. Nulla
-              tincidunt felis et lectus rhoncus laoreet.
-            </Typography>
-          </Box>
-          <Box marginBottom={3}>
-            <Typography variant={'h5'} fontWeight={700} gutterBottom>
-              What we’re looking for
-            </Typography>
-            <Typography component={'p'}>
-              Aenean gravida est nec diam suscipit iaculis. Praesent urna velit,
-              auctor nec turpis et, vehicula lobortis sem. Vivamus convallis mi
-              sagittis eleifend laoreet. Praesent vitae venenatis enim. Nulla
-              tincidunt felis et lectus rhoncus laoreet.
-            </Typography>
-            <Grid container spacing={1} sx={{ marginTop: 1 }}>
-              {[
-                'Our sign up is dead simple. We only require your basic company information',
-                'We support bulk uploading via SQL, integrations with most data storage products',
-                'Simply select where you\'d like to transfer your data',
-                'Our sign up is dead simple. We only require your basic company information',
-                'We support bulk uploading via SQL, integrations with most data storage products',
-                'Simply select where you\'d like to transfer your data',
-              ].map((item, i) => (
-                <Grid item xs={12} key={i}>
-                  <Box
-                    component={ListItem}
-                    disableGutters
-                    width={'auto'}
-                    padding={0}
-                  >
-                    <Box
-                      component={ListItemAvatar}
-                      minWidth={'auto !important'}
-                      marginRight={2}
-                    >
-                      <Box
-                        component={Avatar}
-                        bgcolor={theme.palette.secondary.main}
-                        width={20}
-                        height={20}
-                      >
-                        <svg
-                          width={12}
-                          height={12}
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </Box>
-                    </Box>
-                    <ListItemText primary={item} />
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
+        { parse(`${ descraption }`) }
           <Box>
             <Typography variant={'h5'} fontWeight={700} gutterBottom>
               Why to apply
             </Typography>
             <Typography component={'p'}>
-              We believe lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Phasellus feugiat elit vitae enim lacinia semper. Cras nulla
-              lectus, porttitor vitae urna iaculis, malesuada tincidunt lectus.
-              Proin nec tellus sit amet massa auctor imperdiet id vitae diam.
-              Aenean gravida est nec diam suscipit iaculis. Praesent urna velit,
-              auctor nec turpis et, vehicula lobortis sem. Vivamus convallis mi
-              sagittis eleifend laoreet. Praesent vitae venenatis enim. Nulla
-              tincidunt felis et lectus rhoncus laoreet.
+              { parse(`${ why_to_apply }`) }
             </Typography>
           </Box>
         </Grid>
@@ -151,15 +82,14 @@ const Main = (): JSX.Element => {
                     color="text.primary"
                     sx={{ color: 'common.white' }}
                   >
-                    You like what you’re reading?
+                    Expire Date
                   </Typography>
                   <Typography
                     variant="subtitle1"
                     color="text.secondary"
                     sx={{ color: 'common.white' }}
                   >
-                    Get free online programing tips and resources delivered
-                    directly to your inbox.
+                    {expDate}
                   </Typography>
                 </CardContent>
               </Box>

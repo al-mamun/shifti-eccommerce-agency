@@ -43,20 +43,25 @@ const General = (): JSX.Element => {
   const [zipCode, setZipCode] = useState([]);
   const [trcountry, setCountry] = useState([]);
   const [phone_number, setphoneNumber] = useState([]);
+  const [pr_firstname, setFirstName] = useState([]);
+  const [pr_last_name, setLastName] = useState([]);
+  const [pr_email, setLastEmail] = useState([]);
   
 
  useEffect(() => {
     const authUser = ReactSession.get('userData');
+
     console.log(authUser);
     setTimeout(() => {
-      fetch(`${api}/api/customer-data-address`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${authUser?.token}`,
-        },
-      })
+
+        fetch(`${api}/api/customer-data-address`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${authUser?.token}`,
+          },
+        })
         .then((res) => res.json())
         .then((data) => {
           console.log(data?.address);
@@ -67,11 +72,32 @@ const General = (): JSX.Element => {
           setphoneNumber(data?.phone);
           
         });
+        
+        fetch(`${api}/api/customer_data`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${authUser?.token}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data?.address);
+            setFirstName(data?.first_name);
+            setLastName(data?.last_name);
+            setLastEmail(data?.email);
+            // setCity(data?.city);
+            // setZipCode(data?.post_code);
+            // setCountry(data?.country);
+            // setphoneNumber(data?.phone);
+            
+          });
+
       }, 1000)
-    }, [authData]);
+ }, [authData]);
 
   const onSubmit = (dataList) => {
-   
     // setCardData(data);
     fetch(`${api}/api/customer-data-update`, {
       method: 'POST',
@@ -84,20 +110,33 @@ const General = (): JSX.Element => {
     })
     .then((res) => res.json())
     .then((data) => {
-      toast.success(data?.msg, {
-        position: 'top-right',
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
-    });
 
-   
-  };
+      if(data?.status == 401) {
+        toast.error(data?.msg, {
+          position: 'top-right',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      } else {
+        toast.success(data?.msg, {
+          position: 'top-right',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      }
+      
+    });
+};
 
  
 
@@ -145,7 +184,7 @@ const General = (): JSX.Element => {
                 <TextField
                   variant="outlined"
                   name={'first_name'}
-                  label={authUser?.user?.first_name}
+                  label={pr_firstname}
                   // defaultValue={authUser?.user?.first_name}
                   fullWidth
                   {...register('first_name')}
@@ -161,15 +200,13 @@ const General = (): JSX.Element => {
                 </Typography>
                 <TextField
                   label={
-                    authUser?.user
-                      ? authUser?.user?.last_name
-                      : userData?.user?.last_name
+                    pr_last_name
                   }
                   variant="outlined"
                   name={'last_name'}
                  
                   fullWidth
-                  defaultValue={authUser?.user?.last_name}
+                  defaultValue={pr_last_name}
                   {...register('last_name')}
                 />
               </Grid>
@@ -182,11 +219,11 @@ const General = (): JSX.Element => {
                   Your email
                 </Typography>
                 <TextField
-                  label={authUser?.user?.email}
+                  label={pr_email}
                   variant="outlined"
                   name={'email'}
                   fullWidth
-                  defaultValue={authUser?.user?.email}
+                  defaultValue={pr_email}
                   {...register('email')}
                 />
               </Grid>
@@ -239,23 +276,7 @@ const General = (): JSX.Element => {
                 <Autocomplete
                   options={countries}
                   autoHighlight
-                  getOptionLabel={(option) => option.label}
-                  renderOption={(props, option) => (
-                    <Box
-                      component="li"
-                      sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
-                      {...props}
-                    >
-                      <img
-                        loading="lazy"
-                        width="20"
-                        src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                        srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                        alt=""
-                      />
-                      {option.label} ({option.code}) +{option.phone}
-                    </Box>
-                  )}
+                
                   renderInput={(params) => (
                     <TextField
                       {...params}

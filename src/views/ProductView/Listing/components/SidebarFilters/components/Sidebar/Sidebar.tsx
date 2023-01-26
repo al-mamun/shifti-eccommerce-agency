@@ -42,14 +42,14 @@ const Sidebar = ({ open, variant, onClose }: Props): JSX.Element => {
         <FilterPrice />
         <Divider sx={{ my: 3 }} />
         <FilterCategory />
-        <Divider sx={{ my: 3 }} />
-        <FilterGender />
+        {/* <Divider sx={{ my: 3 }} /> */}
+        {/* <FilterGender /> */}
         <Divider sx={{ my: 3 }} />
         <FilterBrand />
         <Divider sx={{ my: 3 }} />
-        <FilterSize />
+        {/* <FilterSize />
         <Divider sx={{ my: 3 }} />
-        <FilterColor />
+        <FilterColor /> */}
         <Button variant={'outlined'} size={'large'} fullWidth sx={{ mt: 3 }}>
           Reset all
         </Button>

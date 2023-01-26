@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import valid from 'card-validator';
@@ -9,9 +9,15 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-
+import { ReactSession } from 'react-client-session';
+import { useContext } from 'react';
+import { CartData } from 'context/CartContext';
 import Page from '../components/Page';
 import Main from 'layouts/Main';
+import { useForm } from 'react-hook-form';
+import { api } from 'api/config';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const validationSchema = yup.object({
   cardNumber: yup
@@ -47,6 +53,45 @@ const validationSchema = yup.object({
 });
 
 const Billing = (): JSX.Element => {
+  const { register, handleSubmit } = useForm();
+  const [authUser, setAuthUser] = useState(null);
+  const { userData, cartItemCount } = useContext(CartData);
+  const navigate = useNavigate();
+  ReactSession.setStoreType('sessionStorage');
+
+  const [cardNumber, setCardNumber] = useState(null);
+  const [date, setExpDate] = useState(null);
+  const [name, setName] = useState(null);
+  const [zip_code, setZipCode] = useState(null);
+  const [cvv, setCVV] = useState(null);
+
+  const authData = useCallback(() => {
+    const authUser = ReactSession.get('userData');
+    return authUser;
+  }, []);
+
+  useEffect(() => {
+    const authUser = ReactSession.get('userData');
+        fetch(`${api}/api/customer-data-billing-information`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${authUser?.token}`,
+          },
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data?.address);
+          setCardNumber(data?.card_number);
+          setExpDate(data?.expiration_date);
+          setName(data?.name);
+          setZipCode(data?.zip_code);
+          setCVV(data?.cvv);
+        });
+  
+  }, [authData]);
+
   const initialValues = {
     cardNumber: '',
     name: '',
@@ -56,7 +101,29 @@ const Billing = (): JSX.Element => {
   };
 
   const onSubmit = (values) => {
-    return values;
+       // setCardData(data);
+    fetch(`${api}/api/customer-billing-data-update`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${userData?.token} `,
+      },
+      body: JSON.stringify(values),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      toast.success(data?.msg, {
+        position: 'top-right',
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    });
   };
 
   const formik = useFormik({
@@ -68,6 +135,20 @@ const Billing = (): JSX.Element => {
   return (
     <Main>
       <Page>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
         <Box>
           <Typography variant="h6" gutterBottom fontWeight={700}>
             Change your card data
@@ -102,8 +183,9 @@ const Billing = (): JSX.Element => {
                   >
                     Enter your card number
                   </Typography>
+             
                   <TextField
-                    label="Card number *"
+                    label={cardNumber}
                     variant="outlined"
                     name={'cardNumber'}
                     fullWidth
@@ -128,7 +210,7 @@ const Billing = (): JSX.Element => {
                     Name on the card
                   </Typography>
                   <TextField
-                    label="Name *"
+                    label={name}
                     variant="outlined"
                     name={'name'}
                     fullWidth
@@ -148,7 +230,7 @@ const Billing = (): JSX.Element => {
                     Expiration date
                   </Typography>
                   <TextField
-                    label="Expiration date *"
+                    label={date}
                     variant="outlined"
                     name={'date'}
                     fullWidth
@@ -168,15 +250,15 @@ const Billing = (): JSX.Element => {
                     Billing zip code
                   </Typography>
                   <TextField
-                    label="Zip code *"
+                    label={zip_code}
                     variant="outlined"
                     name={'zip'}
                     fullWidth
-                    value={formik.values.zip}
+                    value={formik.values.zip_code}
                     onChange={formik.handleChange}
-                    error={formik.touched.zip && Boolean(formik.errors.zip)}
+                    error={formik.touched.zip_code && Boolean(formik.errors.zip_code)}
                     // @ts-ignore
-                    helperText={formik.touched.zip && formik.errors.zip}
+                    helperText={formik.touched.zip_code && formik.errors.zip_code}
                   />
                 </Grid>
                 <Grid item xs={12} sm={4}>
@@ -188,7 +270,7 @@ const Billing = (): JSX.Element => {
                     CVV
                   </Typography>
                   <TextField
-                    label="Card CVV *"
+                    label={cvv}
                     variant="outlined"
                     name={'cvv'}
                     fullWidth

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Box from '@mui/material/Box';
@@ -8,11 +8,17 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import { ReactSession } from 'react-client-session';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-
+import { useContext } from 'react';
+import { CartData } from 'context/CartContext';
 import Page from '../components/Page';
 import Main from 'layouts/Main';
+import { useForm } from 'react-hook-form';
+import { api } from 'api/config';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const validationSchema = yup.object({
   currentPassword: yup.string().required('Please specify your password'),
@@ -26,15 +32,82 @@ const validationSchema = yup.object({
     .min(8, 'The password should have at minimum length of 8'),
 });
 
+
+
+
 const Security = (): JSX.Element => {
+
+  const { userData, cartItemCount } = useContext(CartData);
+  const navigate = useNavigate();
+
+  ReactSession.setStoreType('sessionStorage');
+
+  const authData = useCallback(() => {
+  const authUser = ReactSession.get('userData');
+  return authUser;
+  }, []);
   const initialValues = {
     currentPassword: '',
     newPassword: '',
     repeatPassword: '',
   };
 
+  useEffect(() => {
+    const authUser = ReactSession.get('userData');
+        fetch(`${api}/api/customer-data-billing-information`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${authUser?.token}`,
+          },
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data?.address);
+        
+        });
+  
+  }, [authData]);
+
   const onSubmit = (values) => {
-    return values;
+
+    fetch(`${api}/api/customer-password-data-update`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${userData?.token} `,
+      },
+      body: JSON.stringify(values),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      if(data.status == 201) {
+        toast.success(data?.msg, {
+          position: 'top-right',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      } else {
+        toast.error(data?.msg, {
+          position: 'top-right',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      }
+      
+    });
   };
 
   const formik = useFormik({
@@ -47,6 +120,20 @@ const Security = (): JSX.Element => {
     <Main>
       <Page>
         <Box>
+        <ToastContainer
+          position="top-right"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+        {/* Same as */}
+        <ToastContainer />
           <Box
             display={'flex'}
             flexDirection={{ xs: 'column', md: 'row' }}
@@ -56,13 +143,13 @@ const Security = (): JSX.Element => {
             <Typography variant="h6" fontWeight={700}>
               Change your password
             </Typography>
-            <Button
+            {/* <Button
               size={'large'}
               variant={'outlined'}
               sx={{ marginTop: { xs: 2, md: 0 } }}
             >
               Log out
-            </Button>
+            </Button> */}
           </Box>
           <Box paddingY={4}>
             <Divider />
@@ -149,7 +236,7 @@ const Security = (): JSX.Element => {
               <Grid item xs={12}>
                 <Divider />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={<Switch color="primary" defaultChecked />}
                   label={
@@ -170,7 +257,7 @@ const Security = (): JSX.Element => {
                   }
                   labelPlacement="end"
                 />
-              </Grid>
+              </Grid> */}
               <Grid item container xs={12}>
                 <Box
                   display="flex"

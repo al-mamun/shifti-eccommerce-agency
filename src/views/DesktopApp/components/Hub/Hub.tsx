@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import CountUp from 'react-countup';
 import VisibilitySensor from 'react-visibility-sensor';
 import { useTheme } from '@mui/material/styles';
@@ -6,6 +6,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import { api } from 'api/config';
+import parse from 'html-react-parser';
 
 const mock = [
   {
@@ -34,6 +36,28 @@ const Hero = (): JSX.Element => {
     defaultMatches: true,
   });
 
+  const [page_title, settitle] = useState([]);
+  const [page_content, setContent] = useState([]);
+  const [thumbnail, setThumbnail] = useState([]);
+
+  useEffect(() => {
+        fetch(`${api}/api/frontend/home/page/content`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data?.feature);
+          settitle(data?.hub_title);
+          setContent(data?.hub_content);
+          setThumbnail(data?.hub_thumbnail);
+        });
+
+      }, []);
+
   const [viewPortEntered, setViewPortEntered] = useState(false);
   const setViewPortVisibility = (isVisible) => {
     if (viewPortEntered) {
@@ -61,7 +85,7 @@ const Hero = (): JSX.Element => {
           loading="lazy"
           height={1}
           width={1}
-          src={'https://assets.maccarianagency.com/screenshots/dashboard1.jpg'}
+          src={`${thumbnail}`}
           alt="..."
           boxShadow={3}
           borderRadius={2}
@@ -79,22 +103,12 @@ const Hero = (): JSX.Element => {
               color="text.primary"
               sx={{ fontWeight: 700 }}
             >
-              Use flexible components{' '}
-              <Typography
-                color={'primary'}
-                component={'span'}
-                variant={'inherit'}
-              >
-                to build an app quickly
-              </Typography>
+               { parse(`${ page_title }`) }
             </Typography>
           </Box>
-          <Box marginBottom={4}>
-            <Typography variant="h6" component="p" color="text.secondary">
-              theFront styles and extends MUI components, but also included
-              brand new landing page focused components.
-            </Typography>
-          </Box>
+          { parse(`${ page_content }`) }
+       
+        
           <Box>
             <Grid container spacing={2}>
               {mock.map((item, i) => (

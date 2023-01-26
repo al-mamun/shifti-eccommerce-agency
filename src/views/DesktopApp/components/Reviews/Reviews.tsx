@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {  useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -6,6 +6,8 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { api } from 'api/config';
+import parse from 'html-react-parser';
 
 const mock = [
   {
@@ -31,10 +33,27 @@ const mock = [
 const Reviews = (): JSX.Element => {
   const theme = useTheme();
 
+  const [post, setPost] = useState([]);
+
+  useEffect(() => {
+        fetch(`${api}/api/frontend/home/page/review/content`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          setPost(data);
+        });
+
+      }, []);
+
   return (
     <Box>
       <Grid container spacing={2}>
-        {mock.map((item, i) => (
+        {post.map((item, i) => (
           <Grid item xs={12} md={4} key={i}>
             <Box
               component={'a'}

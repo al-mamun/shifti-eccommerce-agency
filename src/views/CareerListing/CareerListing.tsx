@@ -27,6 +27,16 @@ const CareerListing = (): JSX.Element => {
         />
       {/* Same as */}
       <ToastContainer />
+          <Hero />
+            <Container>
+            <CompanyValues />
+            </Container>
+            <Container>
+            <Divider />
+            </Container>
+            <Container>
+            <About />
+            </Container>
         <Box
           component={'svg'}
           preserveAspectRatio="none"
@@ -39,6 +49,7 @@ const CareerListing = (): JSX.Element => {
             width: 1,
           }}
         >
+            
           <path
             fill={theme.palette.alternate.main}
             d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"

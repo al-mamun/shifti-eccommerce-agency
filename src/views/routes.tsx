@@ -93,7 +93,7 @@ const routes = [
     ),
   },
   {
-    path: '/career-opening',
+    path: '/career-opening/:slug',
     renderer: (params = {}): JSX.Element => <CareerOpeningView {...params} />,
   },
   {
