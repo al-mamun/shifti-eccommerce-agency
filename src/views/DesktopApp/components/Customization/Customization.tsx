@@ -48,7 +48,7 @@ const Customization = (): JSX.Element => {
             fontWeight: 'medium',
           }}
           gutterBottom
-          color={'secondary'}
+          color={'primary'}
           align={'center'}
         >
           CUSTOMIZATION

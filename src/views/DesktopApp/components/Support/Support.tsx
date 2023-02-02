@@ -52,7 +52,7 @@ useEffect(() => {
     })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data?.feature);
+      // console.log(data?.feature);
       setTeamTitle(data?.team_title);
       setTeamContent(data?.team_content);
       setFeature(data?.feature);
@@ -83,14 +83,15 @@ useEffect(() => {
             fontWeight: 'medium',
           }}
           gutterBottom
-          color={'secondary'}
+          color={'primary'}
           align={'center'}
         >
-          Support Team
+          THE TEAM
         </Typography>
         <Typography variant={'h4'} sx={{ fontWeight: 700 }} align={'center'}>
           {team_title}
         </Typography>
+       
         <Typography
           variant="h6"
           component="p"
@@ -100,6 +101,7 @@ useEffect(() => {
           
       
         </Typography>
+
         <Box marginTop={2} display={'flex'} justifyContent={'center'}>
           <Link
             to={'/contact-page/'}
@@ -127,7 +129,7 @@ useEffect(() => {
           </Link>
         </Box>
       </Box>
-      <Box
+      {/* <Box
         marginBottom={4}
         width={1}
         display={'flex'}
@@ -184,10 +186,10 @@ useEffect(() => {
             </Box>
           ))}
         </Box>
-      </Box>
+      </Box> */}
       <Grid container spacing={2}>
         {cardNumber.map((item, i) => (
-          <Grid item xs={6} md={3} key={i}>
+          <Grid item xs={6} md={3} key={i} sx={{display:'flex',justifyContent: 'center'}}>
             <ListItem
               disableGutters
               data-aos={'fade-up'}
@@ -197,7 +199,8 @@ useEffect(() => {
               sx={{
                 display: 'flex',
                 flexDirection: { xs: 'column', sm: 'row' },
-                alignItems: { xs: 'flex-start', sm: 'center' },
+                alignItems: { xs: 'flex-start', sm: 'center',md:'center' },
+                justifyContent: 'center',
               }}
             >
               <ListItemAvatar>

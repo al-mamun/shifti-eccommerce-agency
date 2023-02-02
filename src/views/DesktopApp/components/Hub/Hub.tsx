@@ -50,7 +50,7 @@ const Hero = (): JSX.Element => {
         })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data?.feature);
+          // console.log(data?.feature);
           settitle(data?.hub_title);
           setContent(data?.hub_content);
           setThumbnail(data?.hub_thumbnail);
@@ -109,7 +109,7 @@ const Hero = (): JSX.Element => {
           { parse(`${ page_content }`) }
        
         
-          <Box>
+          {/* <Box>
             <Grid container spacing={2}>
               {mock.map((item, i) => (
                 <Grid key={i} item xs={12} md={4}>
@@ -136,7 +136,7 @@ const Hero = (): JSX.Element => {
                 </Grid>
               ))}
             </Grid>
-          </Box>
+          </Box> */}
         </Box>
       </Grid>
     </Grid>

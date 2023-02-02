@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid';
 
 const mock = [
   {
-    title: 300,
+    title: 3003333,
     subtitle:
       '300 + component compositions, which will help you to build any page easily.',
     suffix: '+',
