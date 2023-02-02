@@ -54,16 +54,7 @@ const PrivacySection = ({
   description: string;
 }) => {
 
-  const [terms, setTerms] = useState([]);
-  useEffect(() => {
-    
-    fetch(`${api}/api/frontend/terms/condition/list`)
-      .then((res) => res.json())
-      .then((data) => {
-        setTerms(data);
-     
-      });
-  }, []);
+ 
 
   return (
     <Box>
@@ -84,10 +75,22 @@ const PrivacySection = ({
 };
 
 const Content = (): JSX.Element => {
+
+  const [terms, setTerms] = useState([]);
+  useEffect(() => {
+    
+    fetch(`${api}/api/frontend/terms/condition/list?type=1`)
+      .then((res) => res.json())
+      .then((data) => {
+        setTerms(data);
+     
+      });
+  }, []);
+
   return (
     <Box>
-      {mock.map((item, i) => (
-        <Box key={i} marginBottom={i < mock.length - 1 ? 4 : 0}>
+      {terms.map((item, i) => (
+        <Box key={i} marginBottom={i < terms.length - 1 ? 4 : 0}>
           <PrivacySection {...item} />
         </Box>
       ))}

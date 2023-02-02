@@ -1,11 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
+import { api } from 'api/config';
+import parse from 'html-react-parser';
 import Container from 'components/Container';
 
 const Hero = (): JSX.Element => {
+
+  const [page_title, setPageTitle] = useState([]);
+  const [page_content, setPageContent] = useState([]);
+
   useEffect(() => {
     const jarallaxInit = async () => {
       const jarallaxElems = document.querySelectorAll('.jarallax');
@@ -18,6 +23,14 @@ const Hero = (): JSX.Element => {
     };
 
     jarallaxInit();
+
+    fetch(`${api}/api/frontend/about/page/content?type=1`)
+      .then((res) => res.json())
+      .then((data) => {
+        setPageTitle(data.title);
+        setPageContent(data.content);
+     
+      });
   });
 
   return (
@@ -76,7 +89,7 @@ const Hero = (): JSX.Element => {
               textTransform: 'uppercase',
             }}
           >
-            About us
+            {page_title}
           </Typography>
           <Typography
             variant="h6"
@@ -86,8 +99,8 @@ const Hero = (): JSX.Element => {
               color: 'common.white',
             }}
           >
-            We are founded by a leading academic and researcher in the field of
-            Industrial Systems Engineering.
+                { parse(`${ page_content }`) }
+        
           </Typography>
         </Box>
       </Container>

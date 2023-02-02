@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
+import { api } from 'api/config';
+import parse from 'html-react-parser';
 
 const ContactCard = (): JSX.Element => {
   const theme = useTheme();
 
+  const [page_content, setPageContent] = useState([]);
+
+  useEffect(() => {
+    
+    fetch(`${api}/api/frontend/terms/condition/list?type=2`)
+      .then((res) => res.json())
+      .then((data) => {
+        setPageContent(data.page_content);
+     
+      });
+  }, []);
   return (
     <Box
       component={Card}
@@ -14,33 +27,9 @@ const ContactCard = (): JSX.Element => {
       border={`1px solid ${theme.palette.divider}`}
     >
       <Box padding={{ xs: 2, sm: 3 }}>
-        <Typography
-          sx={{
-            fontWeight: '700',
-          }}
-          gutterBottom
-        >
-          How can you contact us about this notice?
-        </Typography>
-        <Typography
-          variant={'body2'}
-          color={'text.secondary'}
-          sx={{
-            marginBottom: 2,
-          }}
-        >
-          If you have any questions or concerns about the privacy policy please
-          contact us.
-        </Typography>
-        <Typography variant={'subtitle2'}>
-          hi@maccarianagency.com
-          <br />
-          via Gola 4
-          <br />
-          Milan, Milano 20143
-          <br />
-          Italy
-        </Typography>
+      { parse(`${ page_content }`) }
+   
+       
       </Box>
     </Box>
   );

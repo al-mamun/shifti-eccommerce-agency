@@ -14,15 +14,17 @@ const CompanyTerms = (): JSX.Element => {
   const theme = useTheme();
   const [terms, setTerms] = useState([]);
 
+  const [page_title, setTitles] = useState([]);
   useEffect(() => {
     
-    fetch(`${api}/api/frontend/terms/condition/list`)
+    fetch(`${api}/api/frontend/terms/condition/list?type=2`)
       .then((res) => res.json())
       .then((data) => {
-        setTerms(data);
+        setTitles(data.page_title);
      
       });
   }, []);
+
   return (
     <Main>
       <Container>
@@ -37,7 +39,7 @@ const CompanyTerms = (): JSX.Element => {
                   color: theme.palette.common.white,
                 }}
               >
-                Company terms & privacy policy
+               {page_title}
               </Typography>
               <Typography
                 gutterBottom
