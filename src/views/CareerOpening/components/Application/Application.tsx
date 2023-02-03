@@ -42,7 +42,7 @@ const Application = (): JSX.Element => {
   const [job_title, settitle] = useState();
   
   useEffect(() => {
-    console.log(slug);
+    // console.log(slug);
     fetch(`${api}/api/frontend/single/job/${slug}`)
       .then((res) => res.json())
       .then((data) => {

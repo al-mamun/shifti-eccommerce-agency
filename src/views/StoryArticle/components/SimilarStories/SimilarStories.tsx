@@ -53,7 +53,7 @@ const SimilarStories = (): JSX.Element => {
     fetch(`${api}/api/frontend/stroies/list`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+      
         setPosts(data);
       })
       .catch((err) => {
@@ -61,6 +61,7 @@ const SimilarStories = (): JSX.Element => {
       });
   }, []);
   return (
+    
     <Box>
       <Box
         display={'flex'}

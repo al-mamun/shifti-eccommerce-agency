@@ -18,7 +18,7 @@ const Hero = (): JSX.Element => {
     fetch(`${api}/api/frontend/job/page/content`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // ;
         setPageTitle(data?.page_title);
         setPageSubTitle(data?.page_sub_title);
       })

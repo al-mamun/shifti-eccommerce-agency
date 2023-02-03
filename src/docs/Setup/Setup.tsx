@@ -402,7 +402,7 @@ const Setup = (): JSX.Element => {
                   >
                     https://v5.reactrouter.com/web/guides/quick-start
                   </a>
-                  ;
+                
                 </Typography>
               </li>
               <li>
@@ -420,7 +420,7 @@ const Setup = (): JSX.Element => {
                   >
                     https://nextjs.org/docs/routing/introduction
                   </a>
-                  ;
+                
                 </Typography>
               </li>
               <li>
@@ -438,7 +438,7 @@ const Setup = (): JSX.Element => {
                   >
                     https://www.gatsbyjs.com/docs/reference/routing/creating-routes/
                   </a>
-                  ;
+                
                 </Typography>
               </li>
             </Box>
@@ -546,7 +546,7 @@ const Setup = (): JSX.Element => {
                   <a href="https://reactjs.org/" target="blank">
                     ReactJS
                   </a>
-                  ;
+                
                 </Typography>
               </li>
               <li>
@@ -560,7 +560,7 @@ const Setup = (): JSX.Element => {
                   <a href="https://create-react-app.dev/" target="blank">
                     Create React App
                   </a>
-                  ;
+                
                 </Typography>
               </li>
               <li>
@@ -574,7 +574,7 @@ const Setup = (): JSX.Element => {
                   <a href="https://nextjs.org/" target="blank">
                     NextJS
                   </a>
-                  ;
+                
                 </Typography>
               </li>
               <li>
@@ -588,7 +588,7 @@ const Setup = (): JSX.Element => {
                   <a href="https://www.gatsbyjs.com/" target="blank">
                     GatsbyJS
                   </a>
-                  ;
+                
                 </Typography>
               </li>
               <li>
@@ -602,7 +602,7 @@ const Setup = (): JSX.Element => {
                   <a href="/docs/quick-start-react-scripts">
                     Getting started with theFront (react-scripts)
                   </a>
-                  ;
+                
                 </Typography>
               </li>
               <li>
@@ -616,7 +616,7 @@ const Setup = (): JSX.Element => {
                   <a href="/docs/quick-start-nextjs">
                     Getting started with theFront (nextjs)
                   </a>
-                  ;
+                
                 </Typography>
               </li>
               <li>
@@ -630,7 +630,7 @@ const Setup = (): JSX.Element => {
                   <a href="/docs/quick-start-gatsbyjs">
                     Getting started with theFront (gatsbyjs)
                   </a>
-                  ;
+                
                 </Typography>
               </li>
               <li>
@@ -644,7 +644,7 @@ const Setup = (): JSX.Element => {
                   <a href="https://mui.com/" target="blank">
                     MUI
                   </a>
-                  ;
+                
                 </Typography>
               </li>
               <li>
@@ -658,7 +658,7 @@ const Setup = (): JSX.Element => {
                   <a href="https://mui.com/components/box/" target="blank">
                     MUI Components
                   </a>
-                  ;
+                
                 </Typography>
               </li>
               <li>
@@ -675,7 +675,7 @@ const Setup = (): JSX.Element => {
                   >
                     MUI Create-React-App example
                   </a>
-                  ;
+                
                 </Typography>
               </li>
               <li>
@@ -692,7 +692,7 @@ const Setup = (): JSX.Element => {
                   >
                     MUI NextJS example
                   </a>
-                  ;
+                
                 </Typography>
               </li>
               <li>
@@ -709,7 +709,7 @@ const Setup = (): JSX.Element => {
                   >
                     MUI GatsbyJS example
                   </a>
-                  ;
+                
                 </Typography>
               </li>
               <li>
@@ -726,7 +726,7 @@ const Setup = (): JSX.Element => {
                   >
                     React Router
                   </a>
-                  ;
+                
                 </Typography>
               </li>
               <li>
@@ -743,7 +743,7 @@ const Setup = (): JSX.Element => {
                   >
                     NextJS Routing
                   </a>
-                  ;
+                
                 </Typography>
               </li>
               <li>
@@ -760,7 +760,7 @@ const Setup = (): JSX.Element => {
                   >
                     Gatsby Routing
                   </a>
-                  ;
+                
                 </Typography>
               </li>
             </ul>

@@ -34,7 +34,7 @@ const Content = (): JSX.Element => {
   const [profileInamge, setAvatar] = useState([]);
 
   useEffect(() => {
-    console.log(id);
+    // console.log(id);
     fetch(`${api}/api/frontend/blog/page/${id}`)
       .then((res) => res.json())
       .then((data) => {

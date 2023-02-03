@@ -68,7 +68,7 @@ const Contact = (): JSX.Element => {
     fetch('https://mamundevstudios.com/shifti_api/public/admin/contact/api')
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        
         setPosts(data);
       })
       .catch((err) => {

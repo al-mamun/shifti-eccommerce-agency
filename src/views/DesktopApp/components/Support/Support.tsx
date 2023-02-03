@@ -187,9 +187,9 @@ useEffect(() => {
           ))}
         </Box>
       </Box> */}
-      <Grid container spacing={2}>
+      <Grid container spacing={2} sx={{display:'flex',justifyContent: 'center'}}>
         {cardNumber.map((item, i) => (
-          <Grid item xs={6} md={3} key={i} sx={{display:'flex',justifyContent: 'center'}}>
+          <Grid item xs={6} md={3} key={i} >
             <ListItem
               disableGutters
               data-aos={'fade-up'}

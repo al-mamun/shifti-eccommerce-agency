@@ -50,7 +50,7 @@ const Orders = (): JSX.Element => {
   }, []);
 
   const handleCartUpdate = (id, qty, action) => {
-    console.log(id, qty, action);
+    // console.log(id, qty, action);
     const quntity = Number(qty) + 1;
     updateCartItem(id, quntity.toString(), action);
   };

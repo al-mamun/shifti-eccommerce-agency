@@ -26,11 +26,11 @@ const BlogArticle = (): JSX.Element => {
   const [Description, setDescription] = useState([]);
 
   useEffect(() => {
-    console.log(id);
+    // console.log(id);
     fetch(`${api}/api/frontend/blog/page/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data?.product);
+        // console.log(data?.product);
         setBlogTitle(data?.product);
         setImage(data?.title);
         setDescription(data?.description);

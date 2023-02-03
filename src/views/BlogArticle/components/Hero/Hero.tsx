@@ -31,11 +31,11 @@ const Hero = (): JSX.Element => {
   const [profileInamge, setAvatar] = useState([]);
 
   useEffect(() => {
-    console.log(id);
+    // console.log(id);
     fetch(`${api}/api/frontend/blog/page/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data?.product);
+        // console.log(data?.product);
         setBlogTitle(data?.title);
         setAuthor(data?.author?.name);
         setPostDate(data?.date);

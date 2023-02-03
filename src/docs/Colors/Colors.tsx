@@ -16,7 +16,7 @@ const Colors = (): JSX.Element => {
   const theme = useTheme();
 
   const palette = theme.palette.mode === 'dark' ? darkPalette : lightPalette;
-  console.log(palette.background);
+  // console.log(palette.background);
 
   return (
     <FixedLayout>

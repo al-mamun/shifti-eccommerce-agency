@@ -18,7 +18,7 @@ const Listing = (): JSX.Element => {
   const { slug } = useParams();
 
   useEffect(() => {
-    console.log(slug);
+    // console.log(slug);
   }, []);
 
   return (

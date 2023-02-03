@@ -30,7 +30,7 @@ const Main = (): JSX.Element => {
   const { slug } = useParams();
 
   useEffect(() => {
-    console.log(slug);
+    // console.log(slug);
     fetch(`${api}/api/frontend/single/job/${slug}`)
       .then((res) => res.json())
       .then((data) => {

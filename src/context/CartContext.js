@@ -24,13 +24,13 @@ const CartContext = ({ children }) => {
 
   const authData = () => {
     // const authUser = ReactSession.get('userData');
-    console.log(userData);
+    
     if (userData === null) {
       const userDataFormSession = sessionStorage.getItem('__react_session__');
       const data = JSON.parse(userDataFormSession);
       const usersInfo = data?.userData;
       setuserData(usersInfo);
-      console.log(usersInfo);
+      
     }
   };
 
@@ -54,7 +54,7 @@ const CartContext = ({ children }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          // ;
           setMyOrdersData(data?.data);
         });
     }
@@ -78,7 +78,7 @@ const CartContext = ({ children }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          // ;
           UpdateAllData();
         });
     }
@@ -88,7 +88,7 @@ const CartContext = ({ children }) => {
     //     const token = `${authUser?.user ? userData?.user ? userData?.token : authUser?.token : userData?.token}`;
 
     authData();
-    console.log(userData);
+    // console.log(userData);
     if (userData?.user) {
       fetch(`${api}/api/get-cart-items-count`, {
         method: 'GET',
@@ -156,7 +156,7 @@ const CartContext = ({ children }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const removeFormCart = (id) => {
     //     const token = `${authUser?.user ? userData?.user ? userData?.token : authUser?.token : userData?.token}`;
-    console.log(id);
+    // console.log(id);
     authData();
 
     if (userData?.user) {
@@ -170,7 +170,7 @@ const CartContext = ({ children }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          // ;
           UpdateAllData();
           setIsLoading(false);
           toast('Product Remove Successfully!!', {
@@ -189,7 +189,7 @@ const CartContext = ({ children }) => {
 
   const getCartItems = () => {
     authData();
-    console.log(userData);
+    // console.log(userData);
     if (userData?.user) {
       fetch(`${api}/api/get-cart-items?customer_id=${userData?.user.id}`, {
         method: 'GET',

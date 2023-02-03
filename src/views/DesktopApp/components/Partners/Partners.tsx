@@ -52,16 +52,15 @@ const Partners = (): JSX.Element => {
               fontWeight: 'medium',
             }}
             gutterBottom
-            color={'secondary'}
+            color={'primary'}
           >
             Integrations
           </Typography>
           <Typography variant="h4" gutterBottom sx={{ fontWeight: 700 }}>
-            We love to explore new ways to engage with brands and reach
+          We love to explore new ways to engage with brands and reach
           </Typography>
           <Typography variant="h6" component="p" color="text.secondary">
-            Our mission is to help you to grow your design skills, meet and
-            connect with professional dsigners who share your passions.
+          Our mission is to help you to grow your design skills, meet and connect with professional dsigners who share your passions.
           </Typography>
           <Box marginTop={2}>
             <Button

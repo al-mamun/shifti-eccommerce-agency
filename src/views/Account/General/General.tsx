@@ -51,7 +51,7 @@ const General = (): JSX.Element => {
  useEffect(() => {
     const authUser = ReactSession.get('userData');
 
-    console.log(authUser);
+    // console.log(authUser);
     setTimeout(() => {
 
         fetch(`${api}/api/customer-data-address`, {
@@ -64,7 +64,7 @@ const General = (): JSX.Element => {
         })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data?.address);
+          // console.log(data?.address);
           setAddress(data?.address);
           setCity(data?.city);
           setZipCode(data?.post_code);
@@ -83,7 +83,7 @@ const General = (): JSX.Element => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data?.address);
+            // console.log(data?.address);
             setFirstName(data?.first_name);
             setLastName(data?.last_name);
             setLastEmail(data?.email);

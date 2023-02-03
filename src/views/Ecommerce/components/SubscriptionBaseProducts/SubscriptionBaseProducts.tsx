@@ -134,7 +134,7 @@ const SubscriptionBaseProducts = (): JSX.Element => {
     fetch(`${api}/api/frontend/subscription/product/list`)
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
+        // ;
         setSubscriptionProduct(data);
       });
   }, []);

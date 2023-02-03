@@ -149,7 +149,7 @@ const Products = (): JSX.Element => {
     fetch(`${api}/api/frontend/category_info/total/product/${slug}/${event}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // ;
   
         setPosts(data);
       })
@@ -177,7 +177,7 @@ const Products = (): JSX.Element => {
 
   useEffect(() => {
     setAuthUser(authData());
-    console.log(authUser);
+    // console.log(authUser);
   }, [authData]);
 
   function addToCart(id) {
@@ -230,7 +230,7 @@ const Products = (): JSX.Element => {
     fetch(`${api}/api/frontend/category/product/${slug}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // ;
         setPosts(data);
       })
       .catch((err) => {
@@ -240,7 +240,7 @@ const Products = (): JSX.Element => {
       fetch(`${api}/api/frontend/category/total/product/${slug}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.total);
+        // console.log(data.total);
       
         totalData(data?.total);
       })

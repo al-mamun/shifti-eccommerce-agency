@@ -32,7 +32,7 @@ const SidebarNav = ({ pages }: Props): JSX.Element => {
   const [authUser, setAuthUser] = useState(null);
   const { userData, setuserData, cartCount } = useContext(CartData);
 
-  console.log(cartCount);
+  // console.log(cartCount);
 
   ReactSession.setStoreType('sessionStorage');
 

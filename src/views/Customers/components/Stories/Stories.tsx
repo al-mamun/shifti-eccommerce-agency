@@ -88,7 +88,7 @@ const Stories = (): JSX.Element => {
     fetch(`${api}/api/frontend/stroies/list`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+      
         setPosts(data);
       })
       .catch((err) => {
@@ -98,7 +98,7 @@ const Stories = (): JSX.Element => {
       fetch(`${api}/api/frontend/stroies/page/content`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+      
         setPageContent(data?.page_content);
         setPageSubContent(data?.page_sub_content);
         

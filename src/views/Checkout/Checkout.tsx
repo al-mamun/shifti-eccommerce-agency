@@ -51,7 +51,7 @@ const Checkout = (): JSX.Element => {
 
   useEffect(() => {
     setAuthUser(authData());
-    console.log(authUser);
+    // console.log(authUser);
   }, [authData]);
 
   const calculateTotal = (price, quantity) => {
@@ -62,7 +62,7 @@ const Checkout = (): JSX.Element => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
+    // ;
 
     // setCardData(data);
     fetch(`${api}/api/place-order`, {
@@ -76,7 +76,7 @@ const Checkout = (): JSX.Element => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // ;
         if (data?.id) {
           navigate('/order-complete');
         }

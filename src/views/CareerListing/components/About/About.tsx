@@ -14,7 +14,7 @@ const About = (): JSX.Element => {
     fetch(`${api}/api/frontend/job/page/content`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+       
         setPageTitle(data?.about_page_title);
         setPageSubTitle(data?.about_page_content);
       })

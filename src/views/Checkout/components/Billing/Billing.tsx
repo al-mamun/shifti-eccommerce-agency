@@ -18,7 +18,7 @@ const Billing = (): JSX.Element => {
   // const {userData} = useContext(UserData);
 
   const onSubmit = (data) => {
-    console.log(data);
+  
     // setCardData(data);
     fetch(`${api}/api/place-order`, {
       method: 'POST',
@@ -31,7 +31,7 @@ const Billing = (): JSX.Element => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+      
         if (data?.id) {
           navigate('/order-complete');
         }

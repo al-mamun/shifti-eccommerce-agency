@@ -63,7 +63,7 @@ useEffect(() => {
     })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data?.address);
+      // console.log(data?.address);
       setCardNumber(data);
     });
 

@@ -23,7 +23,7 @@ const FaqGroupItem = ({ title, items }: FaqGroupItemProps): JSX.Element => {
     fetch('https://mamundevstudios.com/shifti_api/public/admin_faq/api/'+ title)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+      
         setPosts(data);
       })
       .catch((err) => {

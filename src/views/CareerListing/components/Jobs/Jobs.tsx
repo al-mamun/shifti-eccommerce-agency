@@ -95,7 +95,7 @@ const Jobs = (): JSX.Element => {
       body: JSON.stringify(list),
     }) .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // ;
         setPosts(data);
       })
       .catch((err) => {
@@ -116,7 +116,7 @@ const Jobs = (): JSX.Element => {
       body: JSON.stringify(list),
     }) .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // ;
         setPosts(data);
       })
       .catch((err) => {
@@ -137,7 +137,7 @@ const Jobs = (): JSX.Element => {
       body: JSON.stringify(list),
     }) .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // ;
         setPosts(data);
       })
       .catch((err) => {
@@ -154,7 +154,7 @@ const Jobs = (): JSX.Element => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // ;
         setPosts(data);
       })
       .catch((err) => {

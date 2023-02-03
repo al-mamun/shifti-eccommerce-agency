@@ -16,6 +16,57 @@ import Divider from '@mui/material/Divider';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 
+const mock = [
+  {
+    title: 'Starter',
+    subtitle: 'Is perfect for individual developers',
+    price: { monthly: '$33', annual: '$3' },
+    features: [
+      'All features',
+      'Lifetime updates',
+      'Tech support',
+     
+    ],
+    isHighlighted: false,
+  },
+  {
+    title: 'Pro',
+    subtitle: 'For teams and advanced developers',
+    price: { monthly: '$44', annual: '$4' },
+    features: [
+      'All features',
+      'Lifetime updates',
+      'Tech support',
+     
+    ],
+    isHighlighted: true,
+  },
+  {
+    title: 'Enterprise',
+    subtitle: 'Ideal for corporate companyes',
+    price: { monthly: '$604', annual: '$60' },
+    features: [
+      'All features',
+      'Lifetime updates',
+      'Tech support',
+     
+    ],
+    isHighlighted: false,
+  },
+  {
+    title: 'Enterprise',
+    subtitle: 'Ideal for corporate companyes',
+    price: { monthly: '$255', annual: '$25' },
+    features: [
+      'All features',
+      'Lifetime updates',
+      'Tech support',
+     
+    ],
+    isHighlighted: false,
+  },
+];
+
 const Pricing = (): JSX.Element => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -37,7 +88,7 @@ const Pricing = (): JSX.Element => {
             fontWeight: 'medium',
           }}
           gutterBottom
-          color={'secondary'}
+          color={'primary'}
           align={'center'}
         >
           Pricing
@@ -91,135 +142,177 @@ const Pricing = (): JSX.Element => {
         </Box>
       </Box>
       <Grid container spacing={isMd ? 0 : 2}>
-        <Grid item xs={12} md={6}>
-          <Card data-aos={isMd ? 'fade-right' : 'fade-up'}>
-            <CardContent sx={{ padding: { sm: 4 } }}>
-              <Box display={'flex'} justifyContent={'center'} marginBottom={4}>
-                <ToggleButtonGroup
-                  value={pricingOption}
-                  exclusive
-                  onChange={handleClick}
-                >
-                  <ToggleButton
-                    value="annual"
-                    size={'small'}
-                    sx={{
-                      backgroundColor:
-                        pricingOption === 'annual'
-                          ? `${theme.palette.primary.light} !important`
-                          : 'transparent',
-                      border: `1px solid ${theme.palette.primary.main}`,
-                    }}
+        <Grid item xs={12} md={12}>
+         
+            <Grid container spacing={1}>
+              {mock.map((item, i) => (
+                <Grid item xs={12} md={3} key={i}>
+                  <Box
+                    component={Card}
+                    height={1}
+                    display={'flex'}
+                    flexDirection={'column'}
+                    variant={'outlined'}
                   >
-                    <Typography
-                      variant="subtitle2"
+                    <CardContent
                       sx={{
-                        fontWeight: 'medium',
-                        color:
-                          pricingOption === 'annual'
-                            ? theme.palette.common.white
-                            : 'primary',
+                        padding: 4,
                       }}
-                    >
-                      Annual
-                    </Typography>
-                  </ToggleButton>
-                  <ToggleButton
-                    value="monthly"
-                    size={'small'}
-                    sx={{
-                      backgroundColor:
-                        pricingOption === 'monthly'
-                          ? `${theme.palette.primary.light} !important`
-                          : 'transparent',
-                      border: `1px solid ${theme.palette.primary.main}`,
-                    }}
-                  >
-                    <Typography
-                      variant="subtitle2"
-                      sx={{
-                        fontWeight: 'medium',
-                        color:
-                          pricingOption !== 'annual'
-                            ? theme.palette.common.white
-                            : 'primary',
-                      }}
-                    >
-                      Monthly
-                    </Typography>
-                  </ToggleButton>
-                </ToggleButtonGroup>
-              </Box>
-              <Box marginBottom={4}>
-                <Typography
-                  fontWeight={600}
-                  variant={'h2'}
-                  align={'center'}
-                  gutterBottom
-                >
-                  ${pricingOption === 'annual' ? '240' : '29'}
-                </Typography>
-                <Typography color="text.secondary" align={'center'}>
-                  6 month of technical support.
-                  <br />
-                  Plus unlimited updates.
-                </Typography>
-              </Box>
-              <Grid container spacing={1}>
-                {[
-                  'All features',
-                  'Email support',
-                  'Google Ads',
-                  'SSO via Google',
-                  'API access',
-                  'Facebook Ads',
-                ].map((item, i) => (
-                  <Grid item xs={12} sm={6} key={i}>
-                    <Box
-                      component={ListItem}
-                      disableGutters
-                      width={'auto'}
-                      padding={0}
                     >
                       <Box
-                        component={ListItemAvatar}
-                        minWidth={'auto !important'}
-                        marginRight={2}
+                        display={'flex'}
+                        justifyContent={'center'}
+                        marginBottom={4}
                       >
-                        <Box
-                          component={Avatar}
-                          bgcolor={theme.palette.secondary.main}
-                          width={20}
-                          height={20}
+                        <ToggleButtonGroup
+                          value={pricingOption}
+                          exclusive
+                          onChange={handleClick}
                         >
-                          <svg
-                            width={12}
-                            height={12}
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
+                          <ToggleButton
+                            value="annual"
+                            size={'small'}
+                            sx={{
+                              backgroundColor:
+                                pricingOption === 'annual'
+                                  ? `${theme.palette.primary.light} !important`
+                                  : 'transparent',
+                              border: `1px solid ${theme.palette.primary.main}`,
+                            }}
                           >
-                            <path
-                              fillRule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </Box>
+                            <Typography
+                              variant="subtitle2"
+                              sx={{
+                                fontWeight: 'medium',
+                                color:
+                                  pricingOption === 'annual'
+                                    ? theme.palette.common.white
+                                    : 'primary',
+                              }}
+                            >
+                              Annual
+                            </Typography>
+                          </ToggleButton>
+                          <ToggleButton
+                            value="monthly"
+                            size={'small'}
+                            sx={{
+                              backgroundColor:
+                                pricingOption === 'monthly'
+                                  ? `${theme.palette.primary.light} !important`
+                                  : 'transparent',
+                              border: `1px solid ${theme.palette.primary.main}`,
+                            }}
+                          >
+                            <Typography
+                              variant="subtitle2"
+                              sx={{
+                                fontWeight: 'medium',
+                                color:
+                                  pricingOption !== 'annual'
+                                    ? theme.palette.common.white
+                                    : 'primary',
+                              }}
+                            >
+                              Monthly
+                            </Typography>
+                          </ToggleButton>
+                        </ToggleButtonGroup>
                       </Box>
-                      <ListItemText primary={item} />
-                    </Box>
-                  </Grid>
-                ))}
-              </Grid>
-            </CardContent>
-            <Divider />
-            <CardActions sx={{ justifyContent: 'center' }}>
-              <Button size={'large'}>Learn more</Button>
-            </CardActions>
-          </Card>
+                      <Box marginBottom={2}>
+                        <Typography
+                          variant={'h4'}
+                          fontWeight={600}
+                          gutterBottom
+                        >
+                          {item.title}
+                        </Typography>
+                        <Typography color={'text.secondary'}>
+                          {item.subtitle}
+                        </Typography>
+                      </Box>
+                      <Box
+                        display={'flex'}
+                        alignItems={'baseline'}
+                        marginBottom={2}
+                      >
+                        <Typography variant={'h3'} fontWeight={700}>
+                          {pricingOption === 'annual'
+                            ? item.price.annual
+                            : item.price.monthly}
+                        </Typography>
+                        <Typography
+                          variant={'subtitle1'}
+                          color={'text.secondary'}
+                          fontWeight={700}
+                        >
+                          {pricingOption === 'annual' ? '/y' : '/mo'}
+                        </Typography>
+                      </Box>
+                      <Grid container spacing={1}>
+                        {item.features.map((feature, j) => (
+                          <Grid item xs={12} key={j}>
+                            <Box
+                              component={ListItem}
+                              disableGutters
+                              width={'auto'}
+                              padding={0}
+                            >
+                              <Box
+                                component={ListItemAvatar}
+                                minWidth={'auto !important'}
+                                marginRight={2}
+                              >
+                                <Box
+                                  component={Avatar}
+                                  bgcolor={'#F9B934'}
+                                  width={20}
+                                  height={20}
+                                >
+                                  <svg
+                                    width={12}
+                                    height={12}
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                  >
+                                    <path
+                                      fillRule="evenodd"
+                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                      clipRule="evenodd"
+                                    />
+                                  </svg>
+                                </Box>
+                              </Box>
+                              <ListItemText primary={feature} />
+                            </Box>
+                          </Grid>
+                        ))}
+                      </Grid>
+                    </CardContent>
+                    <Box flexGrow={1} />
+                    <CardActions
+                      sx={{ justifyContent: 'flex-end', padding: 4 }}
+                    >
+                      <Button size={'large'} variant={'contained'}>
+                        Learn More
+                      </Button>
+                    </CardActions>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+        
         </Grid>
-        <Grid item container xs={12} md={6} alignItems={'center'}>
+        <Grid
+          item
+          container
+          sx={{ mt: 5 }}
+          xs={12}
+          md={12}
+          alignItems={'center'}
+          justifyContent={'center'}
+        >
           <Box component={Card} bgcolor={theme.palette.primary.main}>
             <CardContent
               sx={{
@@ -245,22 +338,16 @@ const Pricing = (): JSX.Element => {
                 gutterBottom
                 sx={{ fontWeight: 600, color: theme.palette.common.white }}
               >
-                Customized
+                Enterprise
               </Typography>
               <Typography
                 gutterBottom
                 align={'center'}
                 sx={{ color: theme.palette.common.white }}
               >
-                Design a custom package for your business.
+                Learn More About our Enterprise options for Larger Businesses 
               </Typography>
-              <Typography
-                align={'center'}
-                sx={{ color: theme.palette.common.white }}
-              >
-                Available for businesses with large payments volume or unique
-                business models.
-              </Typography>
+            
             </CardContent>
             <Divider />
             <CardActions sx={{ justifyContent: 'center' }}>

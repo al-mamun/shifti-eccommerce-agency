@@ -29,7 +29,7 @@ const Hero = (): JSX.Element => {
         })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data?.feature);
+          // ;
           settitle(data?.title);
           setContent(data?.content);
           setThumbnail(data?.thumbnail);

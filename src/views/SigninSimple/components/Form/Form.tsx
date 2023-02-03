@@ -37,7 +37,6 @@ const Form = (): JSX.Element => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
 
         if (data?.status == 'failed') {
           setErrorMessage(data?.message);
@@ -53,7 +52,7 @@ const Form = (): JSX.Element => {
           });
           return;
         }
-        // console.log(data);
+        // ;
         const userData = { user: data?.user, token: data?.token };
         ReactSession.set('userData', userData);
         // authData;

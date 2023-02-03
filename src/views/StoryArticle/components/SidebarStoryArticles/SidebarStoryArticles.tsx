@@ -60,7 +60,6 @@ const SidebarStoryArticles = (): JSX.Element => {
     fetch(`${api}/api/frontend/blog/upcomming/post`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setPosts(data);
       })
       .catch((err) => {
