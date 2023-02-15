@@ -48,11 +48,11 @@ const Main = ({
 
   return (
     <Box>
-      <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
+      {/* <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
         <Container paddingTop={'8px !important'} paddingBottom={'0 !important'}>
           <TopNav colorInvert={colorInvert} />
         </Container>
-      </Box>
+      </Box> */}
       <AppBar
         position={'sticky'}
         sx={{
@@ -60,8 +60,9 @@ const Main = ({
           backgroundColor: trigger ? theme.palette.background.paper : bgcolor,
         }}
         elevation={trigger ? 1 : 0}
+        className={'header_area'}
       >
-        <Container paddingY={1}>
+        <Container paddingY={1} className={'header'}>
           <Topbar
             onSidebarOpen={handleSidebarOpen}
             pages={pages}

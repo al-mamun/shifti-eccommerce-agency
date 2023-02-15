@@ -101,7 +101,7 @@ const SidebarNav = ({ pages }: Props): JSX.Element => {
           </Link>
         </Box>
         <Box>
-          <Link to="/e-commerce" className="custom_link">
+          <Link to="/product/list" className="custom_link">
             Product
           </Link>
 

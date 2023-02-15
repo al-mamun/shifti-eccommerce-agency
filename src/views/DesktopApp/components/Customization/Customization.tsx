@@ -50,6 +50,7 @@ const Customization = (): JSX.Element => {
           gutterBottom
           color={'primary'}
           align={'center'}
+          className={'home_page_customazation_area_subtitle'}
         >
           CUSTOMIZATION
         </Typography>
@@ -61,6 +62,7 @@ const Customization = (): JSX.Element => {
           sx={{
             fontWeight: 700,
           }}
+          className={'home_page_customazation_area_title'}
         >
            { parse(`${ page_title }`) }
         </Typography>
@@ -69,6 +71,7 @@ const Customization = (): JSX.Element => {
           align={'center'}
           color={'text.secondary'}
           data-aos={'fade-up'}
+          className={'home_page_customazation_area_content'}
         >
           { parse(`${ page_content }`) }
         </Typography>
@@ -84,8 +87,9 @@ const Customization = (): JSX.Element => {
             color="primary"
             size="large"
             fullWidth={isMd ? false : true}
+            className={'book_a_call_home'}
           >
-            Start now
+            Book A Call
           </Button>
           <Box
             component={Button}
@@ -95,8 +99,9 @@ const Customization = (): JSX.Element => {
             marginTop={{ xs: 2, sm: 0 }}
             marginLeft={{ sm: 2 }}
             fullWidth={isMd ? false : true}
+            className={'view_template_home'}
           >
-            Learn more
+            View Templates
           </Box>
         </Box>
       </Box>

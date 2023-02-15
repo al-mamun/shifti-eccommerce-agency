@@ -104,6 +104,7 @@ const Topbar = ({
       justifyContent={'space-between'}
       alignItems={'center'}
       width={1}
+      className={'header_top'}
     >
       <Box
         display={'flex'}
@@ -130,7 +131,7 @@ const Topbar = ({
           </Link>
         </Box>
         <Box marginLeft={4}>
-          <Link to="/e-commerce" className="custom_link">
+          <Link to="/product/list" className="custom_link">
             Product
           </Link>
 

@@ -4,6 +4,7 @@ import VisibilitySensor from 'react-visibility-sensor';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { api } from 'api/config';
@@ -11,21 +12,21 @@ import parse from 'html-react-parser';
 
 const mock = [
   {
-    title: 300,
+    title: '20+',
     subtitle:
-      '300 + component compositions, which will help you to build any page easily.',
+      'Comprehensive Templates for all businesses.',
     suffix: '+',
   },
   {
-    title: 45,
+    title: '50%',
     subtitle:
-      '45 + landing and supported pages to Build a professional website.',
-    suffix: '+',
-  },
-  {
-    title: 99,
-    subtitle: '99% of our customers rated 5-star our themes over 5 years.',
+      'Time Saved on Rostering and Management.',
     suffix: '%',
+  },
+  {
+    title: '24/7',
+    subtitle: 'Support Available at all times to keep you running.',
+    suffix: '',
   },
 ];
 
@@ -96,18 +97,60 @@ const Hero = (): JSX.Element => {
         />
       </Grid>
       <Grid item container xs={12} md={6} alignItems={'center'}>
-        <Box data-aos={isMd ? 'fade-right' : 'fade-up'}>
+        <Box data-aos={isMd ? 'fade-right' : 'fade-up'} className={'home_page_hub_content'}>
           <Box marginBottom={2}>
             <Typography
               variant="h4"
               color="text.primary"
               sx={{ fontWeight: 700 }}
+              className={'home_page_hub_title'}
             >
                { parse(`${ page_title }`) }
             </Typography>
           </Box>
-          { parse(`${ page_content }`) }
-       
+          <Box className='hub_section_content_page'>{ parse(`${ page_content }`) } </Box>
+          <Box>
+            <Grid container spacing={2}>
+              {mock.map((item, i) => (
+                <Grid key={i} item xs={12} md={4} className={'counter_grid'}>
+                  <Typography variant="h3" gutterBottom className='hub_header_counter_title'>
+                    <Box fontWeight={600} className={'hub_counter_title'}>
+                      {item.title}
+                    </Box>
+                  </Typography>
+                  <Typography color="text.secondary" className={'sub_title_hub_card'} component="p">
+                    {item.subtitle}
+
+                    <Button
+                      size={'large'}
+                      endIcon={
+                        <Box
+                          component={'svg'}
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          width={24}
+                          height={24}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                          />
+                        </Box>
+                      }
+                      className={'hub_service_button'}
+                    >
+                      Learn More
+                    </Button>
+                  </Typography>
+                  
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
         
           {/* <Box>
             <Grid container spacing={2}>

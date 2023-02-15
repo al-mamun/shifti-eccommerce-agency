@@ -1,0 +1,70 @@
+.header_area {
+    background: #fff;
+    box-shadow: 0px 4px 20px rgb(6 0 45 / 13%) !important;
+    background-color: #fff !important;
+}
+.custom_link{
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #2D3748 !important;
+
+}
+.header .MuiTypography-body1 {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #2D3748 !important;
+}
+.footer_app_privacy_text {
+
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #2D3748;   
+}
+.footer_app_button {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    border: 1px solid #377DFF;
+    border-radius: 5px;
+    color: #377DFF;
+    Width:106px;
+    height:30px;
+    overflow: hidden;
+    padding: 10px;
+}
+.footer_copyright {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    text-align: center;
+
+    /* Greyish */
+
+    color: #646E73;
+}
+.footer_text {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    margin-top: 10px;
+}

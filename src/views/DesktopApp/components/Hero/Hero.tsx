@@ -46,13 +46,16 @@ const Hero = (): JSX.Element => {
               variant="h3"
               color="text.primary"
               sx={{ fontWeight: 700 }}
+              className={'home_page_banner_title'}
             >
               { parse(`${ page_title }`) }
             
             </Typography>
           </Box>
           <Box marginBottom={3}>
-            <Typography variant="h6" component="p" color="text.secondary">
+            <Typography variant="h6" component="p" color="text.secondary"
+              className={'home_page_banner_content'}
+            >
             { parse(`${ page_content }`) }
            
             </Typography>
@@ -67,8 +70,9 @@ const Hero = (): JSX.Element => {
               color="primary"
               size="large"
               fullWidth={isMd ? false : true}
+              className={'home_page_banner_lernmore'}
             >
-              Start now
+              Learn More
             </Button>
             <Box
               component={Button}
@@ -78,8 +82,9 @@ const Hero = (): JSX.Element => {
               marginTop={{ xs: 2, sm: 0 }}
               marginLeft={{ sm: 2 }}
               fullWidth={isMd ? false : true}
+              className={'home_page_banner_contact_us'}
             >
-              Learn more
+              Contact Us
             </Box>
           </Box>
         </Box>
@@ -105,6 +110,7 @@ const Hero = (): JSX.Element => {
           boxShadow={3}
           borderRadius={2}
           maxWidth={600}
+          className={'homepage_banner_image'}
           sx={{
             filter: theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
           }}

@@ -255,6 +255,12 @@ const routes = [
     renderer: (params = {}): JSX.Element => <AboutSideCoverView {...params} />,
   },
   {
+    path: '/product/list',
+    renderer: (params = {}): JSX.Element => (
+      <SingleSubscriptionProductView {...params} />
+    ),
+  },
+  {
     path: '/pricing/:id',
     renderer: (params = {}): JSX.Element => (
       <SingleSubscriptionProductView {...params} />

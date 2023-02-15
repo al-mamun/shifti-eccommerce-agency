@@ -70,7 +70,7 @@ const pages = {
       },
       {
         title: 'E-commerce',
-        href: '/e-commerce',
+        href: '/product/list',
       },
     ],
     company: [

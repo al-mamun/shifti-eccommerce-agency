@@ -8,6 +8,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { api } from 'api/config';
 import parse from 'html-react-parser';
+import Button from '@mui/material/Button';
 
 const mock = [
   {
@@ -52,9 +53,37 @@ const Reviews = (): JSX.Element => {
 
   return (
     <Box>
+      <Box marginBottom={4}>
+        <Typography
+          sx={{
+            textTransform: 'uppercase',
+            fontWeight: 'medium',
+          }}
+          gutterBottom
+          color={'primary'}
+          align={'center'}
+          className={'homepage_priceing_content'}
+        >
+          SERVICES WE DELIVER
+        </Typography>
+        <Typography
+          variant="h4"
+          align={'center'}
+          data-aos={'fade-up'}
+          gutterBottom
+          sx={{
+            fontWeight: 700,
+            marginTop: theme.spacing(1),
+          }}
+          className={'homepage_priceing_title'}
+        >
+          Our Services And Integrations
+        </Typography>
+        
+      </Box>
       <Grid container spacing={2}>
         {post.map((item, i) => (
-          <Grid item xs={12} md={4} key={i}>
+          <Grid item xs={12} md={3} key={i}>
             <Box
               component={'a'}
               href={''}
@@ -86,6 +115,7 @@ const Reviews = (): JSX.Element => {
                     flexDirection: 'column',
                     alignItems: 'flex-start',
                   }}
+                  className={'card_image_review'}
                 >
                   <Box
                     component={Avatar}
@@ -93,17 +123,48 @@ const Reviews = (): JSX.Element => {
                     height={{ xs: 60, md: 80 }}
                     marginBottom={2}
                     src={item.icon}
+                    
                   />
+               
                   <Typography
                     variant={'h6'}
                     gutterBottom
-                    sx={{ fontWeight: 600 }}
+                    className={'home_page_review_title'}
                   >
                     {item.title}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography 
+                    color="text.secondary"
+                    className={'home_page_review_sub_title'}
+                  >
                     {item.subtitle}
                   </Typography>
+                  <Box marginTop={2} display={'flex'} justifyContent={'center'} className={'learn_more_review'}>
+                    <Button
+                      size={'large'}
+                      endIcon={
+                        <Box
+                          component={'svg'}
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          width={24}
+                          height={24}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                          />
+                        </Box>
+                      }
+                      className={'product_service_button'}
+                    >
+                      Learn More
+                    </Button>
+                  </Box>
                 </CardContent>
               </Box>
             </Box>

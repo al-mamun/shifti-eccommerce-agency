@@ -85,10 +85,11 @@ useEffect(() => {
           gutterBottom
           color={'primary'}
           align={'center'}
+          className={'home_page_team_the_team'}
         >
           THE TEAM
         </Typography>
-        <Typography variant={'h4'} sx={{ fontWeight: 700 }} align={'center'}>
+        <Typography variant={'h4'} className={'home_page_team_title'}>
           {team_title}
         </Typography>
        
@@ -97,37 +98,9 @@ useEffect(() => {
           component="p"
           color="text.secondary"
           align={'center'}
+          className={'home_page_team_content'}
         >{ parse(`${ team_content }`) }
-          
-      
         </Typography>
-
-        <Box marginTop={2} display={'flex'} justifyContent={'center'}>
-          <Link
-            to={'/contact-page/'}
-            style={{ textDecoration: 'none' }}
-          >
-            <Button
-              color={'primary'}
-              variant={'contained'}
-              size={'large'}
-              startIcon={
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  width={20}
-                  height={20}
-                >
-                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                </svg>
-              }
-            >
-              Contact us
-            </Button>
-          </Link>
-        </Box>
       </Box>
       {/* <Box
         marginBottom={4}
@@ -202,6 +175,7 @@ useEffect(() => {
                 alignItems: { xs: 'flex-start', sm: 'center',md:'center' },
                 justifyContent: 'center',
               }}
+              className={'team_list_homepage'}
             >
               <ListItemAvatar>
                 <Box

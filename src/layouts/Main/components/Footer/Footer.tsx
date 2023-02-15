@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-
+import './footer.css';
 const Footer = (): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
@@ -46,8 +46,9 @@ const Footer = (): JSX.Element => {
                 href="/"
                 color="text.primary"
                 variant={'subtitle2'}
+                className={'footer_app_privacy_text'}
               >
-                Home
+                Legal And Privacy
               </Link>
             </Box>
             <Box marginTop={1} marginRight={2}>
@@ -57,8 +58,9 @@ const Footer = (): JSX.Element => {
                 href="/docs/introduction"
                 color="text.primary"
                 variant={'subtitle2'}
+                className={'footer_app_button'}
               >
-                Documentation
+                Go to App
               </Link>
             </Box>
             {/* <Box marginTop={1}>
@@ -82,19 +84,18 @@ const Footer = (): JSX.Element => {
           variant={'subtitle2'}
           color="text.secondary"
           gutterBottom
+          className={'footer_copyright'}
         >
-          &copy; Shifti. 2023, Maccarian. All rights reserved
+          &copy; Shifti Technologies PTY. LTD. 2023, All rights reserved
         </Typography>
         <Typography
           align={'center'}
           variant={'caption'}
           color="text.secondary"
           component={'p'}
+          className={'footer_text'}
         >
-          When you visit or interact with our sites, services or tools, we or
-          our authorised service providers may use cookies for storing
-          information to help provide you with a better, faster and safer
-          experience and for marketing purposes.
+          At Shifti, we use cookies to enhance your experience on our sites, services, and tools. These cookies, managed by us or our authorized service providers, store information to improve speed, safety, and overall satisfaction. Additionally, they may also be used for marketing purposes.
         </Typography>
       </Grid>
     </Grid>

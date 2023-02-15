@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
@@ -7,7 +7,9 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-
+import { api } from 'api/config';
+import parse from 'html-react-parser';
+import { Link } from 'react-router-dom';
 export const mock = [
   {
     logo: 'https://assets.maccarianagency.com/svg/logos/slack.svg',
@@ -37,13 +39,46 @@ export const mock = [
 
 const Partners = (): JSX.Element => {
   const theme = useTheme();
-
+  const [partner, setPartner] = useState([]);
+  const [partner_sub_title, setPartnerSubTitle] = useState([]);
+  const [partner_content, setPartnerContent] = useState([]);
+  const [partner_title, setPartnerTitle] = useState([]);
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
 
+  useEffect(() => {
+    fetch(`${api}/api/frontend/home/page/content`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      // console.log(data?.feature);
+      setPartnerSubTitle(data?.partner_sub_title);
+      setPartnerContent(data?.partner_content);
+      setPartnerTitle(data?.partner_title);
+    });
+
+    fetch(`${api}/api/frontend/home/page/partner/content`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data?.address);
+      setPartner(data);
+    });
+
+  }, []);
   return (
-    <Grid container spacing={4}>
+    <Grid container spacing={4}  className={'intrigation_area'}>
       <Grid item container xs={12} md={6} alignItems={'center'}>
         <Box data-aos={isMd ? 'fade-right' : 'fade-up'}>
           <Typography
@@ -53,14 +88,18 @@ const Partners = (): JSX.Element => {
             }}
             gutterBottom
             color={'primary'}
+            className={'partner_area_sub_title'}
           >
-            Integrations
+            { parse(`${ partner_sub_title }`) }
+            
           </Typography>
-          <Typography variant="h4" gutterBottom sx={{ fontWeight: 700 }}>
-          We love to explore new ways to engage with brands and reach
+          <Typography variant="h4" gutterBottom sx={{ fontWeight: 700 }} className={'partner_area_title'}>
+          { parse(`${ partner_title }`) }
+        
           </Typography>
-          <Typography variant="h6" component="p" color="text.secondary">
-          Our mission is to help you to grow your design skills, meet and connect with professional dsigners who share your passions.
+          <Typography variant="h6" component="p" color="text.secondary"  className={'partner_area_content'}>
+          { parse(`${ partner_content }`) }
+         
           </Typography>
           <Box marginTop={2}>
             <Button
@@ -84,13 +123,13 @@ const Partners = (): JSX.Element => {
                 </Box>
               }
             >
-              View all plugins
+              View all Integrations
             </Button>
           </Box>
         </Box>
       </Grid>
       <Grid item container spacing={2} xs={12} md={6}>
-        {mock.map((item, i) => (
+        {partner.map((item, i) => (
           <Grid
             item
             xs={4}
