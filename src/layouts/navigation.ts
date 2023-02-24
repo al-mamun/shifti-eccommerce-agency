@@ -102,6 +102,10 @@ const pages = {
       title: 'My Cart',
       href: '/cart-page',
     },
+    {
+      title: 'Log Out',
+      href: '/',
+    },
   ],
   secondary: [
    

@@ -22,7 +22,16 @@ import { CartData } from 'context/CartContext';
 import Badge, { BadgeProps } from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
+
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Menu, { MenuProps } from '@mui/material/Menu';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Divider from '@mui/material/Divider';
+
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -30,6 +39,51 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
     top: 13,
     border: `2px solid ${theme.palette.background.paper}`,
     padding: '0 4px',
+  },
+}));
+
+const StyledMenu = styled((props: MenuProps) => (
+  <Menu
+    open={false}
+    elevation={0}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'right',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
+    {...props}
+  />
+))(({ theme }) => ({
+  '& .MuiPaper-root': {
+    borderRadius: 6,
+    marginTop: theme.spacing(1),
+    minWidth: 250,
+    padding:10,
+    color:
+      theme.palette.mode === 'light'
+        ? 'rgb(55, 65, 81)'
+        : theme.palette.grey[300],
+    boxShadow:
+      'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+    '& .MuiMenu-list': {
+      padding: '4px 0',
+    },
+    '& .MuiMenuItem-root': {
+      padding: 15,
+      '& .MuiSvgIcon-root': {
+        fontSize: 20,
+        marginRight: theme.spacing(1.5),
+      },
+      '&:active': {
+        backgroundColor: alpha(
+          theme.palette.primary.main,
+          theme.palette.action.selectedOpacity,
+        ),
+      },
+    },
   },
 }));
 
@@ -57,6 +111,8 @@ const Topbar = ({
   const navigate = useNavigate();
   const [authUser, setAuthUser] = useState(null);
   const { userData, setuserData, cartCount } = useContext(CartData);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
 
   // console.log(cartCount);
 
@@ -98,9 +154,19 @@ const Topbar = ({
     navigate('/signin-simple');
   };
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleMenu = (event) => {
+    navigate(event);
+  };
+
   return (
     <Box>
-      
       <Box
         display={'flex'}
         justifyContent={'space-between'}
@@ -127,7 +193,10 @@ const Topbar = ({
           />
         </Box>
         <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
-          <Box className="menu_bar css-1mvbbh8-MuiTypography-root" marginLeft={4}>
+          <Box
+            className="menu_bar css-1mvbbh8-MuiTypography-root"
+            marginLeft={4}
+          >
             <Link to="/" className="custom_link">
               Home
             </Link>
@@ -161,44 +230,50 @@ const Topbar = ({
             />
           </Box>
 
-          
-          {/*<Box marginLeft={4}>
-            <NavItem
-              title={'Portfolio'}
-              id={'portfolio-pages'}
-              items={portfolioPages}
-              colorInvert={colorInvert}
-            />
-          </Box>*/}
-          
+
           {authUser?.user ? (
             <>
-              {/* <Box marginLeft={4}>
-                <Link to="/cart-page" className="custom_link">
-                  Cart
-                </Link>
-              </Box> */}
-
-              <Box marginLeft={4} className={'accounts_menu'}
-              >
-                <NavItem
-                  title={'Account'}
-                  id={'account-pages'}
-                  items={accountPages}
-                  colorInvert={colorInvert}
-                />
-              </Box>
+              
 
               <Box marginLeft={4}>
+                
                 <Button
+                  id="demo-customized-button"
+                  aria-controls={open ? 'demo-customized-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
                   variant="contained"
-                  color="primary"
-                  onClick={() => logOut()}
-                  size="large"
+                  disableElevation
+                  onClick={handleClick}
+                  endIcon={<KeyboardArrowDownIcon />}
                 >
-                  Log Out
+                  My Account
                 </Button>
+                <StyledMenu
+                  id="demo-customized-menu"
+                  MenuListProps={{
+                    'aria-labelledby': 'demo-customized-button',
+                  }}
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                >
+                  <MenuItem  onClick={() => handleMenu('/account')}>
+                    <SupervisorAccountIcon color="primary"/>
+                    My Account
+                  </MenuItem>
+                  <Divider sx={{ my: 0.5 }} />
+                  <MenuItem  onClick={() => handleMenu('/cart-page')}>
+                    <ShoppingCartIcon color="primary"/>
+                    My Cart
+                  </MenuItem>
+                  <Divider sx={{ my: 0.5 }} />
+                  <MenuItem style={{backgroundColor:"#377dff",color:"white",borderRadius:10,justifyContent:'center',marginTop:3}} onClick={() => logOut()}>
+                     <span> Log out</span>
+                  </MenuItem>
+                </StyledMenu>
               </Box>
+              
             </>
           ) : (
             <>
