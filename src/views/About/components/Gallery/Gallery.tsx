@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import Button from '@mui/material/Button';
 
 const Gallery = (): JSX.Element => {
   const theme = useTheme();
@@ -59,6 +60,7 @@ const Gallery = (): JSX.Element => {
           gutterBottom
           color={'text.secondary'}
           align={'center'}
+          className={'our_team_title'}
         >
           Gallery
         </Typography>
@@ -70,15 +72,48 @@ const Gallery = (): JSX.Element => {
             fontWeight: 700,
             marginTop: theme.spacing(1),
           }}
+          className={'about_page_title_global_center'}
         >
           Small team. Big hearts.
         </Typography>
-        <Typography variant="h6" align={'center'} color={'text.secondary'}>
-          Our focus is always on finding the best people to work with. Our bar
-          is high, but you look ready to take on the challenge.
+        <Typography variant="h6" align={'center'} color={'text.secondary'} className={'about_page_content_global_center'}>
+          Our team members are always striving to offer our customers the best option in such a vast market we work hard, challenge ourselves and are always looking to improve.
         </Typography>
       </Box>
       <Box>
+        <Box className={'button_are_gallery'}>
+          <Box
+            component={Button}
+            variant="contained"
+            color="primary"
+            size="large"
+            height={54}
+            marginTop={{ xs: 2, md: 0 }}
+            marginLeft={{ md: 2 }}
+            className={'open_the_gallery'}
+            endIcon={
+              <Box
+                component={'svg'}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                width={24}
+                height={24}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </Box>
+            }
+          >
+            Open the gallery
+          </Box>
+      </Box>
+
         <ImageList
           variant="quilted"
           cols={4}

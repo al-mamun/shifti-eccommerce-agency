@@ -24,10 +24,10 @@ const WhoWeAre = (): JSX.Element => {
           md={6}
         >
           <Box>
-            <Typography variant={'h4'} gutterBottom sx={{ fontWeight: 700 }}>
+            <Typography variant={'h4'} gutterBottom sx={{ fontWeight: 700 }} className={'who-we-are-title'}>
               Who are we?
             </Typography>
-            <Typography component={'p'} color={'text.secondary'}>
+            <Typography component={'p'} color={'text.secondary'} className={'who-we-are-content'}>
               Our sign up is simple. We only require your basic company
               information and what type of data storage you want. Our sign up is
               dead simple. We only require your basic company information and
@@ -44,10 +44,10 @@ const WhoWeAre = (): JSX.Element => {
           md={6}
         >
           <Box>
-            <Typography variant={'h4'} gutterBottom sx={{ fontWeight: 700 }}>
+            <Typography variant={'h4'} gutterBottom sx={{ fontWeight: 700 }}  className={'our-process-title'}>
               Our process
             </Typography>
-            <Typography component={'p'} color={'text.secondary'}>
+            <Typography component={'p'} color={'text.secondary'}  className={'our-process-content'}>
               We support bulk uploading via SQL, integrations with most data
               storage products, or you can use our API. Simply select where
               you'd like to transfer your data and we'll being the process of

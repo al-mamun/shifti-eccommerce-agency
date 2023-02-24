@@ -53,21 +53,25 @@ const Page = ({ children }: Props): JSX.Element => {
 
   return (
     <Box>
-      <Box bgcolor={'primary.main'} paddingY={4}>
-        <Container>
-          <Typography
-            variant="h4"
-            fontWeight={700}
-            gutterBottom
-            sx={{ color: 'common.white' }}
-          >
-            Account settings
-          </Typography>
-          <Typography variant="h6" sx={{ color: 'common.white' }}>
-            Change account information and settings
-          </Typography>
-        </Container>
-      </Box>
+      <Container>
+        <Box className={'accounts_page_title'}>
+          
+            <Typography
+              variant="h4"
+              fontWeight={700}
+              gutterBottom
+              sx={{ color: 'common.white' }}
+              className={'account_setting'}
+            >
+              Account settings
+            </Typography>
+            {/* <Typography variant="h6" sx={{ color: 'common.white' }}>
+              Change account information and settings
+            </Typography> */}
+          
+          <Box bgcolor={'primary.main'} paddingY={4} className={'account_page_list'}></Box>
+        </Box>
+      </Container>
       <Container paddingTop={'0 !important'} marginTop={-8}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={3}>

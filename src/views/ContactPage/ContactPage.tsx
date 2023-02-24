@@ -11,19 +11,8 @@ const ContactPage = (): JSX.Element => {
 
   return (
     <Main>
-      <Box
-        sx={{
-          position: 'relative',
-          backgroundColor: theme.palette.alternate.main,
-          backgroundImage: `linear-gradient(120deg, ${theme.palette.alternate.dark} 0%, ${theme.palette.background.paper} 100%)`,
-          marginTop: -13,
-          paddingTop: 13,
-        }}
-      >
-        <Container>
-          <Hero />
-        </Container>
-      </Box>
+      <Hero />
+    
       <Contact />
       <Box bgcolor={'alternate.main'}>
         <Container>

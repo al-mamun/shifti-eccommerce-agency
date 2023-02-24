@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-
+import { Link } from 'react-router-dom';
 import Container from 'components/Container';
 import TopNav from 'components/TopNav';
 
@@ -53,6 +54,15 @@ const Main = ({
           <TopNav colorInvert={colorInvert} />
         </Container>
       </Box> */}
+      <Box className={'navbarItem'}>
+        <Box className={'topnavbar'}>
+          <Box marginLeft={4}>
+            <Button href="https://app.shifti.com.au/" className="custom_link_button">
+              Landing/Desktop app
+            </Button>
+          </Box>
+        </Box>
+      </Box>
       <AppBar
         position={'sticky'}
         sx={{

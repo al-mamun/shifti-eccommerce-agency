@@ -8,6 +8,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import { useTheme } from '@mui/material/styles';
 import { api } from 'api/config';
+import parse from 'html-react-parser';
 import Container from 'components/Container';
 
 const mock = [
@@ -98,11 +99,11 @@ const Contact = (): JSX.Element => {
     return (
       <Box>
         <Box marginBottom={2}>
-          <Typography variant={'h4'} sx={{ fontWeight: 700 }} gutterBottom>
-            {pageTitle}
+          <Typography variant={'h4'} sx={{ fontWeight: 700 }} gutterBottom className={'contact_details'}>
+          Contact details
           </Typography>
-          <Typography color="text.secondary">
-            {pagecontent}
+          <Typography color="text.secondary"  className={'contact_details_content'}>
+          Give us a call, send us an email,<br/>our office Hours are from ,<br/>9AM - 5PM<br/> Monday to Friday
             
           </Typography>
         </Box>
@@ -118,6 +119,7 @@ const Contact = (): JSX.Element => {
               disableGutters
               width={'auto'}
               padding={0}
+              className={'list_item_column'}
             >
               <Box
                 component={ListItemAvatar}
@@ -129,11 +131,12 @@ const Contact = (): JSX.Element => {
                   bgcolor={theme.palette.secondary.main}
                   width={40}
                   height={40}
+                  className={'contact_circle'}
                 >
-                  {item.icon}
+                   { parse(`${ item.icon }`) }
                 </Box>
               </Box>
-              <ListItemText primary={item.label} secondary={item.value} />
+              <ListItemText primary={item.label} secondary={item.value} className={'contact_list_item'}/>
             </Box>
           ))}
         </Box>

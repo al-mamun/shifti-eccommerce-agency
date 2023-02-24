@@ -76,8 +76,8 @@ const pages = {
   
   company: [
     {
-      title: 'Career Lising',
-      href: '/career-listing',
+      title: 'Faq',
+      href: '/faq',
     },
     
     {
@@ -85,8 +85,8 @@ const pages = {
       href: '/customers',
     },
     {
-      title: 'About',
-      href: '/about',
+      title: 'Blog',
+      href: '/blog',
     },
     {
       title: 'Terms',

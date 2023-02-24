@@ -14,10 +14,10 @@ const Application = (): JSX.Element => {
         flexDirection={{ xs: 'column', sm: 'row' }}
       >
         <Box>
-          <Typography fontWeight={700} variant={'h5'} gutterBottom>
+          <Typography fontWeight={700} variant={'h5'} gutterBottom className={'about_page_title_global'}>
             Interested in joining our team?
           </Typography>
-          <Typography>Hit us up and we'll get in touch with you.</Typography>
+          <Typography  className={'about_page_content_global'}>Hit us up and we'll get in touch with you.</Typography>
         </Box>
         <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
           <Button variant="contained" color="primary" size="large">

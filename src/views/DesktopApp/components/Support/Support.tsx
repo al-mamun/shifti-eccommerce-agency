@@ -98,7 +98,7 @@ useEffect(() => {
           component="p"
           color="text.secondary"
           align={'center'}
-          className={'home_page_team_content'}
+          className={'home_page_team_content_list'}
         >{ parse(`${ team_content }`) }
         </Typography>
       </Box>

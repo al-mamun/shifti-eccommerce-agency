@@ -21,13 +21,11 @@ const Partners = (): JSX.Element => {
       <Grid container spacing={4}>
         <Grid item xs={12} md={6}>
           <Box>
-            <Typography variant={'h4'} gutterBottom sx={{ fontWeight: 700 }}>
-              Trusted by you favorite companies
+            <Typography variant={'h4'} gutterBottom sx={{ fontWeight: 700 }} className={'about_page_title_global'}>
+            Trusted by you favorite companies.
             </Typography>
-            <Typography variant={'h6'} component={'p'} color={'text.secondary'}>
-              We are registered as a distributor with AMFI,
-              <br />
-              investment advisor with SEBI and platform partners with BSE.
+            <Typography variant={'h6'} component={'p'} color={'text.secondary'}   className={'about_page_content_global'}>
+              We are registered as a distributor with AMFI,investment advisor with SEBI and platform partners with BSE.
             </Typography>
           </Box>
         </Grid>

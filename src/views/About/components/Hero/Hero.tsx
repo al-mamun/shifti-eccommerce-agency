@@ -62,7 +62,7 @@ const Hero = (): JSX.Element => {
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           backgroundImage:
-            'url(https://assets.maccarianagency.com/backgrounds/img52.jpg)',
+            'url(https://mamundevstudios.com/shifti_api/public/about_page_banner.png)',
         }}
       />
       <Box

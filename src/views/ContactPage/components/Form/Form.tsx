@@ -99,10 +99,11 @@ const Form = (): JSX.Element => {
           sx={{ fontWeight: 700 }}
           gutterBottom
           align={'center'}
+          className={'center_contact_page_title'}
         >
           {FromTitle}
         </Typography>
-        <Typography color="text.secondary" align={'center'}>
+        <Typography color="text.secondary"  className={'center_contact_page'} align={'center'}>
           {FromContent}
          
         </Typography>
@@ -143,6 +144,7 @@ const Form = (): JSX.Element => {
               color="text.primary"
               fontWeight={700}
               gutterBottom
+              className={'name_label'}
             >
               Full name
             </Typography>
@@ -158,6 +160,7 @@ const Form = (): JSX.Element => {
               error={formik.touched.fullName && Boolean(formik.errors.fullName)}
               // @ts-ignore
               helperText={formik.touched.fullName && formik.errors.fullName}
+              className={'text_field_data'}
             />
           </Grid>
           <Grid item xs={12}>
@@ -166,6 +169,7 @@ const Form = (): JSX.Element => {
               color="text.primary"
               fontWeight={700}
               gutterBottom
+              className={'name_label'}
             >
               E-mail
             </Typography>
@@ -181,6 +185,7 @@ const Form = (): JSX.Element => {
               error={formik.touched.email && Boolean(formik.errors.email)}
               // @ts-ignore
               helperText={formik.touched.email && formik.errors.email}
+              className={'text_field_data'}
             />
           </Grid>
           <Grid item xs={12}>
@@ -189,6 +194,7 @@ const Form = (): JSX.Element => {
               color="text.primary"
               fontWeight={700}
               gutterBottom
+              className={'name_label'}
             >
               Message
             </Typography>
@@ -204,6 +210,7 @@ const Form = (): JSX.Element => {
               error={formik.touched.message && Boolean(formik.errors.message)}
               // @ts-ignore
               helperText={formik.touched.message && formik.errors.message}
+              className={'text_field_data'}
             />
           </Grid>
           <Grid item container justifyContent="center" xs={12}>
@@ -213,7 +220,7 @@ const Form = (): JSX.Element => {
               color="primary"
               size="large"
             >
-              Send the question
+              Send this question
             </Button>
           </Grid>
         </Grid>

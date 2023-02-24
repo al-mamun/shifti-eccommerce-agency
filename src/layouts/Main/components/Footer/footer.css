@@ -31,17 +31,13 @@
     color: #2D3748;   
 }
 .footer_app_button {
-    font-family: 'Lato';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 16px;
-    text-align: center;
-    border: 1px solid #377DFF;
+    Width: 106px;
+    border: 1px solid #377dff;
     border-radius: 5px;
-    color: #377DFF;
-    Width:106px;
-    height:30px;
+    color: #377dff !important;
+    font-size: 13px !important;
+    height: 30px;
+    line-height: 16px !important;
     overflow: hidden;
     padding: 10px;
 }

@@ -117,15 +117,18 @@ const Reviews = (): JSX.Element => {
                   }}
                   className={'card_image_review'}
                 >
-                  <Box
+                 
+                  {/* <Box
                     component={Avatar}
                     width={{ xs: 60, md: 80 }}
                     height={{ xs: 60, md: 80 }}
                     marginBottom={2}
                     src={item.icon}
                     
-                  />
-               
+                  /> */}
+                  <Box className='itemIcon'>
+                    { parse(`${ item.icon }`) }
+                  </Box>
                   <Typography
                     variant={'h6'}
                     gutterBottom

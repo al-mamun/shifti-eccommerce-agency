@@ -99,164 +99,161 @@ const Topbar = ({
   };
 
   return (
-    <Box
-      display={'flex'}
-      justifyContent={'space-between'}
-      alignItems={'center'}
-      width={1}
-      className={'header_top'}
-    >
+    <Box>
+      
       <Box
         display={'flex'}
-        component="a"
-        href="/"
-        title="theFront"
-        width={{ xs: 100, md: 120 }}
+        justifyContent={'space-between'}
+        alignItems={'center'}
+        width={1}
+        className={'header_top'}
       >
         <Box
-          component={'img'}
-          src={
-            mode === 'light' && !colorInvert
-              ? 'https://mamundevstudios.com/shifti_api/public/shifti_logo.png'
-              : 'https://mamundevstudios.com/shifti_api/public/shifti_logo.png'
-          }
-          height={1}
-          width={1}
-        />
-      </Box>
-      <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
-        <Box className="menu_bar css-1mvbbh8-MuiTypography-root" marginLeft={4}>
-          <Link to="/" className="custom_link">
-            Home
-          </Link>
-        </Box>
-        <Box marginLeft={4}>
-          <Link to="/product/list" className="custom_link">
-            Product
-          </Link>
-
-          {/* <NavItem
-            title={'Home'}
-            id={'landing-pages'}
-            items={landingPages}
-            colorInvert={colorInvert}
-
-          />*/}
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Company'}
-            id={'company-pages'}
-            items={companyPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-
-        <Box marginLeft={4}>
-          <Link to="/faq" className="custom_link">
-            Faq
-          </Link>
-        </Box>
-
-        <Box marginLeft={4}>
-          <Link to="/blog" className="custom_link">
-            Blog
-          </Link>
-        </Box>
-        {/*<Box marginLeft={4}>
-          <NavItem
-            title={'Portfolio'}
-            id={'portfolio-pages'}
-            items={portfolioPages}
-            colorInvert={colorInvert}
-          />
-        </Box>*/}
-        <Box marginLeft={4}>
-          <Link to="/contact-page" className="custom_link">
-            Contact
-          </Link>
-        </Box>
-        {authUser?.user ? (
-          <>
-            {/* <Box marginLeft={4}>
-              <Link to="/cart-page" className="custom_link">
-                Cart
-              </Link>
-            </Box> */}
-
-            <Box marginLeft={4}>
-              <NavItem
-                title={'Account'}
-                id={'account-pages'}
-                items={accountPages}
-                colorInvert={colorInvert}
-              />
-            </Box>
-
-            <Box marginLeft={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => logOut()}
-                size="large"
-              >
-                Log Out
-              </Button>
-            </Box>
-          </>
-        ) : (
-          <>
-            <Box marginLeft={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => login()}
-                size="large"
-              >
-                Log in
-              </Button>
-            </Box>
-
-            <Box marginLeft={4}>
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={() => navigate('/signup-simple')}
-                size="large"
-              >
-                Sign up
-              </Button>
-            </Box>
-          </>
-        )}
-        <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 5 }}>
-          <Link to="/cart-page" style={{ textDecoration: 'none' }}>
-            <IconButton aria-label="cart">
-              <StyledBadge
-                badgeContent={`${cartCount?.count ? cartCount?.count : 0}`}
-                color="secondary"
-              >
-                <ShoppingCartIcon />
-              </StyledBadge>
-            </IconButton>
-          </Link>
-        </Box>
-      </Box>
-
-      <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
-        <Button
-          onClick={() => onSidebarOpen()}
-          aria-label="Menu"
-          variant={'outlined'}
-          sx={{
-            borderRadius: 2,
-            minWidth: 'auto',
-            padding: 1,
-            borderColor: alpha(theme.palette.divider, 0.2),
-          }}
+          display={'flex'}
+          component="a"
+          href="/"
+          title="theFront"
+          width={{ xs: 100, md: 120 }}
         >
-          <MenuIcon />
-        </Button>
+          <Box
+            component={'img'}
+            src={
+              mode === 'light' && !colorInvert
+                ? 'https://mamundevstudios.com/shifti_api/public/shifti_logo.png'
+                : 'https://mamundevstudios.com/shifti_api/public/shifti_logo.png'
+            }
+            height={1}
+            width={1}
+          />
+        </Box>
+        <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
+          <Box className="menu_bar css-1mvbbh8-MuiTypography-root" marginLeft={4}>
+            <Link to="/" className="custom_link">
+              Home
+            </Link>
+          </Box>
+          <Box marginLeft={4}>
+            <Link to="/product/list" className="custom_link">
+              Pricing
+            </Link>
+          </Box>
+          <Box marginLeft={4}>
+            <Link to="/career-listing" className="custom_link">
+              Careers
+            </Link>
+          </Box>
+          <Box marginLeft={4}>
+            <Link to="/contact-page" className="custom_link">
+              Contact
+            </Link>
+          </Box>
+          <Box marginLeft={4}>
+            <Link to="/about" className="custom_link">
+              About
+            </Link>
+          </Box>
+          <Box marginLeft={4}>
+            <NavItem
+              title={'Support'}
+              id={'company-pages'}
+              items={companyPages}
+              colorInvert={colorInvert}
+            />
+          </Box>
+
+          
+          {/*<Box marginLeft={4}>
+            <NavItem
+              title={'Portfolio'}
+              id={'portfolio-pages'}
+              items={portfolioPages}
+              colorInvert={colorInvert}
+            />
+          </Box>*/}
+          
+          {authUser?.user ? (
+            <>
+              {/* <Box marginLeft={4}>
+                <Link to="/cart-page" className="custom_link">
+                  Cart
+                </Link>
+              </Box> */}
+
+              <Box marginLeft={4} className={'accounts_menu'}
+              >
+                <NavItem
+                  title={'Account'}
+                  id={'account-pages'}
+                  items={accountPages}
+                  colorInvert={colorInvert}
+                />
+              </Box>
+
+              <Box marginLeft={4}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => logOut()}
+                  size="large"
+                >
+                  Log Out
+                </Button>
+              </Box>
+            </>
+          ) : (
+            <>
+              <Box marginLeft={4}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => login()}
+                  size="large"
+                >
+                  Log in
+                </Button>
+              </Box>
+
+              <Box marginLeft={4}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => navigate('/signup-simple')}
+                  size="large"
+                >
+                  Sign up
+                </Button>
+              </Box>
+            </>
+          )}
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 5 }}>
+            <Link to="/cart-page" style={{ textDecoration: 'none' }}>
+              <IconButton aria-label="cart">
+                <StyledBadge
+                  badgeContent={`${cartCount?.count ? cartCount?.count : 0}`}
+                  color="secondary"
+                >
+                  <ShoppingCartIcon />
+                </StyledBadge>
+              </IconButton>
+            </Link>
+          </Box>
+        </Box>
+
+        <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
+          <Button
+            onClick={() => onSidebarOpen()}
+            aria-label="Menu"
+            variant={'outlined'}
+            sx={{
+              borderRadius: 2,
+              minWidth: 'auto',
+              padding: 1,
+              borderColor: alpha(theme.palette.divider, 0.2),
+            }}
+          >
+            <MenuIcon />
+          </Button>
+        </Box>
       </Box>
     </Box>
   );

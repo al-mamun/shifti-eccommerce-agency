@@ -216,7 +216,7 @@ const Jobs = (): JSX.Element => {
         >
           Open positions
         </Typography>
-        <Typography fontWeight={700} variant={'h4'} align={'center'}>
+        <Typography fontWeight={700} variant={'h4'} align={'center'}  className={'home_page_team_title'}>
           Current job openings
         </Typography>
       </Box>
@@ -288,10 +288,14 @@ const Jobs = (): JSX.Element => {
         marginY={4}
       >
         <Box marginBottom={{ xs: 1, sm: 0 }}>
-          <Typography variant={'h6'} fontWeight={700}>
+          <Typography variant={'h6'} fontWeight={700}
+             className={'category_title'}
+          >
             Design & UX, Engineering
           </Typography>
-          <Typography color={'text.secondary'}>
+          <Typography color={'text.secondary'}
+             className={'category_content'}
+          >
             User experience and design are top priorities at theFront.
           </Typography>
         </Box>
@@ -301,11 +305,13 @@ const Jobs = (): JSX.Element => {
           bgcolor={'secondary.main'}
           borderRadius={2}
           marginRight={1}
+          className={'opening_jobs_header'}
         >
           <Typography
             variant={'caption'}
             fontWeight={700}
             sx={{ color: 'common.black' }}
+            className={'opening_jobs'}
           >
             {posts.length} openings
           </Typography>
@@ -339,14 +345,14 @@ const Jobs = (): JSX.Element => {
                 alignItems={{ sm: 'center' }}
               >
                 <Box marginBottom={{ xs: 1, sm: 0 }}>
-                  <Typography variant={'subtitle1'} fontWeight={700}>
+                  <Typography variant={'subtitle1'} fontWeight={700} className={'job_title'}>
                     {item.title}
                   </Typography>
-                  <Typography color={'text.secondary'}>
+                  <Typography color={'text.secondary'} className={'job_sub_title'}>
                     {item.subtitle}
                   </Typography>
                 </Box>
-                <Typography color={'text.secondary'}>
+                <Typography color={'text.secondary'}  className={'job_location'}>
                   {`${item.team} / ${item.location}`}
                 </Typography>
               </Box>

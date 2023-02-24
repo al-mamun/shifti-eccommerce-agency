@@ -51,6 +51,7 @@ const Hero = (): JSX.Element => {
               sx={{
                 fontWeight: 900,
               }}
+              className={'carrier_page_title'}
             >
              {pageTitle}
             </Typography>
@@ -60,11 +61,43 @@ const Hero = (): JSX.Element => {
               color="text.primary"
               align={'center'}
               sx={{ marginBottom: 2 }}
+              className={'carrier_sub_title'}
+              
             >
               { parse(`${ SubPageTitle }`) }
             
             </Typography>
             
+            <Box
+              component={Button}
+              variant="contained"
+              color="primary"
+              size="large"
+              height={54}
+              marginTop={{ xs: 2, md: 0 }}
+              marginLeft={{ md: 2 }}
+              className={'see_the_job'}
+              endIcon={
+                <Box
+                  component={'svg'}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  width={24}
+                  height={24}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </Box>
+              }
+            >
+              See job openings
+            </Box>
             {/* <Button
               variant="contained"
               color="primary"
@@ -90,100 +123,7 @@ const Hero = (): JSX.Element => {
               See job openings
             </Button> */}
           </Box>
-          <Grid
-            container
-            spacing={2}
-            sx={{ display: { xs: 'none', sm: 'flex' } }}
-          >
-            <Grid
-              item
-              container
-              justifyContent={'flex-end'}
-              alignItems={'flex-end'}
-              xs={4}
-            >
-              <Box
-                component={'img'}
-                loading="lazy"
-                height={1}
-                width={1}
-                borderRadius={2}
-                src={'https://assets.maccarianagency.com/backgrounds/img21.jpg'}
-                alt="..."
-                sx={{
-                  objectFit: 'cover',
-                  filter:
-                    theme.palette.mode === 'dark' ? 'brightness(0.6)' : 'none',
-                }}
-              />
-            </Grid>
-            <Grid
-              item
-              container
-              justifyContent={'flex-start'}
-              alignItems={'flex-end'}
-              xs={8}
-            >
-              <Box
-                component={'img'}
-                loading="lazy"
-                height={1}
-                width={1}
-                borderRadius={2}
-                src={'https://assets.maccarianagency.com/backgrounds/img22.jpg'}
-                alt="..."
-                sx={{
-                  objectFit: 'cover',
-                  filter:
-                    theme.palette.mode === 'dark' ? 'brightness(0.6)' : 'none',
-                }}
-              />
-            </Grid>
-            <Grid
-              item
-              container
-              justifyContent={'flex-end'}
-              alignItems={'flex-start'}
-              xs={8}
-            >
-              <Box
-                component={'img'}
-                loading="lazy"
-                height={1}
-                width={1}
-                borderRadius={2}
-                src={'https://assets.maccarianagency.com/backgrounds/img24.jpg'}
-                alt="..."
-                sx={{
-                  objectFit: 'cover',
-                  filter:
-                    theme.palette.mode === 'dark' ? 'brightness(0.6)' : 'none',
-                }}
-              />
-            </Grid>
-            <Grid
-              item
-              container
-              justifyContent={'flex-start'}
-              alignItems={'flex-start'}
-              xs={4}
-            >
-              <Box
-                component={'img'}
-                loading="lazy"
-                height={1}
-                width={1}
-                borderRadius={2}
-                src={'https://assets.maccarianagency.com/backgrounds/img25.jpg'}
-                alt="..."
-                sx={{
-                  objectFit: 'cover',
-                  filter:
-                    theme.palette.mode === 'dark' ? 'brightness(0.6)' : 'none',
-                }}
-              />
-            </Grid>
-          </Grid>
+          
         </Box>
       </Container>
     </Box>

@@ -1,15 +1,31 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import { api } from 'api/config';
+import parse from 'html-react-parser';
 
 const Story = (): JSX.Element => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
+  });
+  const [story_title, setStoryTitle] = useState([]);
+  const [story_content, setStoryContent] = useState([]);
+  const [story_thumbnail, setStoryThumbnail] = useState([]);
+
+  useEffect(() => {
+    
+    fetch(`${api}/api/frontend/about/page/content?type=2`)
+      .then((res) => res.json())
+      .then((data) => {
+        setStoryTitle(data.story_title);
+        setStoryContent(data.story_content);
+        setStoryThumbnail(data.story_thumbnail);
+      });
   });
 
   return (
@@ -17,23 +33,12 @@ const Story = (): JSX.Element => {
       <Grid container spacing={4} direction={isMd ? 'row' : 'column'}>
         <Grid item container alignItems={'center'} xs={12} md={6}>
           <Box>
-            <Typography variant={'h4'} gutterBottom sx={{ fontWeight: 700 }}>
-              Our story
+            <Typography variant={'h4'} gutterBottom sx={{ fontWeight: 700 }}  className={'about_us_story_title'}>
+            { parse(`${ story_title }`) }
             </Typography>
-            <Typography component={'p'}>
-              Our focus is always on finding the best people to work with. Our
-              bar is high, but you look ready to take on the challenge.
-              <br />
-              We design and implement creative solutions to everyday business
-              problems.
-              <br />
-              <br />
-              We are a team of creative consultants who help bridge the digital
-              gap between companies and their clients with websites that not
-              only serve as marketing platforms but also provide solutions to
-              online business problems and digital marketing strategies that
-              connect you with the ideal client and help create a loyal
-              customer.
+            <Typography component={'p'}   className={'about_us_story_content'}>
+              { parse(`${ story_content }`) }
+             
             </Typography>
           </Box>
         </Grid>

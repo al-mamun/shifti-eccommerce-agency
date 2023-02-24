@@ -43,7 +43,7 @@ const Footer = (): JSX.Element => {
               <Link
                 underline="none"
                 component="a"
-                href="/"
+                href="/company-terms"
                 color="text.primary"
                 variant={'subtitle2'}
                 className={'footer_app_privacy_text'}
@@ -55,10 +55,11 @@ const Footer = (): JSX.Element => {
               <Link
                 underline="none"
                 component="a"
-                href="/docs/introduction"
+                href="https://app.shifti.com.au/"
                 color="text.primary"
                 variant={'subtitle2'}
                 className={'footer_app_button'}
+                target={'_blank'}
               >
                 Go to App
               </Link>

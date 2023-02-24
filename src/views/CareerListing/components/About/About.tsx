@@ -33,10 +33,11 @@ const About = (): JSX.Element => {
           sx={{ textTransform: 'uppercase' }}
           variant={'subtitle2'}
           fontWeight={600}
+          className={'our_team_title'}
         >
           About
         </Typography>
-        <Typography fontWeight={700} variant={'h4'} align={'center'}>
+        <Typography fontWeight={700} variant={'h4'} align={'center'} className={'home_page_team_title'}>
           {pageTitle}
         
         </Typography>

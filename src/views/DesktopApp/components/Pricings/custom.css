@@ -1,3 +1,10 @@
+.itemIcon  {
+    margin-bottom:10px;
+}
+.itemIcon svg {
+    width: 36px !important;
+    height: 36px !important;
+}
 .homepage_priceing_content {
     font-family: 'Lato', sans-serif;
     font-style: normal;
@@ -129,6 +136,18 @@
     color: #646E73 !important;
     width: 540px;
     margin: 7px auto !important;
+}
+.home_page_team_content_list {
+    font-family: 'Lato', sans-serif !important;
+    font-style: normal;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+    text-align: center !important;
+    color: #646E73 !important;
+    width: 927px;
+    margin: 7px auto !important;
+    margin-top: 20px;
 }
 .boxCard {
     display: block !important;
@@ -435,23 +454,110 @@
 
     color: #377DFF;
 }
-.home_page_team_content {
-    font-family: 'Lato', sans-serif !important;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    text-align: center;
-    color: #646E73;
-}
-.home_page_team_title {
+.center_contact_page_title {
     font-family: 'Lato', sans-serif !important;
     font-style: normal;
     font-weight: 700;
-    font-size: 32px;
-    line-height: 38px;
+    font-size: 16px;
+    line-height: 19px;
     text-align: center;
+
+    /* Main blue */
+
     color: #2D3748;
+}
+.MuiOutlinedInput-input {
+    background: #FFFFFF;
+    /* border: 1px solid rgba(0, 0, 0, 0.1) !important; */
+    border-radius: 5px;
+}
+.home_page_team_content,.about_page_content_global_center {
+    font-family: 'Lato', sans-serif !important;
+    font-style: normal;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+    text-align: center !important;
+    color: #646E73 !important;
+}
+.about_page_content_global_center  {
+    width: 695px !important;
+    margin: 20px auto !important;
+}
+.center_contact_page  {
+    font-family: 'Lato', sans-serif !important;
+    font-style: normal;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+    text-align: center !important;
+    color: #646E73 !important;
+    text-align: center;
+    margin: 20px auto !important;
+}
+.about_page_content_global {
+    font-family: 'Lato', sans-serif !important;
+    font-style: normal;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+    text-align: left !important;
+    color: #646E73 !important;
+}
+.home_page_team_title,.about_page_title_global_center {
+    font-family: 'Lato', sans-serif !important;
+    font-style: normal;
+    font-weight: 700 !important;
+    font-size: 32px !important;
+    line-height: 38px !important;
+    text-align: center !important;
+    color: #2D3748;
+    
+}
+.contact_circle{
+    background: #377DFF !important;
+}
+.contact_list_item  span{
+    font-style: normal;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    line-height: 32px !important;
+    color: #2D3748 !important;
+}
+.contact_list_item  p {
+    font-style: normal;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    line-height: 32px !important;
+    color: #2D3748 !important;
+}
+.list_item_column .contact_list_item p {
+    color: #646E73 !important; 
+}
+.about_page_title_global_center {
+    width: 695px;
+    margin: 0 auto !important;
+}
+.about_page_title_global {
+    font-family: 'Lato', sans-serif !important;
+    font-style: normal;
+    font-weight: 700 !important;
+    font-size: 32px !important;
+    line-height: 38px !important;
+    text-align: left !important;
+    color: #2D3748;
+}
+
+.our_team_title {
+    font-style: normal;
+    font-weight: 700 !important;;
+    font-size: 16px !important;;
+    line-height: 19px !important;;
+    text-align: center !important;;
+
+    /* Greyish */
+
+    color: #646E73 !important;;
 }
 .svg_color {
     background: #377DFF !important;
@@ -664,4 +770,433 @@ span.ultimate_copy_cell_bottom {
 }
 .hub_header_counter_title {
     margin: -9px 0px 0px 0px !important;
+}
+
+/**
+** About us 
+**/
+.who-we-are-title,.our-process-title {
+    font-style: normal;
+    font-weight: 700 !important;
+    font-size: 32px !important;
+    line-height: 38px !important;
+    color: #2D3748 !important;
+}
+.who-we-are-content, .our-process-content{
+    font-family: 'Lato';
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    line-height: 24px !important;
+    color: #646E73;
+
+}
+
+
+.about_us_story_title {
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 32px !important;
+    line-height: 38px !important;
+    color: #2D3748 !important;
+}
+.about_us_story_content {
+    font-family: 'Lato';
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    line-height: 24px !important;
+    /* Greyish */
+    color: #646E73 !important;
+}
+
+.contact_list_item {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 32px;
+    color: #2D3748;
+}
+
+.contact_us_page_title {
+    font-style: normal;
+    font-weight: 700 !important;
+    font-size: 60px !important;
+    line-height: 72px !important;
+    color: #FFFFFF !important;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+}
+.contact_us_page_content {
+    font-style: normal;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    line-height: 24px !important;
+    color: #FFFFFF !important;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+}
+.name_label {
+    font-style: normal;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    line-height: 19px !important;
+
+    /* Dark */
+
+    color: #2D3748 !important;
+}
+.carrier_page_title{
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 48px !important;
+    line-height: 58px !important;
+    /* identical to box height */
+
+    text-align: center !important;
+
+    /* Dark */
+
+    color: #2D3748 !important;
+}
+.carrier_sub_title{
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 22px !important;
+    line-height: 26px !important;
+    text-align: center !important;
+    /* Dark */
+    color: #2D3748 !important;
+}
+.see_the_job {
+    /* Main blue */
+
+    background: #377DFF !important;
+    border-radius: 5px !important;
+    width:195px !important;
+    height: 40px !important;
+    margin-top: 20px !important;
+}
+.job_title {
+    font-style: normal;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    line-height: 19px !important;
+    color: #2D3748 !important;
+}
+.job_sub_title {
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 19px !important;
+
+    /* Greyish */
+
+    color: #646E73 !important;
+
+}
+.job_location {
+    font-style: normal;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 19px !important;
+    text-align: right !important;
+
+    /* Greyish */
+
+    color: #646E73 !important;
+}
+.category_title {
+    font-style: normal !important;;
+    font-weight: 700 !important;;
+    font-size: 20px !important;;
+    line-height: 24px !important;;
+    /* identical to box height */
+    /* Dark */
+    color: #2D3748 !important;;
+}
+.customaztion_product {
+    /* Small */
+
+    filter: drop-shadow(0px 6px 24px rgba(140, 152, 165, 0.13)) !important;
+    border-radius: 8px !important;
+}
+.category_content {
+    font-style: normal !important;;
+    font-weight: 400 !important;;
+    font-size: 16px !important;;
+    line-height: 19px !important;;
+
+    /* Greyish */
+
+    color: #646E73 !important;;
+}
+.opening_jobs {
+    width: 64px;
+    height: 32px;
+    
+    /* Main blue */
+    border-radius: 4px !important;;
+    font-style: normal !important;;
+    font-weight: 400 !important;;
+    font-size: 12px !important;;
+    line-height: 14px !important;;
+}
+.opening_jobs_header {
+    background: #377DFF !important;
+}
+.contact_details  {
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 32px !important;
+    line-height: 38px !important;
+
+    /* Dark */
+
+    color: #2D3748 !important;
+}
+.contact_details_content   {
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    line-height: 32px !important;
+
+    color: #646E73 !important;
+}
+
+.newslatter_title {
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 32px  !important;
+    line-height: 38px !important;
+    text-align: center !important;
+
+    /* White */
+
+    color: #FFFFFF!important;
+}
+.newslatter_content {
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    line-height: 24px !important;
+    text-align: center !important;
+    color: #FFFFFF !important;
+
+}
+.subscriber_ermail {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 19px !important;
+    /* White */
+    color: #FFFFFF !important;
+    opacity: 0.6 !important;
+}
+.text_field_data input {
+    
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;;
+    border-radius: 5px !important;;
+    font-style: normal !important;;
+    font-weight: 400 !important;;
+    font-size: 16px !important;;
+    line-height: 19px !important;;
+    /* Greyish */
+    color: #646E73 !important;;
+}
+.navbarItem {
+    background-color: #f7faff;
+    z-index: 99999;
+    position: absolute;
+    width: 100%;
+    padding: 0px;
+    height: 24px;
+}
+.MuiPaper-elevation0 .header_area {
+    padding-top: 26px;
+}
+.custom_link_button {
+    padding: 0px !important;
+    color: #666 !important;
+}
+.open_the_gallery {
+    background: none !important;
+    float: right !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 34px !important;
+    text-align: right !important;
+    color: #377DFF !important;
+    padding: 0px !important;
+    height: auto !important;
+    box-shadow: none !important;
+    /* margin-top: -20px !important; */
+}
+
+.button_are_gallery {
+    width: 100%;
+    clear: both;
+    overflow: hidden;
+    margin-top: -53px;
+}
+.account_setting {
+    font-family: 'Poppins' !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 32px !important;
+    line-height: 48px !important;
+    /* identical to box height */
+
+
+    color: #2E374A !important;
+}
+.account_page_list {
+    height: 300px;
+    margin-bottom: -230px;
+}
+.box_package {
+    background: #FFFFFF !important;
+    border: 1px solid #497FFF !important;
+    box-shadow: 0px 0px 20px rgba(46, 55, 74, 0.1) !important;
+    border-radius: 10px !important;
+    /* width: 824px; */
+    height: 263px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.your-add-ones {
+    font-family: 'Poppins' !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 20px !important;
+    line-height: 30px !important;
+    color: #2E374A !important;
+    margin-bottom: 20px !important;
+}
+.order_table_head {
+    font-weight: 600 !important;
+}
+.order_table_row {
+    width: 824px;
+    height: 50px;
+    background: rgba(73, 127, 255, 0.2);
+    border-radius: 10px 10px 0px 0px;
+}
+.order_table_row td{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #2E374A;
+}
+.order_table_body {
+    font-weight: 600 !important;
+}
+.order_table_body tr {
+    background: rgba(73, 127, 255, 0.08);
+    border-radius: 0px;
+    border-top: 7px solid #fff;
+    height: 50px;
+}
+.order_table_body tr:last-child {
+    border-radius: 0px 0px 10px 10px;
+}
+
+.order_table_body_row {
+    font-weight: 600 !important;
+}
+.accounts_menu  {
+    background: #497FFF;
+    border-radius: 10px;
+}
+.accounts_menu {
+    background: #497FFF;
+    border-radius: 10px;
+    padding: 10px 23px;
+    color: #fff !important;
+}
+
+.accounts_menu .MuiTypography-body1 {
+    color: #fff !important;
+}
+.accounts_menu svg {
+    color: #fff !important;
+}
+
+.my_order_total_amount {
+    font-family: 'Poppins' !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 36px !important;
+    line-height: 54px !important;
+    color: #2E374A !important;
+    width: 100%;
+    float: left;
+    clear: both;
+    padding: 13px 20px;
+    width: 100%;
+}
+.my_order_total_user {
+    font-family: 'Poppins' !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+    color: #2E374A !important;
+    width: 100% !important;
+    margin-left: 20px !important;
+}
+.my_order_per_user {
+    font-family: 'Poppins !important';
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 36px !important;
+    line-height: 54px !important;
+    width: 100% !important;
+    color: #2E374A !important;
+    margin-left: 16px !important;
+    margin-top: 15px !important;
+}
+.left_package { width: 50%; float: left;}
+.right_package {width: 50%; float: right;}
+.my_order_subcraption {
+    font-family: 'Poppins' !important;
+        font-style: normal !important;
+        font-weight: 400 !important;
+        font-size: 16px !important;
+        line-height: 24px !important;
+        /* identical to box height */
+        color: #FFFFFF !important;
+        /* Inside auto layout */
+        flex: none !important;
+        order: 0 !important;
+        flex-grow: 0 !important;
+}
+.dolor_per_user {
+    font-family: 'Poppins' !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+    /* identical to box height */
+    color: #2E374A !important;
+}
+.pro-text {
+    
+    font-family: 'Poppins' !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    line-height: 30px !important;
+    /* identical to box height */
+    color: #FFFFFF !important;
+    position: absolute;
+    left: 45px;
+}
+.top_pro_sum.MuiBox-root.css-0 {
+    width: 100%;
+    float: left;
+    position: relative;
 }

@@ -79,6 +79,7 @@ useEffect(() => {
           gutterBottom
           color={'text.secondary'}
           align={'center'}
+          className={'our_team_title'}
         >
           Our team
         </Typography>
@@ -90,10 +91,11 @@ useEffect(() => {
             fontWeight: 700,
             marginTop: theme.spacing(1),
           }}
+          className={'home_page_team_title'}
         >
           Small team. Big hearts.
         </Typography>
-        <Typography variant="h6" align={'center'} color={'text.secondary'}>
+        <Typography variant="h6" align={'center'} color={'text.secondary'} className={'home_page_team_content '}>
           Our focus is always on finding the best people to work with. Our bar
           is high, but you look ready to take on the challenge.
         </Typography>

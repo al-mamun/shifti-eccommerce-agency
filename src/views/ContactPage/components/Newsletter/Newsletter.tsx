@@ -30,6 +30,7 @@ const Newsletter = (): JSX.Element => {
                 fontWeight: 700,
                 color: theme.palette.common.white,
               }}
+              className={'newslatter_title'}
             >
               Subscribe to our newsletter
             </Typography>
@@ -39,6 +40,7 @@ const Newsletter = (): JSX.Element => {
               sx={{
                 color: theme.palette.common.white,
               }}
+              className={'newslatter_content'}
             >
               Don't lose a chance to be among the firsts to know about our
               upcoming news and updates.
@@ -90,6 +92,7 @@ const Newsletter = (): JSX.Element => {
                     </svg>
                   </InputAdornment>
                 }
+                className={'subscriber_ermail'}
                 placeholder="Enter your email"
               />
             </FormControl>

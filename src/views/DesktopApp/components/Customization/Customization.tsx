@@ -118,6 +118,7 @@ const Customization = (): JSX.Element => {
               boxShadow={3}
               borderRadius={2}
               maxWidth={600}
+              className={'customaztion_product'}
               sx={{
                 filter:
                   theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
@@ -143,6 +144,7 @@ const Customization = (): JSX.Element => {
               boxShadow={3}
               borderRadius={2}
               maxWidth={600}
+              className={'customaztion_product'}
               sx={{
                 filter:
                   theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',

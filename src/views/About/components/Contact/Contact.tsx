@@ -8,6 +8,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import { useTheme } from '@mui/material/styles';
 import { api } from 'api/config';
+import parse from 'html-react-parser';
 import Container from 'components/Container';
 
 const mock = [
@@ -98,10 +99,10 @@ const Contact = (): JSX.Element => {
     return (
       <Box>
         <Box marginBottom={2}>
-          <Typography variant={'h4'} sx={{ fontWeight: 700 }} gutterBottom>
+          <Typography variant={'h4'} sx={{ fontWeight: 700 }} gutterBottom className={'about_page_title_global'}>
             {pageTitle}
           </Typography>
-          <Typography color="text.secondary">
+          <Typography color="text.secondary"  className={'about_page_content_global'}>
             {pagecontent}
           </Typography>
         </Box>
@@ -117,6 +118,7 @@ const Contact = (): JSX.Element => {
               disableGutters
               width={'auto'}
               padding={0}
+              className={'list_item_column'}
             >
               <Box
                 component={ListItemAvatar}
@@ -128,11 +130,12 @@ const Contact = (): JSX.Element => {
                   bgcolor={theme.palette.secondary.main}
                   width={40}
                   height={40}
+                  className={'contact_circle'}
                 >
-                  {item.icon}
+                  { parse(`${ item.icon }`) }
                 </Box>
               </Box>
-              <ListItemText primary={item.label} secondary={item.value} />
+              <ListItemText primary={item.label} secondary={item.value} className={'contact_list_item'} />
             </Box>
           ))}
         </Box>
